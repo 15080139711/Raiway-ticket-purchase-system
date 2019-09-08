@@ -1,30 +1,30 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.train.mapper.StopInfoMapper" >
-  <resultMap id="BaseResultMap" type="cn.train.enity.StopInfo" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="trainid" property="trainid" jdbcType="INTEGER" />
-    <result column="cityid" property="cityid" jdbcType="INTEGER" />
-    <result column="arrive" property="arrive" jdbcType="VARCHAR" />
-    <result column="parktime" property="parktime" jdbcType="INTEGER" />
-    <result column="leave" property="leave" jdbcType="VARCHAR" />
-    <result column="number" property="number" jdbcType="INTEGER" />
-    <result column="ticketgate" property="ticketgate" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.train.mapper.StopInfoMapper">
+  <resultMap id="BaseResultMap" type="cn.train.enity.StopInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="trainid" jdbcType="INTEGER" property="trainid" />
+    <result column="cityid" jdbcType="INTEGER" property="cityid" />
+    <result column="arrive" jdbcType="VARCHAR" property="arrive" />
+    <result column="parktime" jdbcType="INTEGER" property="parktime" />
+    <result column="leave" jdbcType="VARCHAR" property="leave" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="ticketgate" jdbcType="VARCHAR" property="ticketgate" />
   </resultMap>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     id, trainid, cityid, arrive, parktime, leave, number, ticketgate
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from StopInfo
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from StopInfo
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.train.enity.StopInfo" >
+  <insert id="insert" parameterType="cn.train.enity.StopInfo">
     insert into StopInfo (id, trainid, cityid, 
       arrive, parktime, leave, 
       number, ticketgate)
@@ -32,89 +32,89 @@
       #{arrive,jdbcType=VARCHAR}, #{parktime,jdbcType=INTEGER}, #{leave,jdbcType=VARCHAR}, 
       #{number,jdbcType=INTEGER}, #{ticketgate,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="cn.train.enity.StopInfo" >
+  <insert id="insertSelective" parameterType="cn.train.enity.StopInfo">
     insert into StopInfo
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="trainid != null" >
+      <if test="trainid != null">
         trainid,
       </if>
-      <if test="cityid != null" >
+      <if test="cityid != null">
         cityid,
       </if>
-      <if test="arrive != null" >
+      <if test="arrive != null">
         arrive,
       </if>
-      <if test="parktime != null" >
+      <if test="parktime != null">
         parktime,
       </if>
-      <if test="leave != null" >
+      <if test="leave != null">
         leave,
       </if>
-      <if test="number != null" >
+      <if test="number != null">
         number,
       </if>
-      <if test="ticketgate != null" >
+      <if test="ticketgate != null">
         ticketgate,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="trainid != null" >
+      <if test="trainid != null">
         #{trainid,jdbcType=INTEGER},
       </if>
-      <if test="cityid != null" >
+      <if test="cityid != null">
         #{cityid,jdbcType=INTEGER},
       </if>
-      <if test="arrive != null" >
+      <if test="arrive != null">
         #{arrive,jdbcType=VARCHAR},
       </if>
-      <if test="parktime != null" >
+      <if test="parktime != null">
         #{parktime,jdbcType=INTEGER},
       </if>
-      <if test="leave != null" >
+      <if test="leave != null">
         #{leave,jdbcType=VARCHAR},
       </if>
-      <if test="number != null" >
+      <if test="number != null">
         #{number,jdbcType=INTEGER},
       </if>
-      <if test="ticketgate != null" >
+      <if test="ticketgate != null">
         #{ticketgate,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.train.enity.StopInfo" >
+  <update id="updateByPrimaryKeySelective" parameterType="cn.train.enity.StopInfo">
     update StopInfo
-    <set >
-      <if test="trainid != null" >
+    <set>
+      <if test="trainid != null">
         trainid = #{trainid,jdbcType=INTEGER},
       </if>
-      <if test="cityid != null" >
+      <if test="cityid != null">
         cityid = #{cityid,jdbcType=INTEGER},
       </if>
-      <if test="arrive != null" >
+      <if test="arrive != null">
         arrive = #{arrive,jdbcType=VARCHAR},
       </if>
-      <if test="parktime != null" >
+      <if test="parktime != null">
         parktime = #{parktime,jdbcType=INTEGER},
       </if>
-      <if test="leave != null" >
+      <if test="leave != null">
         leave = #{leave,jdbcType=VARCHAR},
       </if>
-      <if test="number != null" >
+      <if test="number != null">
         number = #{number,jdbcType=INTEGER},
       </if>
-      <if test="ticketgate != null" >
+      <if test="ticketgate != null">
         ticketgate = #{ticketgate,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.train.enity.StopInfo" >
+  <update id="updateByPrimaryKey" parameterType="cn.train.enity.StopInfo">
     update StopInfo
     set trainid = #{trainid,jdbcType=INTEGER},
       cityid = #{cityid,jdbcType=INTEGER},

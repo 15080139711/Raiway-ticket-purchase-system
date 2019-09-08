@@ -1,31 +1,31 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.train.mapper.UserInfoMapper" >
-  <resultMap id="BaseResultMap" type="cn.train.enity.UserInfo" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="idnumber" property="idnumber" jdbcType="VARCHAR" />
-    <result column="email" property="email" jdbcType="VARCHAR" />
-    <result column="phone" property="phone" jdbcType="VARCHAR" />
-    <result column="traveltype" property="traveltype" jdbcType="INTEGER" />
-    <result column="discountnumber" property="discountnumber" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.train.mapper.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="cn.train.enity.UserInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="idnumber" jdbcType="VARCHAR" property="idnumber" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="traveltype" jdbcType="INTEGER" property="traveltype" />
+    <result column="discountnumber" jdbcType="VARCHAR" property="discountnumber" />
   </resultMap>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     id, username, name, password, idnumber, email, phone, traveltype, discountnumber
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from UserInfo
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from UserInfo
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.train.enity.UserInfo" >
+  <insert id="insert" parameterType="cn.train.enity.UserInfo">
     insert into UserInfo (id, username, name, 
       password, idnumber, email, 
       phone, traveltype, discountnumber
@@ -35,98 +35,98 @@
       #{phone,jdbcType=VARCHAR}, #{traveltype,jdbcType=INTEGER}, #{discountnumber,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.train.enity.UserInfo" >
+  <insert id="insertSelective" parameterType="cn.train.enity.UserInfo">
     insert into UserInfo
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="username != null" >
+      <if test="username != null">
         username,
       </if>
-      <if test="name != null" >
+      <if test="name != null">
         name,
       </if>
-      <if test="password != null" >
+      <if test="password != null">
         password,
       </if>
-      <if test="idnumber != null" >
+      <if test="idnumber != null">
         idnumber,
       </if>
-      <if test="email != null" >
+      <if test="email != null">
         email,
       </if>
-      <if test="phone != null" >
+      <if test="phone != null">
         phone,
       </if>
-      <if test="traveltype != null" >
+      <if test="traveltype != null">
         traveltype,
       </if>
-      <if test="discountnumber != null" >
+      <if test="discountnumber != null">
         discountnumber,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="username != null" >
+      <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
+      <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
+      <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="idnumber != null" >
+      <if test="idnumber != null">
         #{idnumber,jdbcType=VARCHAR},
       </if>
-      <if test="email != null" >
+      <if test="email != null">
         #{email,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null" >
+      <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="traveltype != null" >
+      <if test="traveltype != null">
         #{traveltype,jdbcType=INTEGER},
       </if>
-      <if test="discountnumber != null" >
+      <if test="discountnumber != null">
         #{discountnumber,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.train.enity.UserInfo" >
+  <update id="updateByPrimaryKeySelective" parameterType="cn.train.enity.UserInfo">
     update UserInfo
-    <set >
-      <if test="username != null" >
+    <set>
+      <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
+      <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
+      <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="idnumber != null" >
+      <if test="idnumber != null">
         idnumber = #{idnumber,jdbcType=VARCHAR},
       </if>
-      <if test="email != null" >
+      <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null" >
+      <if test="phone != null">
         phone = #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="traveltype != null" >
+      <if test="traveltype != null">
         traveltype = #{traveltype,jdbcType=INTEGER},
       </if>
-      <if test="discountnumber != null" >
+      <if test="discountnumber != null">
         discountnumber = #{discountnumber,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.train.enity.UserInfo" >
+  <update id="updateByPrimaryKey" parameterType="cn.train.enity.UserInfo">
     update UserInfo
     set username = #{username,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
