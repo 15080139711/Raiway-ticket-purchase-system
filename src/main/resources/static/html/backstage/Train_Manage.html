@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>查看与修改</title>
+    <style type="text/css">
+        tr td{text-align: center}
+        a :hover{ color: red}
+    </style>
+    <script src="../../js/jquery-3.4.1.min.js">
+    </script>
+    <script>
+        $(function () {
+            $(".alter").click(function () {
+                $(".alter_info").css("display","inline");
+            });
+
+            $(".clear").click(function () {
+                alert("no");
+                for(var i=0;i<8;i++) {
+                    $(this).parent().prev().find("tr").eq(1).find("td").eq(i).find("input").val("");
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+<div >
+    <div >
+        <h2>用户信息</h2>
+        <table border="1" align="center" width="100%">
+            <tr>
+                <th>ID</th><th>登录名</th><th>密码</th><th>姓名</th><th>身份证号</th><th>电子邮箱</th><th>电话</th><th>乘客类型</th><th>操作</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>销售部</td>
+                <td>2017</td>
+                <td>张三</td>
+                <td>12500</td>
+                <td>12500</td>
+                <td>110</td>
+                <td>学生票</td>
+                <td><a href="#"  class="alter">修改</a> | <a href="#" class="delete">删除</a></td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>销售部</td>
+                <td>2017</td>
+                <td>张三</td>
+                <td>12500</td>
+                <td>12500</td>
+                <td>110</td>
+                <td>学生票</td>
+                <td><a href="#" class="alter">修改</a> | <a href="#" class="delete">删除</a></td>
+            </tr>
+        </table>
+        <tr>
+            <td colspan="8"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
+        </tr>
+        <p class="msg">共找到47条年度预算记录，当前显示从第1条至第10条</p>
+    </div>
+</div>
+<div style="display:none" class="alter_info">
+    <table style="width: 100%">
+        <tr>
+            <th>ID</th><th>登录名</th><th>密码</th><th>姓名</th><th>身份证号</th><th>电子邮箱</th><th>电话</th><th>乘客类型</th>
+        </tr>
+        <tr>
+            <td><input type="text" size="1px" name="unluck"></td><td><input type="text"size="5px"></td><td><input type="password"size="5px"></td>
+            <td><input type="text" size="5px"></td><td><input type="text"size="10px"></td><td><input type="email"size="10px"></td>
+            <td><input type="text" size="5px"></td><td><input type="text"size="2px"></td>
+        </tr>
+    </table>
+    <div style="float: right; margin-top: 20px ;margin-right: 10px"><input type="button" class="clear" value="清空重输"></div>
+    <div style="float: right ;margin-top: 20px"><input type="button" class="submit" value="确认修改"></div>
+</div>
+</body>
+</html>
