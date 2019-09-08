@@ -1,7 +1,9 @@
 package cn.train.mapper;
 
 import cn.train.enity.UserInfo;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserInfoMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,8 @@ public interface UserInfoMapper {
     int updateByPrimaryKeySelective(UserInfo record);
 
     int updateByPrimaryKey(UserInfo record);
+
+    int checkInfo(UserInfo userInfo);
+
+    int selectIdByidnumber(String string);
 }

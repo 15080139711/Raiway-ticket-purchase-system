@@ -1,7 +1,9 @@
 package cn.train.mapper;
 
 import cn.train.enity.ContactInfo;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ContactInfoMapper {
     int deleteByPrimaryKey(Integer id);
 

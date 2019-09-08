@@ -17,7 +17,17 @@ public class UserInfo {
 
     private Integer traveltype;
 
+    private Integer sex;
+
     private String discountnumber;
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
 
     public Integer getId() {
         return id;
@@ -89,5 +99,21 @@ public class UserInfo {
 
     public void setDiscountnumber(String discountnumber) {
         this.discountnumber = discountnumber == null ? null : discountnumber.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", idnumber='" + idnumber + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", traveltype=" + traveltype +
+                ", sex=" + sex +
+                ", discountnumber='" + discountnumber + '\'' +
+                '}';
     }
 }
