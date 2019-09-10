@@ -21,6 +21,33 @@ public class UserInfo {
 
     private String discountnumber;
 
+    private Integer status;
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", idnumber='" + idnumber + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", traveltype=" + traveltype +
+                ", sex=" + sex +
+                ", discountnumber='" + discountnumber + '\'' +
+                ", status=" + status +
+                '}';
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public Integer getSex() {
         return sex;
     }
@@ -99,21 +126,5 @@ public class UserInfo {
 
     public void setDiscountnumber(String discountnumber) {
         this.discountnumber = discountnumber == null ? null : discountnumber.trim();
-    }
-
-    @Override
-    public String toString() {
-        return "UserInfo{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", idnumber='" + idnumber + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", traveltype=" + traveltype +
-                ", sex=" + sex +
-                ", discountnumber='" + discountnumber + '\'' +
-                '}';
     }
 }

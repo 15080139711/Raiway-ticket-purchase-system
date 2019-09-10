@@ -1,7 +1,11 @@
 package cn.train.mapper;
 
 import cn.train.enity.CityInfo;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface CityInfoMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +18,6 @@ public interface CityInfoMapper {
     int updateByPrimaryKeySelective(CityInfo record);
 
     int updateByPrimaryKey(CityInfo record);
+
+    List<CityInfo> getAllCity();
 }

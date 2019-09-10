@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.train.mapper.UserInfoMapper">
-  <resultMap id="BaseResultMap" type="cn.train.enity.UserInfo">
+  <resultMap id="UserInfoResultMap" type="cn.train.enity.UserInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -12,12 +12,17 @@
     <result column="traveltype" jdbcType="INTEGER" property="traveltype" />
     <result column="sex" jdbcType="INTEGER" property="sex" />
     <result column="discountnumber" jdbcType="VARCHAR" property="discountnumber" />
+    <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
   <sql id="Base_Column_List">
     id, username, name, password, idnumber, email, phone, traveltype, discountnumber,sex
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+  <select id="getAlluser" resultMap="UserInfoResultMap">
+    select * from UserInfo;
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="UserInfoResultMap">
+    select
     <include refid="Base_Column_List" />
     from UserInfo
     where id = #{id,jdbcType=INTEGER}
@@ -31,6 +36,9 @@
     select id from UserInfo where idnumber = #{idnumber,jdbcType=VARCHAR}
   </select>
 
+  <select id="checklogin" resultMap="UserInfoResultMap" parameterType="cn.train.enity.UserInfo">
+    select * from UserInfo where (username = #{name,jdbcType=VARCHAR} or phone = #{name,jdbcType=VARCHAR} or email = #{name,jdbcType=VARCHAR}) and password = #{password,jdbcType=VARCHAR}
+  </select>
 
 
 
@@ -43,11 +51,11 @@
   <insert id="insert" parameterType="cn.train.enity.UserInfo">
     insert into UserInfo (id, username, name, 
       password, idnumber, email, 
-      phone, traveltype, discountnumber,sex
+      phone, traveltype, discountnumber,sex,status
       )
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{idnumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{traveltype,jdbcType=INTEGER}, #{discountnumber,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}
+      #{phone,jdbcType=VARCHAR}, #{traveltype,jdbcType=INTEGER}, #{discountnumber,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER},#{status,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.train.enity.UserInfo">
@@ -80,6 +88,9 @@
       <if test="discountnumber != null">
         discountnumber,
       </if>
+      <if test="status != null">
+        status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -108,6 +119,9 @@
       </if>
       <if test="discountnumber != null">
         #{discountnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>

@@ -18,9 +18,10 @@
   <table >
     <th>属性</th><th>请填写信息</th><th>属性</th><th>请填写信息</th>
     <tr><td>ID:</td><td><input type="text"></td><td>姓名:</td><td><input type="text"></td></tr>
-    <tr><td>登录名:</td><td><input type="text"></td><td>密码:</td><td><input type="password"></td></tr>
+    <tr><td>登陆名:</td><td><input type="text"></td><td>密码:</td><td><input type="password"></td></tr>
     <tr><td>身份证号码:</td><td><input type="text"></td><td>电子邮箱:</td><td><input type="email"></td></tr>
     <tr><td>电话号码:</td><td><input type="text"></td><td>乘客类型:</td><td><input type="text"></td></tr>
+    <tr><td>性别:</td><td><input type="text"></td><td>折扣:</td><td><input type="text"></td></tr>
   </table>
   <input  style="margin: 20px 10px 0px 0px ;float: right" type="button" value="确认添加" class="submit">
   <input style="margin: 20px 10px 0px 0px ;float: right" type="button" value="清空" class="clear">
@@ -37,6 +38,31 @@
     })
     $(".submit").click(function () {
       alert("yes");
+      $.ajax({
+        url:"http://localhost:8080/add_UserInfo",
+        type:"post",
+        dataType:"json",
+        data:{
+          id: $(this).prev().find("tr").eq(1).find("td").eq(1).find("input").val(),
+          name:$(this).prev().find("tr").eq(1).find("td").eq(3).find("input").val(),
+          username:$(this).prev().find("tr").eq(2).find("td").eq(1).find("input").val(),
+          password:$(this).prev().find("tr").eq(2).find("td").eq(3).find("input").val(),
+          idnumber:$(this).prev().find("tr").eq(3).find("td").eq(1).find("input").val(),
+          email:$(this).prev().find("tr").eq(3).find("td").eq(3).find("input").val(),
+          phone:$(this).prev().find("tr").eq(4).find("td").eq(1).find("input").val(),
+          traveltype:$(this).prev().find("tr").eq(4).find("td").eq(3).find("input").val(),
+          sex:$(this).prev().find("tr").eq(5).find("td").eq(1).find("input").val(),
+          discountnumber:$(this).prev().find("tr").eq(5).find("td").eq(3).find("input").val(),
+        },
+        success:function (data) {
+          alert(data);
+          if(data.eq(true)){
+            alert("添加成功！！");
+          }else{
+            alert("添加失败！！");
+          }
+        }
+      })
     })
   })
 </script>
