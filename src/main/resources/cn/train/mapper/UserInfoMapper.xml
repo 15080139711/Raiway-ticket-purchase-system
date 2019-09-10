@@ -36,6 +36,9 @@
     select id from UserInfo where idnumber = #{idnumber,jdbcType=VARCHAR}
   </select>
 
+  <select id="checklogin" resultMap="UserInfoResultMap" parameterType="cn.train.enity.UserInfo">
+    select * from UserInfo where (username = #{name,jdbcType=VARCHAR} or phone = #{name,jdbcType=VARCHAR} or email = #{name,jdbcType=VARCHAR}) and password = #{password,jdbcType=VARCHAR}
+  </select>
 
 
 
