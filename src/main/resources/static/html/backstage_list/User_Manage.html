@@ -32,16 +32,30 @@
                     alert(data);
                 }
             });
+            //修改按钮
             $(".alter").click(function () {
                 $(".alter_info").css("display","inline");
             });
-
+            //清空重输 按钮
             $(".clear").click(function () {
                 alert("no");
                 for(var i=0;i<8;i++) {
                     $(this).parent().prev().find("tr").eq(1).find("td").eq(i).find("input").val("");
                 }
                 })
+            //查找 ID 按钮
+            $("input[value='确认查找']").click(function () {
+                $("#select").css("display","inline");
+                $.ajax({
+                    url:"http://localhost:8080/select_person",
+                    type:"post",
+                    dataType:"json",
+                    data:{
+                        id:$("")
+                    }
+                })
+            })
+
         })
     </script>
 </head>
@@ -87,11 +101,10 @@
     </tr>
 <p class="msg">共找到47条年度预算记录，当前显示从第1条至第10条</p>
     <ul>用户常用联系人管理</ul>
-    <ul>请输入查找用户的 ID: <input type="text" size="2px"> <input type="button" value="确认查找"></ul>
-
+    <ul>请输入查找用户的 ID: <input type="text" size="2px" name="sel"> <input type="button" value="确认查找"></ul>
 </div>
 </div>
-<div style="display: inline">
+<div style="display: none" id="select">
     <table style="width: 100% ;" border="1">
         <th>常用联系人ID</th><th>用户ID</th><th>身份证号</th><th>性别</th><th>电话</th><th>电子邮件</th><th>乘客类型</th><th>性别</th><th>学生优惠卡卡号</th><th>账户状态</th>
         <tr><td>1</td>         <td>1</td>     <td>123</td>   <td>男</td> <td>110</td>  <td>QQ,com</td><td>学生票</td>   <td>1</td>     <td>123</td>       <td>2</td> </tr>

@@ -17,12 +17,11 @@
   <sql id="Base_Column_List">
     id, username, name, password, idnumber, email, phone, traveltype, discountnumber,sex
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="UserInfoResultMap">
   <select id="getAlluser" resultMap="UserInfoResultMap">
     select * from UserInfo;
   </select>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="UserInfoResultMap">
     select
     <include refid="Base_Column_List" />
     from UserInfo
