@@ -7,6 +7,8 @@ import cn.train.mapper.UserInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -53,5 +55,18 @@ public class UserServiceImpl implements UserService {
             return -2;
         }
         return n;
+    }
+
+    @Override
+    public boolean Add_User(UserInfo userInfo) {
+        int result=userInfoMapper.insert(userInfo);
+        if(result==1)
+        return true;
+        return false;
+    }
+
+    @Override
+    public List<UserInfo> Get_AllUser() {
+        return userInfoMapper.getAlluser();
     }
 }

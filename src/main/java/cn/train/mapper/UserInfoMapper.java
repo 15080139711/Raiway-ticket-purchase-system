@@ -3,8 +3,11 @@ package cn.train.mapper;
 import cn.train.enity.UserInfo;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UserInfoMapper {
+    List<UserInfo>getAlluser();
     int deleteByPrimaryKey(Integer id);
 
     int insert(UserInfo record);
