@@ -51,11 +51,11 @@
   <insert id="insert" parameterType="cn.train.enity.UserInfo">
     insert into UserInfo (id, username, name, 
       password, idnumber, email, 
-      phone, traveltype, discountnumber,sex
+      phone, traveltype, discountnumber,sex,status
       )
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{idnumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{traveltype,jdbcType=INTEGER}, #{discountnumber,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}
+      #{phone,jdbcType=VARCHAR}, #{traveltype,jdbcType=INTEGER}, #{discountnumber,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER},#{status,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.train.enity.UserInfo">
@@ -88,6 +88,9 @@
       <if test="discountnumber != null">
         discountnumber,
       </if>
+      <if test="status != null">
+        status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -116,6 +119,9 @@
       </if>
       <if test="discountnumber != null">
         #{discountnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
