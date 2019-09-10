@@ -23,4 +23,6 @@ public interface UserInfoMapper {
     int checkInfo(UserInfo userInfo);
 
     int selectIdByidnumber(String string);
+
+    UserInfo checklogin(UserInfo userInfo);
 }

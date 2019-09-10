@@ -90,4 +90,19 @@ public class ContactInfo {
     public void setDiscountcard(String discountcard) {
         this.discountcard = discountcard == null ? null : discountcard.trim();
     }
+
+    @Override
+    public String toString() {
+        return "ContactInfo{" +
+                "id=" + id +
+                ", userid=" + userid +
+                ", name='" + name + '\'' +
+                ", idnumber='" + idnumber + '\'' +
+                ", sex=" + sex +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", traveltype=" + traveltype +
+                ", discountcard='" + discountcard + '\'' +
+                '}';
+    }
 }

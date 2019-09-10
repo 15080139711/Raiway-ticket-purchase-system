@@ -58,6 +58,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserInfo logincheck(UserInfo userInfo) {
+
+        UserInfo userInfo1 = userInfoMapper.checklogin(userInfo);
+        System.out.println(userInfo1);
+        return userInfo1;
+    }
+
+    @Override
     public boolean Add_User(UserInfo userInfo) {
         int result=userInfoMapper.insert(userInfo);
         if(result==1)

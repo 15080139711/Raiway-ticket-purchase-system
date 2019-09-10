@@ -15,9 +15,15 @@ public class UserController {
     UserService userService;
 
     @RequestMapping("/api/user/register")
-    public  int Userregister(@RequestBody UserInfo userInfo){
+    public int Userregister(@RequestBody UserInfo userInfo){
         System.out.println(userInfo);
         return  userService.Userregsiter(userInfo);
     }
 
+    @RequestMapping("/api/user/login")
+    public UserInfo UserLogin(@RequestBody UserInfo userInfo){
+        System.out.println(userInfo.getName());
+        System.out.println(userInfo.getPassword());
+        return userService.logincheck(userInfo);
+    }
 }
