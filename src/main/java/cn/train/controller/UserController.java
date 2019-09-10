@@ -1,6 +1,7 @@
 package cn.train.controller;
 
 
+import cn.train.enity.ContactInfo;
 import cn.train.enity.UserInfo;
 import cn.train.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class UserController {
     UserService userService;
 
     @RequestMapping("/api/user/register")
-    public int Userregister(@RequestBody UserInfo userInfo){
+    public int UserRegister(@RequestBody UserInfo userInfo){
         System.out.println(userInfo);
         return  userService.Userregsiter(userInfo);
     }
@@ -25,5 +26,11 @@ public class UserController {
         System.out.println(userInfo.getName());
         System.out.println(userInfo.getPassword());
         return userService.logincheck(userInfo);
+    }
+
+    @RequestMapping("/api/user/addcontact")
+    public int AddContact(@RequestBody ContactInfo contactInfo){
+        System.out.println(contactInfo);
+        return userService.AddContact(contactInfo);
     }
 }

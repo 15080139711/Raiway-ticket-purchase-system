@@ -77,4 +77,13 @@ public class UserServiceImpl implements UserService {
     public List<UserInfo> Get_AllUser() {
         return userInfoMapper.getAlluser();
     }
+
+    @Override
+    public int AddContact(ContactInfo contactInfo) {
+        int m = contactInfoMapper.insert(contactInfo);
+        System.out.println(m);
+        return m;
+    }
+
+
 }
