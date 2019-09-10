@@ -40,4 +40,14 @@ public class CityInfo {
     public void setAddress(String address) {
         this.address = address == null ? null : address.trim();
     }
+
+    @Override
+    public String toString() {
+        return "CityInfo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", saletime='" + saletime + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

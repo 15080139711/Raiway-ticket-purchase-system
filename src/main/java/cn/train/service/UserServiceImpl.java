@@ -54,4 +54,12 @@ public class UserServiceImpl implements UserService {
         }
         return n;
     }
+
+    @Override
+    public UserInfo logincheck(UserInfo userInfo) {
+
+        UserInfo userInfo1 = userInfoMapper.checklogin(userInfo);
+        System.out.println(userInfo1);
+        return userInfo1;
+    }
 }
