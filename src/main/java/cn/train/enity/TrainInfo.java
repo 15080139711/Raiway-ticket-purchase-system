@@ -1,5 +1,7 @@
 package cn.train.enity;
 
+import java.util.List;
+
 public class TrainInfo {
     private Integer id;
 
@@ -18,6 +20,28 @@ public class TrainInfo {
     private Integer changetime;
 
     private Integer modelid;
+
+    private List<StopInfo> stoplist;
+
+    @Override
+    public String toString() {
+        return "TrainInfo{" +
+                "id=" + id +
+                ", day='" + day + '\'' +
+                ", number='" + number + '\'' +
+                ", stopnumber=" + stopnumber +
+                ", firststation=" + firststation +
+                ", laststation=" + laststation +
+                ", status=" + status +
+                ", changetime=" + changetime +
+                ", modelid=" + modelid +
+                ", stoplist=" + stoplist +
+                '}';
+    }
+
+    public void setStoplist(List<StopInfo> stoplist) {
+        this.stoplist = stoplist;
+    }
 
     public Integer getId() {
         return id;

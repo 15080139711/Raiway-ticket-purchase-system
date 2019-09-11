@@ -3,11 +3,17 @@ package cn.train.enity;
 public class UnsoldTicket {
     private Integer id;
 
-    private Integer trainid;
+    //private Integer trainid;
 
-    private Integer fromstopid;
+    private TrainInfo trainInfo;
 
-    private Integer tostopid;
+    //private Integer fromstopid;
+
+    private StopInfo fromstop;
+
+    private StopInfo tostop;
+
+    //private Integer tostopid;
 
     private Float price;
 
@@ -19,6 +25,45 @@ public class UnsoldTicket {
 
     private Integer seatlevel;
 
+    public TrainInfo getTrainInfo() {
+        return trainInfo;
+    }
+
+    public void setTrainInfo(TrainInfo trainInfo) {
+        this.trainInfo = trainInfo;
+    }
+
+    @Override
+    public String toString() {
+        return "UnsoldTicket{" +
+                "id=" + id +
+                ", trainInfo=" + trainInfo +
+                ", fromstop=" + fromstop +
+                ", tostop=" + tostop +
+                ", price=" + price +
+                ", seatnumber='" + seatnumber + '\'' +
+                ", rownumber='" + rownumber + '\'' +
+                ", carnumber='" + carnumber + '\'' +
+                ", seatlevel=" + seatlevel +
+                '}';
+    }
+
+    public StopInfo getFromstop() {
+        return fromstop;
+    }
+
+    public void setFromstop(StopInfo fromstop) {
+        this.fromstop = fromstop;
+    }
+
+    public StopInfo getTostop() {
+        return tostop;
+    }
+
+    public void setTostop(StopInfo tostop) {
+        this.tostop = tostop;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -27,29 +72,29 @@ public class UnsoldTicket {
         this.id = id;
     }
 
-    public Integer getTrainid() {
-        return trainid;
-    }
+//    public Integer getTrainid() {
+//        return trainid;
+//    }
+//
+//    public void setTrainid(Integer trainid) {
+//        this.trainid = trainid;
+//    }
 
-    public void setTrainid(Integer trainid) {
-        this.trainid = trainid;
-    }
-
-    public Integer getFromstopid() {
-        return fromstopid;
-    }
-
-    public void setFromstopid(Integer fromstopid) {
-        this.fromstopid = fromstopid;
-    }
-
-    public Integer getTostopid() {
-        return tostopid;
-    }
-
-    public void setTostopid(Integer tostopid) {
-        this.tostopid = tostopid;
-    }
+//    public Integer getFromstopid() {
+//        return fromstopid;
+//    }
+//
+//    public void setFromstopid(Integer fromstopid) {
+//        this.fromstopid = fromstopid;
+//    }
+//
+//    public Integer getTostopid() {
+//        return tostopid;
+//    }
+//
+//    public void setTostopid(Integer tostopid) {
+//        this.tostopid = tostopid;
+//    }
 
     public Float getPrice() {
         return price;

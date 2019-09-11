@@ -15,7 +15,7 @@
     <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, username, name, password, idnumber, email, phone, traveltype, discountnumber,sex
+    id, username, name, password, idnumber, email, phone, traveltype, discountnumber,sex,status
   </sql>
   <select id="getAlluser" resultMap="UserInfoResultMap">
     select * from UserInfo;
