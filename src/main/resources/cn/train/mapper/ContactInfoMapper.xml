@@ -15,6 +15,16 @@
   <sql id="Base_Column_List">
     id, userid, name, idnumber, sex, phone, email, traveltype, discountcard
   </sql>
+<select id="selectByUserid" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  select count(*) from ContactInfo where userid=#{userid,jdbcType=INTEGER}
+</select>
+  <select id="deleteByUserid" parameterType="java.lang.Integer">
+    delete from ContactInfo where userid=#{id,jdbcType=INTEGER}
+  </select>
+  <select id="get_contact"  parameterType="java.lang.Integer" resultMap="ContactInfoResultMap">
+    select * from ContactInfo where userid=#{userid,jdbcType=INTEGER}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ContactInfoResultMap">
     select 
     <include refid="Base_Column_List" />

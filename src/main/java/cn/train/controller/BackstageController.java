@@ -1,6 +1,8 @@
 package cn.train.controller;
 
+import cn.train.enity.ContactInfo;
 import cn.train.enity.UserInfo;
+import cn.train.service.BackstageService;
 import cn.train.service.UserService;
 import cn.train.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +16,31 @@ import java.util.List;
 public class BackstageController {
     @Autowired
     UserService userService;
-//    @RequestMapping
-//    public List<UserInfo> getAllUserInfo(){
-//        return null;
-//    }
-    @RequestMapping("/add_UserInfo")
+    @Autowired
+    BackstageService backstageService;
+    @RequestMapping("/backstage/add_UserInfo")
     @ResponseBody
-    public boolean add_UserInfo(UserInfo userInfo){
-        return userService.Add_User(userInfo);
+    public int  add_UserInfo(UserInfo userInfo){
+        return userService.Userregsiter(userInfo);
     }
-    @RequestMapping("/get_AllUser")
+    @RequestMapping("/backstage/get_AllUser")
     @ResponseBody
     public List<UserInfo>get_AllUser(){
         return userService.Get_AllUser();
+    }
+    @RequestMapping("/backstage/del_user")
+    @ResponseBody
+    public boolean del_user(int  id){
+        return backstageService.del_user(id);
+    }
+    @RequestMapping("/backstage/alter_UserInfo")
+    @ResponseBody
+    public boolean alter_UserInfo(UserInfo userInfo){
+        return backstageService.alter_UserInfo(userInfo);
+    }
+    @RequestMapping("/backstage/select_contact")
+    @ResponseBody
+    public List<ContactInfo> select_contact(int  id){
+        return backstageService.Get_AllContact(id);
     }
 }
