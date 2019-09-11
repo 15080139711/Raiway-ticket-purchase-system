@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.train.mapper.MapCityInfoMapper">
-  <resultMap id="BaseResultMap" type="cn.train.enity.MapCityInfo">
+  <resultMap id="MapCityInfoResultMap" type="cn.train.enity.MapCityInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="cityid1" jdbcType="INTEGER" property="cityid1" />
     <result column="cityid2" jdbcType="INTEGER" property="cityid2" />
@@ -11,7 +11,15 @@
   <sql id="Base_Column_List">
     id, cityid1, cityid2, distance, price
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+  <select id="getPriceByCityid" parameterType="cn.train.enity.MapCityInfo" resultType="java.lang.Float">
+    select price from MapCityInfo where (cityid1 = #{cityid1,jdbcType=INTEGER} and cityid2 = #{cityid2,jdbcType=INTEGER}) or (cityid2 = #{cityid1,jdbcType=INTEGER} and cityid1 = #{cityid2,jdbcType=INTEGER})
+  </select>
+
+
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="MapCityInfoResultMap">
     select 
     <include refid="Base_Column_List" />
     from MapCityInfo

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.train.mapper.TrainInfoMapper">
-  <resultMap id="BaseResultMap" type="cn.train.enity.TrainInfo">
+  <resultMap id="TrainInfoResultMap" type="cn.train.enity.TrainInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="day" jdbcType="VARCHAR" property="day" />
     <result column="number" jdbcType="VARCHAR" property="number" />
@@ -15,7 +15,15 @@
   <sql id="Base_Column_List">
     id, day, number, stopnumber, firststation, laststation, status, changetime, modelid
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+  <select id="getTrainByDay" parameterType="java.lang.String" resultMap="TrainInfoResultMap">
+    select * from TrainInfo t where day = #{day1, jdbcType=VARCHAR};
+  </select>
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="TrainInfoResultMap">
     select 
     <include refid="Base_Column_List" />
     from TrainInfo

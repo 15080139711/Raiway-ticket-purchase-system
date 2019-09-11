@@ -20,4 +20,6 @@ public interface CityInfoMapper {
     int updateByPrimaryKey(CityInfo record);
 
     List<CityInfo> getAllCity();
+
+    String getNameByCityid(Integer id);
 }

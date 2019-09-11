@@ -14,4 +14,6 @@ public interface UserService {
     boolean Add_User(UserInfo userInfo);
     List<UserInfo>Get_AllUser();
     int AddContact(ContactInfo contactInfo);
+
+    UserInfo getInfo(int id);
 }

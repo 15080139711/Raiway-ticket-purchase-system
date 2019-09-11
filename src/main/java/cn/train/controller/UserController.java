@@ -33,4 +33,10 @@ public class UserController {
         System.out.println(contactInfo);
         return userService.AddContact(contactInfo);
     }
+
+    @RequestMapping("/api/user/getInfo")
+    public UserInfo getUserInfo(@RequestBody UserInfo userInfo){
+        System.out.println(userInfo.getId());
+        return userService.getInfo(userInfo.getId());
+    }
 }

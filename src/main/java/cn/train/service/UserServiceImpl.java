@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
             System.out.println("用户信息可注册！");
         }
 
+        userInfo.setStatus(1);
         //开始插入信息
         if(userInfoMapper.insert(userInfo) == 1){
             //获取用户id
@@ -54,6 +55,10 @@ public class UserServiceImpl implements UserService {
             System.out.println("用户id获取失败");
             return -2;
         }
+
+        //发送激活邮件
+
+
         return n;
     }
 
@@ -83,6 +88,13 @@ public class UserServiceImpl implements UserService {
         int m = contactInfoMapper.insert(contactInfo);
         System.out.println(m);
         return m;
+    }
+
+    @Override
+    public UserInfo getInfo(int id) {
+        UserInfo temp = userInfoMapper.selectByPrimaryKey(id);
+        temp.setPassword(null);
+        return temp;
     }
 
 
