@@ -7,6 +7,10 @@ public class SoldTicket {
 
     private Integer fromstopid;
 
+    private StopInfo fromstop;
+
+    private StopInfo tostop;
+
     private Integer tostopid;
 
     private Float price;
@@ -22,6 +26,52 @@ public class SoldTicket {
     private Integer contactid;
 
     private Integer orderid;
+
+    private ContactInfo contactInfo;
+
+    @Override
+    public String toString() {
+        return "SoldTicket{" +
+                "id=" + id +
+                ", trainid=" + trainid +
+                ", fromstopid=" + fromstopid +
+                ", fromstop=" + fromstop +
+                ", tostop=" + tostop +
+                ", tostopid=" + tostopid +
+                ", price=" + price +
+                ", seatnumber='" + seatnumber + '\'' +
+                ", rownumber='" + rownumber + '\'' +
+                ", carnumber='" + carnumber + '\'' +
+                ", seatlevel=" + seatlevel +
+                ", contactid=" + contactid +
+                ", orderid=" + orderid +
+                ", contactInfo=" + contactInfo +
+                '}';
+    }
+
+    public ContactInfo getContactInfo() {
+        return contactInfo;
+    }
+
+    public void setContactInfo(ContactInfo contactInfo) {
+        this.contactInfo = contactInfo;
+    }
+
+    public StopInfo getFromstop() {
+        return fromstop;
+    }
+
+    public void setFromstop(StopInfo fromstop) {
+        this.fromstop = fromstop;
+    }
+
+    public StopInfo getTostop() {
+        return tostop;
+    }
+
+    public void setTostop(StopInfo tostop) {
+        this.tostop = tostop;
+    }
 
     public Integer getId() {
         return id;

@@ -1,5 +1,7 @@
 package cn.train.enity;
 
+import java.util.List;
+
 public class OrderInfo {
     private Integer id;
 
@@ -15,6 +17,8 @@ public class OrderInfo {
 
     private Integer mark;
 
+    private List<SoldTicket> tickets;
+
     @Override
     public String toString() {
         return "OrderInfo{" +
@@ -25,7 +29,16 @@ public class OrderInfo {
                 ", price=" + price +
                 ", status=" + status +
                 ", mark=" + mark +
+                ", tickets=" + tickets +
                 '}';
+    }
+
+    public List<SoldTicket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<SoldTicket> tickets) {
+        this.tickets = tickets;
     }
 
     public Integer getMark() {
