@@ -11,6 +11,12 @@
     id, name, saletime, address
   </sql>
 
+  <select id="getNameByCityid" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select name from CityInfo where id = #{id,jdbcType=INTEGER};
+  </select>
+
+
+
   <select id="getAllCity" resultMap="CityInfoResultMap">
     select * from CityInfo;
   </select>

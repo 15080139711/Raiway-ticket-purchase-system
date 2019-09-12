@@ -13,6 +13,29 @@ public class OrderInfo {
 
     private Integer status;
 
+    private Integer mark;
+
+    @Override
+    public String toString() {
+        return "OrderInfo{" +
+                "id=" + id +
+                ", userid=" + userid +
+                ", createdate='" + createdate + '\'' +
+                ", paydate='" + paydate + '\'' +
+                ", price=" + price +
+                ", status=" + status +
+                ", mark=" + mark +
+                '}';
+    }
+
+    public Integer getMark() {
+        return mark;
+    }
+
+    public void setMark(Integer mark) {
+        this.mark = mark;
+    }
+
     public Integer getId() {
         return id;
     }

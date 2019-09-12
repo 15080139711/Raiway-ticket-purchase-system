@@ -15,8 +15,18 @@
     <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, username, name, password, idnumber, email, phone, traveltype, discountnumber,sex
+    id, username, name, password, idnumber, email, phone, traveltype, discountnumber,sex,status
   </sql>
+
+  <update id="activateStatus" parameterType="java.lang.Integer" >
+    update UserInfo set status = 1 where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="checkEmail" parameterType="cn.train.enity.UserInfo" resultType="cn.train.enity.UserInfo">
+    select * from UserInfo where email = #{email,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+  </select>
+
   <select id="getAlluser" resultMap="UserInfoResultMap">
     select * from UserInfo;
   </select>

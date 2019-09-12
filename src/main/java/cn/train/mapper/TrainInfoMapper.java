@@ -1,7 +1,11 @@
 package cn.train.mapper;
 
 import cn.train.enity.TrainInfo;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface TrainInfoMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +18,6 @@ public interface TrainInfoMapper {
     int updateByPrimaryKeySelective(TrainInfo record);
 
     int updateByPrimaryKey(TrainInfo record);
+
+    List<TrainInfo> getTrainByDay(String day);
 }

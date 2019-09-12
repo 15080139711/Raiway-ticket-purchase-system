@@ -33,4 +33,16 @@ public class UserController {
         System.out.println(contactInfo);
         return userService.AddContact(contactInfo);
     }
+
+    @RequestMapping("/api/user/getInfo")
+    public UserInfo getUserInfo(@RequestBody UserInfo userInfo){
+        System.out.println(userInfo.getId());
+        return userService.getInfo(userInfo.getId());
+    }
+
+    @RequestMapping("/api/user/activation")
+    public int UserActivate(@RequestBody UserInfo userInfo){
+        System.out.println("激活请求邮箱：" + userInfo.getEmail() + "密码：" + userInfo.getPassword());
+        return userService.UserActivate(userInfo);
+    }
 }

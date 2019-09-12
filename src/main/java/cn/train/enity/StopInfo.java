@@ -7,6 +7,8 @@ public class StopInfo {
 
     private Integer cityid;
 
+    private CityInfo cityInfo;
+
     private String arrive;
 
     private Integer parktime;
@@ -16,6 +18,29 @@ public class StopInfo {
     private Integer number;
 
     private String ticketgate;
+
+    public CityInfo getCityInfo() {
+        return cityInfo;
+    }
+
+    public void setCityInfo(CityInfo cityInfo) {
+        this.cityInfo = cityInfo;
+    }
+
+    @Override
+    public String toString() {
+        return "StopInfo{" +
+                "id=" + id +
+                ", trainid=" + trainid +
+                ", cityid=" + cityid +
+                ", cityInfo=" + cityInfo +
+                ", arrive='" + arrive + '\'' +
+                ", parktime=" + parktime +
+                ", leave='" + leave + '\'' +
+                ", number=" + number +
+                ", ticketgate='" + ticketgate + '\'' +
+                '}';
+    }
 
     public Integer getId() {
         return id;

@@ -1,3 +1,20 @@
 spring:
   profiles:
     active: dev
+  mail:
+    #邮件服务器地址
+    host: smtp.163.com
+    #用户名
+    username: daining671@163.com
+    #密码
+    password: 55563DaiNing
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp.auth: true
+
+  thymeleaf:
+    mode: LEGACYHTML5
+    cache: false
+#发件人邮箱
+mail.from: daining671@163.com

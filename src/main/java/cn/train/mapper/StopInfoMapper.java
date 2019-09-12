@@ -1,7 +1,11 @@
 package cn.train.mapper;
 
 import cn.train.enity.StopInfo;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface StopInfoMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +18,6 @@ public interface StopInfoMapper {
     int updateByPrimaryKeySelective(StopInfo record);
 
     int updateByPrimaryKey(StopInfo record);
+
+    List<StopInfo> getStopByTrainid(Integer trainid);
 }

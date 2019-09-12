@@ -17,4 +17,9 @@ public class CityServiceImpl implements CityService {
     public List<CityInfo> getAllCity() {
         return cityInfoMapper.getAllCity();
     }
+
+    @Override
+    public CityInfo getSaleTime(int id) {
+        return cityInfoMapper.selectByPrimaryKey(id);
+    }
 }

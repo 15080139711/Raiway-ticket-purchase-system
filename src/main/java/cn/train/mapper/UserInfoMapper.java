@@ -25,4 +25,8 @@ public interface UserInfoMapper {
     int selectIdByidnumber(String string);
 
     UserInfo checklogin(UserInfo userInfo);
+
+    UserInfo checkEmail(UserInfo userInfo);
+
+    int activateStatus(Integer id);
 }

@@ -8,4 +8,6 @@ import java.util.List;
 @Service
 public interface CityService {
     List<CityInfo> getAllCity();
+
+    CityInfo getSaleTime(int id);
 }
