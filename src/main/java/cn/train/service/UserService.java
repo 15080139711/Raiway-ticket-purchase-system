@@ -16,4 +16,5 @@ public interface UserService {
     int AddContact(ContactInfo contactInfo);
 
     UserInfo getInfo(int id);
+    int UserActivate(UserInfo userInfo);
 }

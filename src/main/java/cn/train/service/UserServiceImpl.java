@@ -16,6 +16,27 @@ public class UserServiceImpl implements UserService {
     UserInfoMapper userInfoMapper;
     @Autowired
     ContactInfoMapper contactInfoMapper;
+    @Autowired
+    MailService mailService;
+
+    public int ActivateEmail(UserInfo userInfo){
+
+        String content = new String();
+
+        content = "尊敬的" + userInfo.getName() + "：\n";
+        content = content + "\t欢迎您注册使用中国铁路客户服务系统！\n";
+        content = content + "\t该邮件旨在确认以下用户个人信息已成功创建：\n";
+        content = content + "\t\t电子邮件：" + userInfo.getEmail() + "\n";
+        content = content + "\t\t账户名：" + userInfo.getUsername() + "\n";
+        content = content + "\t\t客户代码：" + userInfo.getId() + "\n";
+        content = content + "\t请务必先点击下方链接激活您的账户，方便您使用我们的各项服务！\n";
+        content = content + "\t\thttp://127.0.0.1:8080\n";
+
+        mailService.sendMail(userInfo.getEmail(), "激活邮件", content);
+
+        return 1;
+    }
+
 
     @Override
     public int Userregsiter(UserInfo userInfo) {
@@ -29,7 +50,7 @@ public class UserServiceImpl implements UserService {
             System.out.println("用户信息可注册！");
         }
 
-        userInfo.setStatus(1);
+        userInfo.setStatus(0);
         //开始插入信息
         if(userInfoMapper.insert(userInfo) == 1){
             //获取用户id
@@ -37,6 +58,7 @@ public class UserServiceImpl implements UserService {
             //插入常用联系人信息
             ContactInfo contactInfo = new ContactInfo();
             contactInfo.setUserid(n);
+            userInfo.setId(n);
             contactInfo.setName(userInfo.getName());
             contactInfo.setEmail(userInfo.getEmail());
             contactInfo.setIdnumber(userInfo.getIdnumber());
@@ -57,7 +79,10 @@ public class UserServiceImpl implements UserService {
         }
 
         //发送激活邮件
-
+        int m = ActivateEmail(userInfo);
+        if(m == 1){
+            System.out.println("激活邮件发送成功！");
+        }
 
         return n;
     }
@@ -94,6 +119,25 @@ public class UserServiceImpl implements UserService {
     public UserInfo getInfo(int id) {
         UserInfo temp = userInfoMapper.selectByPrimaryKey(id);
         temp.setPassword(null);
+        return temp;
+    }
+
+    @Override
+    public int UserActivate(UserInfo userInfo) {
+        int temp  = 0;
+        UserInfo userInfo1= userInfoMapper.checkEmail(userInfo);
+        System.out.println(userInfo1);
+        if (userInfo1 != null){
+            if(userInfo1.getStatus() != 0){
+                temp = -1;
+            }else{
+                userInfoMapper.activateStatus(userInfo1.getId());
+                System.out.println("激活完成！ID：" + userInfo1.getId());
+                temp = 1;
+            }
+        }else {
+            temp = -2;
+        }
         return temp;
     }
 
