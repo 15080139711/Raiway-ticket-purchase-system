@@ -7,6 +7,7 @@ import java.util.List;
 
 @Repository
 public interface TrainInfoMapper {
+    List<TrainInfo>getAll();
     int deleteByPrimaryKey(Integer id);
 
     int insert(TrainInfo record);
