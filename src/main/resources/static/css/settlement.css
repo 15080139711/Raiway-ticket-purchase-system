@@ -356,6 +356,56 @@ table tr td select {
     background-color: #2386C8;
     font-family: Tahoma,"宋体";
 }
+.up-box-bd {
+    background: #fff;
+    border-radius: 0 0 5px 5px;
+    padding: 20px 60px;
+    line-height: 25px;
+}
+.up-box-bd .icon {
+    float: left;
+    margin-right: 25px;
+}
+.up-box-bd .r-txt {
+    width: 360px;
+    margin-top: 10px;
+    float: left;
+    color: #666;
+}
+.colorC {
+    color: #d80000;
+}
+.up-box-bd .r-txt .tit {
+    font-size: 16px;
+    color: #333;
+    font-weight: 700;
+    font-family: "微软雅黑","黑体";
+    margin-bottom: 5px;
+}
+.up-box-bd .lay-btn {
+    padding: 0;
+    padding-top: 20px;
+}
+.btn92s {
+    width: 92px;
+    height: 30px;
+    line-height: 30px;
+    background-position: 0 0;
+    color: #fff;
+    -webkit-border-radius: 4px;
+    display: inline-block;
+    text-align: center;
+    background: url(../images/bg_btn.png) repeat-x;
+}
+.i-lose, .i-opt, .i-hi, .i-win, .i-warn {
+    display: block;
+    width: 82px;
+    height: 92px;
+    background: url(../images/icon02.png) no-repeat;
+}
+.up-box-bd .i-warn {
+    background-position: 0 -600px;
+}
 .up-box {
     background: #fff;
     border-radius: 0 0 5px 5px;
@@ -485,6 +535,7 @@ table tr td select {
     line-height: 25px;
     background: url(../images/bg017.png) no-repeat;
     color: #666;
+    background-position:-80px 0;
 }
 .seat-sel .sel-item .txt-last {
     border-right: 0;
