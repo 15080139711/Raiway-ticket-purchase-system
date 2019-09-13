@@ -1,7 +1,11 @@
 package cn.train.mapper;
 
 import cn.train.enity.SoldTicket;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface SoldTicketMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +18,6 @@ public interface SoldTicketMapper {
     int updateByPrimaryKeySelective(SoldTicket record);
 
     int updateByPrimaryKey(SoldTicket record);
+
+    List<SoldTicket> selectByOrderid(Integer orderid);
 }

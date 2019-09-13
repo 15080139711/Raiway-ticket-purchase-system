@@ -20,7 +20,7 @@ public class CityController {
         return cityService.getAllCity();
     }
 
-    @RequestMapping("/api/city/getSaleTime")
+    @RequestMapping("/api/city/getCityInfo")
     public CityInfo getSaleTime(@RequestBody CityInfo cityInfo){
         return cityService.getSaleTime(cityInfo.getId());
     }

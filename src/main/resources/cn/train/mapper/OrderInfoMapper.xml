@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.train.mapper.OrderInfoMapper">
-  <resultMap id="BaseResultMap" type="cn.train.enity.OrderInfo">
+  <resultMap id="OrderInfoResultMap" type="cn.train.enity.OrderInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="userid" jdbcType="INTEGER" property="userid" />
     <result column="createdate" jdbcType="VARCHAR" property="createdate" />
@@ -12,7 +12,24 @@
   <sql id="Base_Column_List">
     id, userid, createdate, paydate, price, status
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+  <select id="getAllOrder" parameterType="java.lang.Integer" resultMap="OrderInfoResultMap">
+    select * from OrderInfo where userid = #{userid,jdbcType=INTEGER}
+  </select>
+
+  <select id="getUndoneOrder" parameterType="java.lang.Integer" resultMap="OrderInfoResultMap">
+    select * from OrderInfo where userid = #{userid,jdbcType=INTEGER} and mark = 1;
+  </select>
+
+  <select id="getUnusedOrder" parameterType="java.lang.Integer" resultMap="OrderInfoResultMap">
+    select * from OrderInfo where userid = #{userid,jdbcType=INTEGER} and mark = 2;
+  </select>
+
+  <select id="getHistorydOrder" parameterType="java.lang.Integer" resultMap="OrderInfoResultMap">
+    select * from OrderInfo where userid = #{userid,jdbcType=INTEGER} and mark = 3;
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="OrderInfoResultMap">
     select 
     <include refid="Base_Column_List" />
     from OrderInfo

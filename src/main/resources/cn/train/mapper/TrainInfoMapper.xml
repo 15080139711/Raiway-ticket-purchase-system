@@ -17,7 +17,7 @@
   </sql>
 
   <select id="getTrainByDay" parameterType="java.lang.String" resultMap="TrainInfoResultMap">
-    select * from TrainInfo t where day = #{day1, jdbcType=VARCHAR};
+    select * from TrainInfo where day = #{day1, jdbcType=VARCHAR};
   </select>
   
   

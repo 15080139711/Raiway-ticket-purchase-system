@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>结算</title>
@@ -11,14 +11,7 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <script src="../js/jquery-3.4.1.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
-    <script>
-    $(function () {
-        $(".seat-list li a").click(function () {
-            $(this).attr('style',"background-position:-40px 0");
-        })
-    })
-    </script>
-
+    <script src="../js/vue.js"></script>
 </head>
 <body>
 <!-- 公共顶部 -->
@@ -234,20 +227,20 @@
 <!--页面主体-->
 <div class="content">
     <!--列车信息-->
-    <div class="layout t-info">
+    <div class="layout t-info" id="ticket_info">
         <div class="lay-hd">
             列车信息
             <span class="small">（以下余票信息仅供参考）</span>
         </div>
         <div class="lay-bd">
             <p class="t-tit" id="ticket_tit_id">
-                <strong class="mr5">2019-09-20（周五）</strong>
-                <strong class="ml5">D3274</strong>
+                <strong class="mr5">{{day}}</strong>
+                <strong class="ml5">{{Trained}}</strong>
                 次
-                <strong class="ml5">厦门北</strong>
+                <strong class="ml5">{{Fromstopid}}</strong>
                 站
-                <strong>（08:17开）—莆田</strong>
-                站（09:15到）
+                <strong>（{{Leave}}开）—{{Tostopid}}</strong>
+                站（{{Arrive}}到）
             </p>
             <p class="t-con" id="ticket_con_id">
                 <span id="ticket_status_id" class="s1">
@@ -273,7 +266,7 @@
         </div>
     </div>
     <!--乘客信息-->
-    <div class="layout person">
+    <div class="layout person" id="layout_person">
         <div class="lay-hd">
             乘客信息
             <span class="small" id="psInfo">（填写说明）</span>
@@ -288,7 +281,7 @@
                     <img class="cy" id="normal_passenger_image_id" title="常用联系人" src="../images/icon0.png"></img>
                     <ul id="normal_passenger_id">
                         <li>
-                            <input totaltimes="99" typeflag="1" id="normalPassenger_0" type="checkbox" class="check"><label class="label-name">林xiaoxin</label>
+                            <input totaltimes="99" typeflag="1" id="normalPassenger_0" type="checkbox" class="check"><label class="label-name">{{name}}</label>
                         </li>
                     </ul>
                 </div>
@@ -310,16 +303,21 @@
                 <tbody id="ticketInfo_id">
                 <tr id="tr_id_1">
                     <td align="center">1</td>
-                    <td><select id="ticketType_1" name="confirmTicketType" onchange="javascript:updateSeatTypeByeTickeType(this);">
-                        <option name="ticket_type_option" value="1" selected="selected">成人票</option>
-                        <option value="2">学生票 </option>
+                    <td><select id="ticketType_1" name="confirmTicketType">
+                        <option name="ticket_type_option" selected="selected">成人票</option>
+                        <option>学生票 </option>
                     </select>
                     </td>
-                    <td><select onclick="javascript:stepFirValidatorTicketInfo(true);" id="seatType_1"><option value="O" selected="selected">二等座（￥49.0）</option><option value="M">一等座（￥78.0）</option><option value="P">商务座（￥88.0）</option></select>
+                    <td>
+                        <select id="seatType_1">
+                            <option selected="selected">二等座</option>
+                            <option>一等座</option>
+                            <option>商务座</option>
+                        </select>
                     </td>
                     <td>
                         <div class="pos-rel">
-                            <input onkeyup="javascript:elemOnkeyupNotice(this);" id="passenger_name_1" class="inptxt w110" value="林xiaoxin" size="12" maxlength="20" disabled="" style="color:#999999" title="不允许修改乘车人信息" readonly="">
+                            <input id="passenger_name_1" type="hidden" class="inptxt w110" v-bind:value="name" size="12" maxlength="20" disabled="" style="color:#999999" title="不允许修改乘车人信息" readonly="">
                             <div class="w110-focus" id="passenger_name_1_notice"></div>
                         </div>
                     </td>
@@ -331,9 +329,9 @@
                         <option value="H">外国人永久居留身份证</option>
                     </select>
                     </td>
-                    <td><div class="pos-rel"><input onkeyup="javascript:elemOnkeyupNotice(this);" id="passenger_id_no_1" class="inptxt w160" value="3503***********610" disabled="disabled" title="不允许修改乘车人信息" size="20" maxlength="35" style="color:#999999"><div class="w160-focus" id="passenger_id_no_1_notice"></div></div>
+                    <td><div class="pos-rel"><input  id="passenger_id_no_1" type="hidden" class="inptxt w160" v-bind:value="idnumber" disabled="disabled" title="不允许修改乘车人信息" size="20" maxlength="35" style="color:#999999"><div class="w160-focus" id="passenger_id_no_1_notice"></div></div>
                     </td>
-                    <td><div class="pos-rel"><input onkeyup="javascript:elemOnkeyupNotice(this);" id="phone_no_1" class="inptxt w110" value="15080139711" title="不允许修改乘车人信息" disabled="disabled" size="11" maxlength="20" style="color:#999999"><div class="w160-focus" id="phone_no_1_notice"></div></div>
+                    <td><div class="pos-rel"><input  id="phone_no_1" type="hidden" class="inptxt w110" v-bind:value="phone" title="不允许修改乘车人信息" disabled="disabled" size="11" maxlength="20" style="color:#999999"><div class="w160-focus" id="phone_no_1_notice"></div></div>
                     </td>
                     <td style="width:40px;">
                         <a href="javascript:" id="addchild_1" name="addchild_default_0"></a>
@@ -348,11 +346,13 @@
             </div>
         </div>
     </div>
+
     <!--提交订单-->
     <div class="lay-btn">
         <a id="preStep_id" class="btn92" >上一步</a>
-        <a id="submitOrder_id" class="btn92s" data-toggle="modal" data-target="#myModal">提交订单</a>
+        <a id="submitOrder_id" class="btn92s" data-toggle="modal" data-target="">提交订单</a>
     </div>
+
     <!--温馨提示-->
     <div class="tips-txt"><h2>温馨提示：</h2>
         <p>1. 一张有效身份证件同一乘车日期同一车次只能购买一张车票，高铁动卧列车除外。</p>
@@ -433,15 +433,15 @@
 <!-- 核对信息 -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content up-box w664">
+        <div class="modal-content up-box w664" id="modal_content_check">
             <div class="modal-header up-box-hd">
                 请核对以下信息
             </div>
             <div id="form_data" class="up-box-bd ticket-check">
                 <div class="info2" id="check_ticket_tit_id">
-                    <strong class="mr5">2019-09-20（周五）</strong><strong class="ml5">D3142</strong>次<strong class="ml5">厦门北</strong>站<strong>（08:06开）—莆田</strong>站（09:05到）
+                    <strong class="mr5">{{day}}</strong><strong class="ml5">{{Trained}}</strong>次<strong class="ml5">{{Fromstopid}}</strong>站<strong>（{{Leave}}开）—{{Tostopid}}</strong>站（{{Arrive}}到）
                 </div>
-                <table class="table-a"><tbody><tr><th width="28" rowspan="1" colspan="1">序号</th>
+                <table class="table-a" id="check_ticket_info"><tbody><tr><th width="28" rowspan="1" colspan="1">序号</th>
                     <th rowspan="1" colspan="1">席别</th>
                     <th id="bed_show" style="display: none;" rowspan="1" colspan="1">铺别</th>
                     <th rowspan="1" colspan="1">票种</th>
@@ -453,31 +453,32 @@
                 </tbody><tbody id="check_ticketInfo_id">
                 <tr>
                     <td align="center">1</td>
-                    <td>二等座</td>
-                    <td>成人票</td>
-                    <td title="林靖雕">林靖雕</td>
+                    <td>{{seatlevel}}</td>
+                    <td>{{traveltype}}</td>
+                    <td title="">{{name}}</td>
                     <td> 中国居民身份证 </td>
-                    <td>3503***********610</td>
-                    <td>15080139711</td>
+                    <td>{{idnumber}}</td>
+                    <td>{{phone}}</td>
                 </tr>
                 </tbody>
                 </table>
                 <p style="color: #3177BF;" id="notice_1_id">*如果本次列车剩余席位无法满足您的选座需求，系统将自动为您分配席位。</p>
                 <div class="seat-sel seat-sel-round" id="id-seat-sel" style="display: block;">
-                    <div class="seat-sel-hd">
+                    <div class="seat-sel-hd" id="sel-selectNo">
                         <div class="tips-xz">选座喽</div>
-                        已选座<span id="selectNo">0/1</span>
+                        已选座
+                        <span id="selectNo">0/1</span>
                     </div>
                     <div class="seat-sel-bd">
                         <div class="sel-item">
                             <div class="txt">窗</div>
                             <ul class="seat-list">
-                                <li><a shape="rect" style="background-position:-80px 0">A</a></li>
-                                <li><a shape="rect" style="background-position:-80px 0">B</a></li>
-                                <li><a shape="rect" style="background-position:-80px 0">C</a></li>
+                                <li><a shape="rect" id="a">A</a></li>
+                                <li><a shape="rect" id="b">B</a></li>
+                                <li><a shape="rect" id="c">C</a></li>
                                 <div class="txt">过道</div>
-                                <li><a shape="rect" style="background-position:-80px 0">E</a></li>
-                                <li><a shape="rect" style="background-position:-80px 0">F</a></li>
+                                <li><a shape="rect" id="e">E</a></li>
+                                <li><a shape="rect" id="f">F</a></li>
                                 <div class="txt txt-last">窗</div>
                             </ul>
                         </div>
@@ -493,7 +494,135 @@
     </div>
 </div>
 
+<!-- 提示信息 -->
+<div class="modal fade" id="otherModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content up-box w664">
+            <div class="up-box-hd" id="up-box-hd_id">
+                提示
+            </div>
+            <div class="up-box-bd">
+                <div class="up-con clearfix">
+                    <span class="icon i-warn" id="iamge_status_id"></span>
+                    <div class="r-txt" id="orderResultInfo_id">
+                        <div class="tit">
+                            <span class="colorC">出票失败!</span>
+                        </div>
+                        <p>原因： 余票不足！</p>
+                    </div>
+                </div>
+                <div class="lay-btn" id="lay-btn_id">
+                    <a href="settlement.html" id="qr_closeTranforDialog_id" class="btn92s">确认</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+
+<!--script-->
+<script>
+    $(function () {
+        //获取乘客信息
+        $.ajax({
+            url:"",
+            dataType:"json",
+            type:"post",
+            data:{},
+            success:function (data) {
+                va.pro_version = data;
+            }
+        })
+        var va = new Vue({
+            el:"#layout_person",
+            data: {
+                name:"唐三藏",
+                idnumber: "012346458",
+                phone:"1203697841",
+            }
+        });
+
+        // 获取列车信息
+        $.ajax({
+            url:"",
+            dataType:"json",
+            type:"post",
+            data:{},
+            success:function (data) {
+            }
+        })
+        var va = new Vue({
+            el:"#ticket_info",
+            data: {
+                day:"2019-09-20（周五）",
+                Trained: "D3274",
+                Fromstopid:"厦门北 ",
+                Leave:"08:17",
+                Tostopid:"莆田 ",
+                Arrive:"09:15",
+
+            }
+        });
+
+        //选择用户
+        $("#normalPassenger_0").click(function () {
+            if ($("#normalPassenger_0").is(':checked')) {
+                $("#passenger_name_1").attr('type',"text");
+                $("#passenger_id_no_1").attr('type',"text");
+                $("#phone_no_1").attr('type',"text");
+            }else {
+                $("#passenger_name_1").attr('type',"hidden");
+                $("#passenger_id_no_1").attr('type',"hidden");
+                $("#phone_no_1").attr('type',"hidden");
+            }
+        })
+
+        //提交订单
+        $("#submitOrder_id").click(function () {
+            if ($("#normalPassenger_0").is(':checked')){
+                $(this).attr('data-target',"#myModal");
+            }else {
+                $(this).attr('data-target',"#otherModal");
+            }
+            var tlevel=$("#ticketType_1").val();
+            var stype=$("#seatType_1").val();
+            var vp = new Vue({
+                el:"#modal_content_check",
+                data:{
+                    name:"唐三藏",
+                    idnumber: "012346458",
+                    phone:"1203697841",
+                    day:"2019-09-20（周五）",
+                    Trained: "D3274",
+                    Fromstopid:"厦门北 ",
+                    Leave:"08:17",
+                    Tostopid:"莆田 ",
+                    Arrive:"09:15",
+                    seatlevel:stype,
+                    traveltype:tlevel,
+                }
+            })
+            //选座
+            var fid=null ;
+            $(".seat-list li a").click(function () {
+                if(fid == $(this).attr('id')){
+                    $(".seat-list li a").attr('style',"background-position:-80px 0");
+                    $(this).attr('style',"background-position:-80px 0");
+                    fid=null;
+                    $("#selectNo").html("0/1");
+                }else{
+                    $(".seat-list li a").attr('style',"background-position:-80px 0");
+                    $(this).attr('style',"background-position:-40px 0");
+                    fid=$(this).attr('id');
+                    $("#selectNo").html("1/1");
+                }
+            })
+
+        })
+
+
+    })
+</script>
 
 </body>
 </html>
