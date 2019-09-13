@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>常用联系人</title>
+    <link rel="stylesheet" href="../../css/own-contact.css">
+</head>
+<body>
+<!--整个大盒子-->
+<div id="allContent">
+<!--搜索部分-->
+    <div class="search_box">
+        <input v-model="message" class="input_txt" type="text" placeholder="请输入乘客姓名">
+        <i @click="empty"><img src="../../images/own/icon-del2.png"></i>
+        <a href="">查询</a>
+    </div>
+<!--   标题栏  -->
+    <div id="title_box">
+        <table>
+            <tbody>
+            <tr>
+                <th>序号</th>
+                <th>姓名</th>
+                <th>证件类型</th>
+                <th>证件号码</th>
+                <th>手机／电话</th>
+                <th>旅客类型</th>
+                <th>核验状态</th>
+                <th>操作</th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="order_item">
+        <div class="order_item_hd">
+            <a href="javascript:void(0);"><i><img src="../../images/own/icon-del.png"></i>批量删除</a>
+            <a href="javascript:void(0);"><i><img src="../../images/own/icon-add.png"></i>添加</a>
+        </div>
+        <div class="order_item_bd">
+            <table class="order_item_table">
+                <tbody>
+                <tr v-for="(people,index) in peopleList">
+                    <td class="td1">
+                        <div><input  name="checks" type="checkbox"><span>&nbsp{{people.id}}</span></div>
+                    </td>
+                    <td class="td2">
+                        <div>{{people.name}}</div>
+                    </td>
+                    <td class="td3">
+                        <div>{{people.identity}}</div>
+                    </td>
+                    <td class="td4">
+                        <div>{{people.cardId}}</div>
+                    </td>
+                    <td class="td5">
+                        <div>{{people.telephone}}</div>
+                    </td>
+                    <td class="td6">
+                        <div><span>{{people.type}}</span></div>
+                    </td>
+                    <td class="td7">
+                        <div style="color: #00cc0c">{{people.status}}</div>
+                    </td>
+                    <td class="td8">
+                        <div>
+                            <a href="javascript:void(0);"><i @click="dele(index)"><img src="../../images/own/icon-del.png"></i></a>
+                            <a class="edict" href="javascript:void(0);"><i><img src="../../images/own/icon-edit.png"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="../../js/jquery-3.4.1.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script>
+    $(function () {
+        // 搜素框点击删除 清空文本框内容
+        // $(".search_box i").click(function () {
+        //     $(this).prev().val("");
+        // })
+        //联系人列表单个删除功能
+        var vm = new Vue({
+            el:"#allContent",
+            data:{
+                message:"",
+                peopleList:[
+                    {
+                        id :1,
+                        name:"张三",
+                        identity:"中国居民身份证",
+                        cardId:"3508***********625",
+                        telephone:"18030255989",
+                        type:"成人",
+                        status:"已通过"
+                    },
+                    {
+                        id :2,
+                        name:"李四",
+                        identity:"中国居民身份证",
+                        cardId:"3758***********526",
+                        telephone:"12154856879",
+                        type:"成人",
+                        status:"已通过"
+                    },
+                    {
+                        id :3,
+                        name:"王五",
+                        identity:"中国居民身份证",
+                        cardId:"6589***********554",
+                        telephone:"13154856879",
+                        type:"成人",
+                        status:"已通过"
+                    }
+                ]
+            },
+            methods:{
+                //删除单个联系人
+                dele:function (index) {
+                    this.peopleList.splice(index,1);
+                },
+                //清空搜索文本框
+                empty:function () {
+                    $(".input_txt").val('');
+                    // $(this).prev().val("");
+                },
+                //批量删除
+                // delAll:function (index) {
+                //     var index =0;
+                //     // alert(this.checkName);
+                //     var $checkboxs = $("input[type='checkbox']");
+                //     if ($checkboxs.is("checked")){
+                //         this.peopleList.splice(index,$checkboxs.is("checked"));
+                //     }
+                // }
+            }
+        })
+
+        //    鼠标移到批量删除和添加部分变色
+        $(".order_item_hd a").hover(function () {
+            $(this).css("color","#9eccfe")
+        },function () {
+            $(this).css("color","#333333")
+        })
+        //    鼠标移到查询变色效果
+        $(".search_box a").hover(function () {
+            $(this).css({"color":"#ff8000","borderColor":"#ff8000"})
+        },function () {
+            $(this).css({"color":"#333333","borderColor":"#ffffff"})
+        })
+        //    实现批量删除操作
+        $(".order_item_hd>a:first").click(function () {
+            $("input[name='checks']:checked").each(function () {
+                var n = $(this).parents("tr").index();
+                $("table.order_item_table").find("tr:eq("+n+")").remove();
+            })
+        })
+        //点击搜索显示对应联系人信息
+    })
+
+</script>
+</body>
+</html>

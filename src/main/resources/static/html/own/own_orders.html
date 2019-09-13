@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>火车票订单</title>
+    <link rel="stylesheet" href="../../Common/commonGeneral.css">
+<!--    <link rel="stylesheet" href="css/commonTop.css">-->
+<!--    <link rel="stylesheet" href="css/commonBottom.css">-->
+<!--    <link rel="stylesheet" type="text/css" href="css/commonLeft.css">-->
+    <link rel="stylesheet" type="text/css" href="../../css/own_orders.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1344458_mkhjlnf7wn.css">
+</head>
+<body>
+<!-- 右侧栏 -->
+<div class="right">
+    <!-- 菜单 -->
+    <div class="menu">
+        <ul>
+            <li><p>未完成订单</p></li>
+            <li><p>未出行订单</p></li>
+            <li><p>历史订单</p></li>
+        </ul>
+    </div>
+    <!-- 主体1  未完成订单-->
+    <div class="main1" style="display:block;">
+        <div class="content">
+            <div class="details_no">
+                <div class="details_img"><img src="../../images/own/logo.png" alt=""></div>
+                <div class="details_txt">
+                    <p>您没有对应的订单内容哦～</p>
+                    <p>
+                        您可以通过
+                        <a href="https://kyfw.12306.cn/otn/leftTicket/init">车票预订</a>
+                        功能，来制定出行计划。
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="main1_txt">
+            <h4>温馨提示</h4>
+            <p>1.席位已锁定，请在指定时间内完成网上支付。</p>
+            <p>2.逾期未支付，系统将取消本次交易。</p>
+            <p>3.在完成支付或取消本订单之前，您将无法购买其他车票。</p>
+            <p>4.未尽事宜详见《铁路旅客运输规程》等有关规定和车站公告。</p>
+        </div>
+    </div>
+    <!-- 主体2  未出行订单-->
+    <div class="main2" style="display:none;">
+        <div delay="false" class="select">
+            <select name="" id="">
+                <option value="time">按订票日期查询</option>
+                <option value="X">按乘车日期查询</option>
+            </select>
+            <input class="search_date" type="date">
+            -
+            <input class="search_date" type="date">
+
+            <input class="search_text" type="text" placeholder="订单号/车次/姓名">
+            <a href="">查询</a>
+        </div>
+        <div delay="false" class="nav">
+            <ul>
+                <li style="background-color: #3b99fc;color: #ffffff" >全部</li>
+                <li>可改签</li>
+                <li>可变更到站</li>
+                <li>可退票</li>
+            </ul>
+        </div>
+        <!-- 全部 -->
+        <div class="details1" style="display: block">
+            <div class="details_no">
+                <div class="details_img"><img src="../../images/own/logo.png" alt=""></div>
+                <div class="details_txt">
+                    <p>您没有对应的订单内容哦～</p>
+                    <p>
+                        您可以通过
+                        <a href="https://kyfw.12306.cn/otn/leftTicket/init">车票预订</a>
+                        功能，来制定出行计划。
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- 可改签 -->
+        <div class="details2" style="display:none">
+            <div class="details_no">
+                <div class="details_img"><img src="../../images/own/logo.png" alt=""></div>
+                <div class="details_txt">
+                    <p>您没有对应的订单内容哦～</p>
+                    <p>
+                        您可以通过
+                        <a href="https://kyfw.12306.cn/otn/leftTicket/init">车票预订</a>
+                        功能，来制定出行计划。
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- 可变更到站 -->
+        <div class="details3" style="display: none">
+            <div class="details_no">
+                <div class="details_img"><img src="../../images/own/logo.png" alt=""></div>
+                <div class="details_txt">
+                    <p>您没有对应的订单内容哦～</p>
+                    <p>
+                        您可以通过
+                        <a href="https://kyfw.12306.cn/otn/leftTicket/init">车票预订</a>
+                        功能，来制定出行计划。
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- 可退票 -->
+        <div class="details4" style="display:none;">
+            <div class="details_no">
+                <div class="details_img"><img src="../../images/own/logo.png" alt=""></div>
+                <div class="details_txt">
+                    <p>您没有对应的订单内容哦～</p>
+                    <p>
+                        您可以通过
+                        <a href="https://kyfw.12306.cn/otn/leftTicket/init">车票预订</a>
+                        功能，来制定出行计划。
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- 底部 -->
+        <div delay="false" class="footer">
+            <p class="first_p">温馨提示</p>
+            <p> 1.订单信息在本网站保存明限为30日。</p>
+            <p>2.在本网站购票后， 没有换取纸质车票的，可不晚于开车前25分钟在本网站办理改签、退票业务，或不晚于开车前48小时在本网站办理 变更到站业务。</p>
+            <p>3.在本网站办理退票，只明逐次单张办理。</p>
+            <p>4.车票改签、变更到站构只能办理一次已经改签或变更到站的车票不再办理改签;对已改签车票团体票暂不提供变"更到站"服务。</p>
+            <p>5。退票改签、变更到站后如有应退票款，按购票时所使用的在线支付工具相关规定，将在规定时间内退还至原在线支付工具账户，请及时有询，如有疑问，请致电12306人工客服查询。</p>
+            <p>6.如需取消或直看车票快递状态，请点击快递详情。</p>
+            <p>7.投保退保或查看电子保单状态,请点击我的保险”或购增退保险。</p>
+            <p>8.未尽事宜详见《铁路旅客运输规程》等有关规定和车站公告。</p>
+        </div>
+    </div>
+    <!-- 主体3  历史订单-->
+    <div class="main3" style="display:none">
+        <div class="select">
+            <span>乘车日期</span>
+            <input class="search_date" type="date">
+            -
+            <input class="search_date" type="date">
+            <input class="search_text" type="text" placeholder="订单号/车次/姓名">
+            <a href="">查询</a>
+        </div>
+        <div class="main3_content">
+            <div class="details_no">
+                <div class="details_img"><img src="../../images/own/logo.png" alt=""></div>
+                <div class="details_txt">
+                    <p>您没有对应的订单内容哦～</p>
+                    <p>
+                        您可以通过
+                        <a href="https://kyfw.12306.cn/otn/leftTicket/init">车票预订</a>
+                        功能，来制定出行计划。
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div delay="false" class="footer">
+            <p class="first_p">温馨提示</p>
+            <p> 1.订单信息在本网站保存明限为30日。</p>
+            <p>2.在本网站购票后， 没有换取纸质车票的，可不晚于开车前25分钟在本网站办理改签、退票业务，或不晚于开车前48小时在本网站办理 变更到站业务。</p>
+            <p>3.在本网站办理退票，只明逐次单张办理。</p>
+            <p>4.车票改签、变更到站构只能办理一次已经改签或变更到站的车票不再办理改签;对已改签车票团体票暂不提供变"更到站"服务。</p>
+            <p>5。退票改签、变更到站后如有应退票款，按购票时所使用的在线支付工具相关规定，将在规定时间内退还至原在线支付工具账户，请及时有询，如有疑问，请致电12306人工客服查询。</p>
+            <p>6.如需取消或直看车票快递状态，请点击快递详情。</p>
+            <p>7.投保退保或查看电子保单状态,请点击我的保险”或购增退保险。</p>
+            <p>8.未尽事宜详见《铁路旅客运输规程》等有关规定和车站公告。</p>
+        </div>
+    </div>
+</div>
+
+<script src="../../js/jquery-3.4.1.min.js"></script>
+<script>
+    $(function () {
+        // 鼠标移到未出行订单状态中实现变色和变小手效果
+        var $lis = $(".nav>ul>li");
+        $lis.mouseenter(function () {
+            $(this).css({"color":"#3b99fc","cursor":"pointer"});
+        }).mouseleave(function () {
+            $(this).css({"color":"#333333","cursor":"none"})
+        })
+
+
+        //未出行 未完成 历史订单切换特效
+        var $lis4 = $(".menu>ul>li");
+        var $divs = $(".right>div:not(:first)");
+        $lis4.click(function () {
+            $divs.hide();
+            var index2 = $(this).index();
+            $divs[index2].style.display='block';
+            $(".menu>ul>li").children().css("color","#333333");
+            $(this).children().css("color","#3b99fc");
+        })
+
+
+        //鼠标移到到未完成 未出行 历史订单改变颜色和光标样式
+        var $lis3 = $(".menu>ul>li");
+        $lis3.mouseenter(function () {
+            $(this).css({"color":"#3b99fc","cursor":"pointer"});
+        }).mouseleave(function () {
+            $(this).css({"color":"#333333","cursor":"none"})
+        })
+
+
+        //未出行订单中四个状态切换特效   全部 可改签 可变更到站 可退票
+        var $lis = $(".nav>ul>li");
+        var $contents = $(".main2>div:not([delay='false'])");
+        $lis.click(function () {
+            // alert("1");
+            $contents.hide();
+            var index = $(this).index();
+            $contents[index].style.display='block';
+            $(".nav>ul>li").css({"backgroundColor":"#ffffff","color":"#333333"});
+            $(this).css({"backgroundColor":"#3b99fc","color":"#fff"});
+        })
+
+
+    })
+</script>
+</body>
+</html>
