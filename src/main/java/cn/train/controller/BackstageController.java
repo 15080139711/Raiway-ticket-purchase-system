@@ -51,29 +51,38 @@ public class BackstageController {
         return backstageService.Get_AllContact(id);
     }
 
-    //列车信息管理部分
+    //车次信息管理部分
     @RequestMapping("/backstage/add_trainInfo")
-    @ResponseBody
+    @ResponseBody   //添加一条车次信息
     public boolean add_trainInfo(TrainInfo trainInfo){
        return backstageService.add_trainInfo(trainInfo);
     }
     @RequestMapping("/backstage/alter_trainInfo")
-    @ResponseBody
+    @ResponseBody   //修改一条车次信息
     public boolean alter_trainInfo(TrainInfo trainInfo){
         return backstageService.alter_train(trainInfo);
     }
+    @RequestMapping("/backstage/del_trainInfo")
+    @ResponseBody  //删除一条 车次 信息
+    public boolean del_trainInfo(int id){
+        backstageService.del_train(id);
+
+        return true;
+    }
     @RequestMapping("/backstage/get_trainInfo")
-    @ResponseBody
+    @ResponseBody    //获取所有 车次
     public List<TrainInfo> get_trainInfo(){
         return backstageService.get_train();
     }
+
+    //火车信息
     @RequestMapping("/backstage/add_train")
-    @ResponseBody
+    @ResponseBody   //添加一辆 火车
     public boolean add_train(TrainModel trainModel){
         return backstageService.add_train(trainModel);
     }
     @RequestMapping("/backstage/get_trainmodel")
-    @ResponseBody
+    @ResponseBody   //获取 所有 火车 的信息 id ，name
     public List<TrainModel> get_trainmodel(){
         return backstageService.get_trainmodel();
     }

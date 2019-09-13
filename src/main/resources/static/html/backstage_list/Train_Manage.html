@@ -11,28 +11,97 @@
    <script src="../../js/vue.js"></script>
     <script>
         $(function () {
+            //绑定 修改按下后 获取下拉复选的选项
+            var getInfo = new Vue({
+                el: "#alter_train",
+                data: {
+                    cityList: {},   //城市的集合
+                    train_model: {}, //火车的集合
+                    init: {},  //当前的车次 对象信息
+                },
+            } );
+            //显示 获取的所有车次信息
+            var traininfo = new Vue({
+                el: "#trainInf",
+                data: {
+                    train:{},
+                },
+                methods: {
+                    //删除
+                    delet : function (index) {
+                        $.ajax({
+                            url: "http://localhost:8080/backstage/del_trainInfo",
+                            type: "post",
+                            dataType: "json",
+                            data:{
+                                id:traininfo.train[index].id,
+                            },
+                            success: function (data) {
+                                if(data==true){
+                                    alert("删除成功");
+                                    location.reload();
+                                }else{
+                                    alert("系统错误");
+                                }
+                            }
+                        })
+                    },
+                     //修改：
+                    alter: function (index) {
+                        getInfo.init = traininfo.train[index];
+                        //获取城市列表
+                        $.ajax({
+                            url: "http://localhost:8080/api/city/getAllcity",
+                            type: "post",
+                            dataType: "json",
+                            success: function (city) {
+                                getInfo.cityList = city;
+                            }
+                        }),
+                            //获取火车列表
+                        $.ajax({
+                                url: "http://localhost:8080/backstage/get_trainmodel",
+                                type: "post",
+                                dataType: "json",
+                                success: function (data) {
+                                    getInfo.train_model = data;
+                                }
+                        });
+                        $(".alter_info").css("display", "inline");
+                    },
+                }
+            });
+            //请求获取所有车次信息数据
+            $.ajax({
+                url: "http://localhost:8080/backstage/get_trainInfo",
+                type: 'post',
+                dataType: "json",
+                success: function (list) {
+                    traininfo.train = list;
+                }
+            })
+
             //按下 确认修改
             $(".submit").click(function () {
-              alert("修改")
                 $.ajax({
-                    url:"http://localhost:8080/backstage/alter_trainInfo",
-                    type:"post",
-                    dataType:"json",
-                    data:{
-                        id:$(this).parent().prev().prev().find("tr").eq(1).find("td").eq(0).children().val(),
-                        number:$(this).parent().prev().prev().find("tr").eq(1).find("td").eq(1).children().val(),
-                        day :$(this).parent().prev().prev().find("tr").eq(1).find("td").eq(2).children().val(),
-                        stopnumber:$(this).parent().prev().prev().find("tr").eq(1).find("td").eq(3).children().val(),
-                        firststation:$(this).parent().prev().prev().find("tr").eq(1).find("td").eq(4).children().val(),
-                        laststation:$(this).parent().prev().prev().find("tr").eq(1).find("td").eq(5).children().val(),
-                        status:$(this).parent().prev().prev().find("tr").eq(1).find("td").eq(6).children().val(),
-                        changetime:$(this).parent().prev().prev().find("tr").eq(1).find("td").eq(7).children().val(),
-                        modelid:$(this).parent().prev().prev().find("tr").eq(1).find("td").eq(8).children().val(),
-                    },success:function (result) {
-                        if(result==true){
+                    url: "http://localhost:8080/backstage/alter_trainInfo",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        id: $(this).parent().prev().prev().find("tr").eq(1).find("td").eq(0).children().val(),
+                        number: $(this).parent().prev().prev().find("tr").eq(1).find("td").eq(1).children().val(),
+                        day: $(this).parent().prev().prev().find("tr").eq(1).find("td").eq(2).children().val(),
+                        stopnumber: $(this).parent().prev().prev().find("tr").eq(1).find("td").eq(3).children().val(),
+                        firststation: $(this).parent().prev().prev().find("tr").eq(1).find("td").eq(4).children().val(),
+                        laststation: $(this).parent().prev().prev().find("tr").eq(1).find("td").eq(5).children().val(),
+                        status: $(this).parent().prev().prev().find("tr").eq(1).find("td").eq(6).children().val(),
+                        changetime: $(this).parent().prev().prev().find("tr").eq(1).find("td").eq(7).children().val(),
+                        modelid: $(this).parent().prev().prev().find("tr").eq(1).find("td").eq(8).children().val(),
+                    }, success: function (result) {
+                        if (result == true) {
                             alert("修改成功")
                             location.reload();
-                        }else{
+                        } else {
                             alert("修改失败")
                         }
                     }
@@ -48,63 +117,8 @@
 <body>
 <div >
     <div >
-        <script>
-            $(function () {
-                //请求获取所有车次信息数据
-             $.ajax({
-              url:"http://localhost:8080/backstage/get_trainInfo",
-              type:'post',
-              dataType:"json",
-              success:function (list) {
-                  traininfo.train=list;
-              }
-             })
-                //绑定 修改按下后 获取下拉复选的选项
-                var getInfo =new Vue({
-                    el:"#alter_train",
-                    data:{
-                        cityList:{},
-                        train_model:{},
-                        init:{},
-                    },
-                    methods:{
-
-                    }
-                });
-                    //显示 获取的所有车次信息
-                var traininfo=new Vue({
-                    el:"#trainInfo",
-                    data:{
-                        train:{},
-                    },
-                    methods:{
-                        alter:function (index) {
-                            getInfo.init=traininfo.train[index];
-
-                            $(".alter_info").css("display","inline");
-                            $.ajax({
-                                url:"http://localhost:8080/api/city/getAllcity",
-                                type:"post",
-                                dataType:"json",
-                                success:function (city) {
-                                    getInfo.cityList=city;
-                                }
-                            });
-                            $.ajax({
-                                url:"http://localhost:8080/backstage/get_trainmodel",
-                                type:"post",
-                                dataType:"json",
-                                success:function (train) {
-                                    getInfo.train=train;
-                                }
-                            });
-                        }
-                    }
-                })
-        })
-        </script>
         <h2>车次信息</h2>
-        <table border="1" align="center" width="100%" id="trainInfo">
+        <table border="1" align="center" width="100%" id="trainInf">
             <tr>
                 <th>ID</th><th>列车车次</th><th>时间</th><th>停站数</th><th>起点站</th><th>终点站</th><th>运行状态</th><th>延迟时间</th><th>列车ID</th><th>操作</th>
             </tr>
@@ -118,7 +132,7 @@
                 <td>{{t.status}}</td>
                 <td>{{t.changetime}}</td>
                 <td>{{t.modelid}}</td>
-                <td><a href="#"  class="alter" v-on:click="alter(index)">修改</a> | <a href="#" class="delete">删除</a></td>
+                <td><a href="#"  class="alter" v-on:click="alter(index)">修改</a> | <a href="#" class="delete" v-on:click="delet(index)">删除</a></td>
             </tr>
         </table>
         <tr>
@@ -139,11 +153,9 @@
             <td><input type="date" :value="init.day"></td>
             <td><input type="text" :value="init.stopnumber" size="1"></td>
             <td><select name="start_station" size="1" :value="init.firststation">
-                <option :value="init.firststation"></option>
                 <option v-for="(city,index) in cityList" :value="city.id">{{city.name}}</option>
                </select></td>
-            <td><select name="end_station" size="1" :value="init.laststation">
-                <option></option>
+            <td><select name="end_station" size="1" :value="init.laststation" >
                 <option v-for="city in cityList" :value="city.id">{{city.name}}</option>
                 </select></td>
             <td><select name="later" :value="init.status">
@@ -154,7 +166,7 @@
                 </select></td>
             <td><input type="text" size="1" :value="init.changetime"></td>
             <td><select :value="init.modelid">
-                <option v-for="train_ in train">{{train_.id}}</option>
+                <option v-for="train_ in train_model">{{train_.id}}</option>
                 </select></td>
         </tr>
     </table>

@@ -5,7 +5,6 @@
     <title>添加</title>
     <style type="text/css">
         table {margin-top: 30px;width: 100%;}
-        .submit {float: right}
         .clear{float: right}
         tr td {text-align: left;}
     </style>
@@ -13,10 +12,15 @@
     <script src="../../js/vue.js"></script>
 </head>
 <body>
+<div class="add">
 <div style="font-size: 20px" class="one"><b>添加运行图信息：</b></div>
 <form >
-    <table id="train"><caption><b>列车运行信息添加:</b></caption>
-        <tr><td>车次:</td><td><input type="text"></td><td>列车ID:</td><td><input type="name"></td></tr>
+    <table ><caption><b>列车运行信息添加:</b></caption>
+        <tr><td>车次:</td><td><input type="text"></td>
+            <td>列车ID:</td><td><select size="1">
+                <option></option>
+                <option value="train.id" v-for="train in trainList">{{train.name}}</option>
+            </select></td></tr>
             <td>始发站:</td><td><select name="start_station" size="1">
                 <option></option>
                 <option v-for="city in cityList" >{{city.name}}</option>
@@ -29,10 +33,10 @@
         <tr><td>停站数：</td><td><input type="text"></td></tr>
         <tr><td>-----------------</td><td>-------------------------</td><td>------------------------</td><td>-------------------------</td></tr>
     </table>
-    <input  style="margin: 20px 10px 0px 0px ;float: right" type="button" value="确认添加" class="submit">
+    <input  style="margin: 20px 10px 0px 0px ;float: right" type="button" value="确认添加" id="add_map">
     <input style="margin: 20px 10px 0px 0px ;float: right" type="button" value="清空" class="clear">
 
-    <table style="width: 100%">
+    <table style="width: 100%" >
         <caption><b>经停城市信息添加</b></caption>
         <tr><td>车次id:</td><td><input type="text"></td></tr>
         <tr><td>经停城市：</td><td><select name="start_station" size="1">
@@ -43,17 +47,19 @@
         <tr><td>停留时间：</td><td><input type="text"></td><td>离开时间：</td><td><input type="text"></td></tr>
         <tr><td>该车次的第：</td><td><input type="text" size="1px">站</td><td>检票口：</td><td><input type="text"></td></tr>
         </table>
-    <input  style="margin: 20px 10px 0px 0px ;float: right" type="button" value="确认添加" class="submit">
+    <input  style="margin: 20px 10px 0px 0px ;float: right" type="button" id="add_city"value="确认添加" >
     <input style="margin: 20px 10px 0px 0px ;float: right" type="button" value="清空" class="clear">
 </form>
+</div>
 </body>
 
 <script>
     $(function () {
-        var getCity=new Vue({
-            el:"#train",
+        var getinfo=new Vue({
+            el:".add",
             data:{
                 cityList:{},
+                trainList:{},
             }
         })
         $.ajax({
@@ -61,14 +67,26 @@
             type:"post",
             dataType:"json",
             success:function (city) {
-                getCity.cityList=city;
+                getinfo.cityList=city;
             }
         })
+        //获取火车列表
+        $.ajax({
+            url: "http://localhost:8080/backstage/get_trainmodel",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                getinfo.trainList = data;
+            }
+        });
         $(".clear").click(function () {
             window.location.reload();
         })
-        $(".submit").click(function () {
+        $("#add_city").click(function () {
             alert("yes");
+        })
+        $("#add_map").click(function () {
+            alert("map");
         })
     })
 </script>

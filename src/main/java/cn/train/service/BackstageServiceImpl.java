@@ -82,5 +82,11 @@ public class BackstageServiceImpl implements BackstageService {
         return false;
     }
 
+    @Override
+    public boolean del_train(int id) {
+        return  trainInfoMapper.deleteByPrimaryKey(id)==1?true:false;
+
+    }
+
 
 }
