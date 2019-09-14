@@ -9,92 +9,88 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class BackstageController {
     @Autowired
     UserService userService;
     @Autowired
     BackstageService backstageService;
-    //运行图信息
+//******运行图信息
+    //加 路线信息
     @RequestMapping("backstage/get_maptrain")
-    @ResponseBody   //加 路线信息
     public List<MapTrainInfo> get_maptrain(){
         return backstageService.get_maptrain();
     }
+    //加 路线信息
     @RequestMapping("backstage/add_running")
-    @ResponseBody   //加 路线信息
     public boolean add_running(MapTrainInfo mapTrainInfo){
         return backstageService.add_running(mapTrainInfo)?true:false;
     }
+    //加 城市经停信息
     @RequestMapping("backstage/add_stopcity")
-    @ResponseBody   //加 城市经停信息
     public boolean add_stopcity(MapStopInfo mapStopInfo){
        return backstageService.add_stopcity(mapStopInfo)?true:false;
     }
-    //用户信息
+//*******用户信息
     @RequestMapping("/backstage/add_UserInfo")
-    @ResponseBody
     public int add_UserInfo(UserInfo userInfo) {
         return userService.Userregsiter(userInfo);
     }
 
     @RequestMapping("/backstage/get_AllUser")
-    @ResponseBody
     public List<UserInfo> get_AllUser() {
         return userService.Get_AllUser();
     }
 
     @RequestMapping("/backstage/del_user")
-    @ResponseBody
     public boolean del_user(int id) {
         return backstageService.del_user(id);
     }
 
     @RequestMapping("/backstage/alter_UserInfo")
-    @ResponseBody
     public boolean alter_UserInfo(UserInfo userInfo) {
         return backstageService.alter_UserInfo(userInfo);
     }
     @RequestMapping("/backstage/select_contact")
-    @ResponseBody
     public List<ContactInfo> select_contact(int id) {
         return backstageService.Get_AllContact(id);
     }
 
-    //车次信息管理部分
+//*********车次信息管理部分
+    //添加一条车次信息
     @RequestMapping("/backstage/add_trainInfo")
-    @ResponseBody   //添加一条车次信息
     public boolean add_trainInfo(TrainInfo trainInfo){
        return backstageService.add_trainInfo(trainInfo);
     }
+    //修改一条车次信息
     @RequestMapping("/backstage/alter_trainInfo")
-    @ResponseBody   //修改一条车次信息
     public boolean alter_trainInfo(TrainInfo trainInfo){
         return backstageService.alter_train(trainInfo);
     }
+    //删除一条 车次 信息
     @RequestMapping("/backstage/del_trainInfo")
-    @ResponseBody  //删除一条 车次 信息
     public boolean del_trainInfo(int id){
         backstageService.del_train(id);
         return true;
     }
+    //获取所有 车次
     @RequestMapping("/backstage/get_trainInfo")
-    @ResponseBody    //获取所有 车次
     public List<TrainInfo> get_trainInfo(){
         return backstageService.get_train();
     }
 
-    //火车信息
+//**********火车信息
+    //添加一辆 火车
     @RequestMapping("/backstage/add_train")
-    @ResponseBody   //添加一辆 火车
     public boolean add_train(TrainModel trainModel){
         return backstageService.add_train(trainModel);
     }
+    //获取 所有 火车 的信息 id ，name
     @RequestMapping("/backstage/get_trainmodel")
-    @ResponseBody   //获取 所有 火车 的信息 id ，name
     public List<TrainModel> get_trainmodel(){
         return backstageService.get_trainmodel();
     }
