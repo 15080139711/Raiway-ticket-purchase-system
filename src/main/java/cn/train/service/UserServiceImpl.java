@@ -37,7 +37,6 @@ public class UserServiceImpl implements UserService {
         return 1;
     }
 
-
     @Override
     public int Userregsiter(UserInfo userInfo) {
         int n = 0;
@@ -139,6 +138,11 @@ public class UserServiceImpl implements UserService {
             temp = -2;
         }
         return temp;
+    }
+
+    @Override
+    public List<ContactInfo> getCotactByUserid(int userid) {
+        return contactInfoMapper.getCotactByUserid(userid);
     }
 
 

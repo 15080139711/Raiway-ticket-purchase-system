@@ -3,17 +3,17 @@ package cn.train.enity;
 public class UnsoldTicket {
     private Integer id;
 
-    //private Integer trainid;
+    private Integer trainid;
 
     private TrainInfo trainInfo;
 
-    //private Integer fromstopid;
+    private Integer fromstopid;
 
     private StopInfo fromstop;
 
     private StopInfo tostop;
 
-    //private Integer tostopid;
+    private Integer tostopid;
 
     private Float price;
 
@@ -37,15 +37,42 @@ public class UnsoldTicket {
     public String toString() {
         return "UnsoldTicket{" +
                 "id=" + id +
+                ", trainid=" + trainid +
                 ", trainInfo=" + trainInfo +
+                ", fromstopid=" + fromstopid +
                 ", fromstop=" + fromstop +
                 ", tostop=" + tostop +
+                ", tostopid=" + tostopid +
                 ", price=" + price +
                 ", seatnumber='" + seatnumber + '\'' +
                 ", rownumber='" + rownumber + '\'' +
                 ", carnumber='" + carnumber + '\'' +
                 ", seatlevel=" + seatlevel +
                 '}';
+    }
+
+    public Integer getTrainid() {
+        return trainid;
+    }
+
+    public void setTrainid(Integer trainid) {
+        this.trainid = trainid;
+    }
+
+    public Integer getFromstopid() {
+        return fromstopid;
+    }
+
+    public void setFromstopid(Integer fromstopid) {
+        this.fromstopid = fromstopid;
+    }
+
+    public Integer getTostopid() {
+        return tostopid;
+    }
+
+    public void setTostopid(Integer tostopid) {
+        this.tostopid = tostopid;
     }
 
     public StopInfo getFromstop() {

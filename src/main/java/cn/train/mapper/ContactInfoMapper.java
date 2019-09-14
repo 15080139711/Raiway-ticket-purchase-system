@@ -3,6 +3,8 @@ package cn.train.mapper;
 import cn.train.enity.ContactInfo;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ContactInfoMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,4 +18,6 @@ public interface ContactInfoMapper {
     int updateByPrimaryKeySelective(ContactInfo record);
 
     int updateByPrimaryKey(ContactInfo record);
+
+    List<ContactInfo> getCotactByUserid(Integer userid);
 }

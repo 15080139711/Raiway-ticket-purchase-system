@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.train.mapper.UnsoldTicketMapper">
-  <resultMap id="BaseResultMap" type="cn.train.enity.UnsoldTicket">
+  <resultMap id="UnsoldTicketResultMap" type="cn.train.enity.UnsoldTicket">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="trainid" jdbcType="INTEGER" property="trainid" />
     <result column="fromstopid" jdbcType="INTEGER" property="fromstopid" />
@@ -15,7 +15,13 @@
   <sql id="Base_Column_List">
     id, trainid, fromstopid, tostopid, price, seatnumber, rownumber, carnumber, seatlevel
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  
+  <select id="getUnsoldTicketByTrainid" parameterType="java.lang.Integer" resultMap="UnsoldTicketResultMap">
+    select * from UnsoldTicket where trainid = #{trainid,jdbcType=INTEGER};
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="UnsoldTicketResultMap">
     select 
     <include refid="Base_Column_List" />
     from UnsoldTicket
