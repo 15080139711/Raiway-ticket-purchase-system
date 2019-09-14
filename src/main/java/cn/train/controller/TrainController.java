@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class traincontroller {
+public class TrainController {
 
     @Autowired
     TicketService ticketService;
@@ -21,5 +21,6 @@ public class traincontroller {
     public List<UnsoldTicket> SingleSearch(@RequestBody Search search){
         return ticketService.SingleSearch(search);
     }
+
 
 }
