@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-cn" xmlns:v-for="http://www.w3.org/1999/xhtml" xmlns:v-blind="http://www.w3.org/1999/xhtml"
+      xmlns:v-model="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>添加</title>
@@ -7,36 +8,118 @@
         table {margin-top: 30px;width: 100%;}
         .submit {float: right}
         .clear{float: right}
-        tr td {text-align: center;}
+        tr td {text-align: left;}
     </style>
-    <script src="../../js/jquery-3.4.1.min.js">
-    </script>
+    <script src="../../js/jquery-3.4.1.min.js"></script>
+    <script src="../../js/vue.js"></script>
 </head>
 <body>
-<div style="font-size: 20px" class="one"><b>添加用户信息：</b></div>
+<div style="font-size: 20px" class="one"><b>添加列车信息：</b></div>
 <form >
-    <table >
-        <th>属性</th><th>请填写信息</th><th>属性</th><th>请填写信息</th>
-        <tr><td>ID:</td><td><input type="text"></td><td>姓名:</td><td><input type="text"></td></tr>
-        <tr><td>登录名:</td><td><input type="text"></td><td>密码:</td><td><input type="password"></td></tr>
-        <tr><td>身份证号码:</td><td><input type="text"></td><td>电子邮箱:</td><td><input type="email"></td></tr>
-        <tr><td>电话号码:</td><td><input type="text"></td><td>乘客类型:</td><td><input type="text"></td></tr>
-    </table>
+    <table id="train"><caption><b>列车车次信息添加:(所有行信息都不可空)</b></caption>
+        <tr><td>车次的ID(可空):</td><td><input type="text" size="5"></td><td>日期:</td><td><input type="date"size="3"></td><td>过站数量:</td><td><input type="text"size="7"></td></tr>
+        <tr><td>车次名:</td><td><input type="text"size="5"></td>
+
+            <td>始发站:</td><td><select name="start_station" size="1">
+                <option></option>
+                <option v-for="(city,index) in cityList" :value="city.id">{{city.name}}</option>
+                                                   </select></td>
+            <td>终点站:</td><td><select name="end_station" size="1">
+                                <option></option>
+                                <option v-for="city in cityList" :value="city.id">{{city.name}}</option>
+                                </select></td>
+        </tr>
+        <tr><td>正(晚)点:</td><td><select name="later"size="1">
+            <option ></option>
+            <option value=1>正点</option>
+            <option value=2>晚点</option>
+            <option value=3>取消</option>
+        </select></td><td>分钟数:</td><td><input type="text"size="7"></td><td>火车ID:</td><td><select>
+            <option v-for="train_ in train">{{train_.id}}</option>
+        </select></td>
+        </tr>
+       </table>
     <input  style="margin: 20px 10px 0px 0px ;float: right" type="button" value="确认添加" class="submit">
     <input style="margin: 20px 10px 0px 0px ;float: right" type="button" value="清空" class="clear">
 </form>
+    <table style="width: 100%" border="1">
+        <caption><b>添加列车</b></caption>
+    <tr><td>添加列车ID(可空)：</td><td><input type="text"></td><td> 添加列车名：</td><td><input type="text"></td><td><input type="button" value="确认添加列车"></td></tr>
+    </table>
 </body>
 
 <script>
     $(function () {
-        $(".clear").click(function () {
-            for(var i=1;i<5;i++) {
-                $(this).prev().prev().find("tr").eq(i).find("td").eq(1).find("input").val("");
-                $(this).prev().prev().find("tr").eq(i).find("td").eq(3).find("input").val("");
+        var getInfo =new Vue({
+            el:"#train",
+            data:{
+                cityList:{},
+                train_model:{},
             }
+        });
+        $.ajax({
+            url:"http://localhost:8080/api/city/getAllcity",
+            type:"post",
+            dataType:"json",
+            success:function (city) {
+                getInfo.cityList=city;
+            }
+        });
+        $.ajax({
+            url:"http://localhost:8080/backstage/get_trainmodel",
+            type:"post",
+            dataType:"json",
+            success:function (train) {
+                getInfo.train=train;
+            }
+        });
+        $(".clear").click(function () {
+            window.location.reload();
         })
         $(".submit").click(function () {
-            alert("yes");
+         $.ajax({
+                url:"http://localhost:8080/backstage/add_trainInfo",
+                type:"post",
+                dataType:"json",
+                data:{
+                    id:$(this).prev().find("tr").eq(0).find("td").eq(1).children().val(),
+                    day:$(this).prev().find("tr").eq(0).find("td").eq(3).children().val(),
+                    stopnumber:$(this).prev().find("tr").eq(0).find("td").eq(5).children().val(),
+                    number:$(this).prev().find("tr").eq(1).find("td").eq(1).children().val(),
+                    firststation:$(this).prev().find("tr").eq(1).find("td").eq(3).children().val(),
+                    laststation:$(this).prev().find("tr").eq(1).find("td").eq(5).children().val(),
+                    status:$(this).prev().find("tr").eq(2).find("td").eq(1).children().val(),
+                    changetime:$(this).prev().find("tr").eq(2).find("td").eq(3).children().val(),
+                    modelid:$(this).prev().find("tr").eq(2).find("td").eq(5).children().val(),
+                },success:function (result) {
+                    alert(result);
+                    if(result==true){
+                        alert("插入成功")
+                    }else{
+                        alert("插入失败")
+                    }
+                }
+            })
+        })
+        $("input[value='确认添加列车']").click(function () {
+            alert($(this).parent().prev().prev().prev().children().val());
+            $.ajax({
+                url:"http://localhost:8080/backstage/add_train",
+                type:"post",
+                dataType:"json",
+                data:{
+                    id:$(this).parent().prev().prev().prev().children().val(),
+                    name:$(this).parent().prev().children().val()
+                }
+                ,success:function (result) {
+                    if(result==true){
+                        alert("添加成功")
+                    }else{
+                        alert("添加失败")
+                    }
+                }
+
+            })
         })
     })
 </script>

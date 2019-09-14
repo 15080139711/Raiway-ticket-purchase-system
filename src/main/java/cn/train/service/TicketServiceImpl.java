@@ -1,10 +1,7 @@
 package cn.train.service;
 
 import cn.train.enity.*;
-import cn.train.mapper.CityInfoMapper;
-import cn.train.mapper.MapCityInfoMapper;
-import cn.train.mapper.StopInfoMapper;
-import cn.train.mapper.TrainInfoMapper;
+import cn.train.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +22,8 @@ public class TicketServiceImpl implements TicketService {
     CityInfoMapper cityInfoMapper;
     @Autowired
     MapCityInfoMapper mapCityInfoMapper;
+    @Autowired
+    UnsoldTicketMapper unsoldTicketMapper;
 
     public float CalculatePrice(int[] path,int m,int n){
         System.out.println(path[0]+"-"+path[path.length-1]);
@@ -64,20 +63,17 @@ public class TicketServiceImpl implements TicketService {
         return time;
     }
 
-
     @Override
     public List<UnsoldTicket> SingleSearch(Search search) {
         System.out.println("开始查询车次...");
-        List<TrainInfo> temp = new ArrayList<TrainInfo>();
-        String day = search.getDay1();
-        temp = trainInfoMapper.getTrainByDay(day);
-        System.out.println(temp);
-        System.out.println("开始筛选车次...");
+        List<TrainInfo> temp = trainInfoMapper.getTrainByDay(search.getDay1());
+        System.out.println("开始筛选当日车次...");
         for(int i = 0; i < temp.size(); i++){
+            //该列车经停站信息tmp
             List<StopInfo> tmp = stopInfoMapper.getStopByTrainid(temp.get(i).getId());
-            System.out.println(tmp);
             int m1 = 0,m2 = 0;
             boolean n1 = false,n2 = false;
+            //判断该列车是否经过两个城市，m、n表示列车的站数
             for(int j = 0; j < tmp.size(); j++){
                 if(tmp.get(j).getCityid() == search.getCityid1()){
                     n1 = true;
@@ -93,16 +89,22 @@ public class TicketServiceImpl implements TicketService {
                 i--;
             }
         }
+        //上面得到的信息List temp是经过两个站的所有列车的信息
         System.out.println("查询完成！结果如下：");
         System.out.println(temp);
-        //开始生成回传的数据
+        //下面开始生成回传的数据
         List<UnsoldTicket> tickets = new ArrayList<UnsoldTicket>(temp.size());
+        //对每趟列车都生成一个UnsoldTicket型数据
         for(int i = 0; i < temp.size();i++){
             UnsoldTicket ticket = new UnsoldTicket();
+            //该列车的所有停站信息
             List<StopInfo> tmp = stopInfoMapper.getStopByTrainid(temp.get(i).getId());
             int[] path = new int[tmp.size()];
             int m = 0,n = 0;
+            //将所有的经停站的cityid生成一个path数组
             for(int j = 0; j<tmp.size(); j++){
+                //m、n表示要求的城市在数组的索引
+                //m出发站的索引，n到达站的索引
                 path[j] = tmp.get(j).getCityid();
                 if (tmp.get(j).getCityid() == search.getCityid1()){
                     m = j;
@@ -111,37 +113,87 @@ public class TicketServiceImpl implements TicketService {
                 }
             }
             System.out.println(m+" "+n);
+            //计算价格
             float price = CalculatePrice(path,m,n);
             ticket.setPrice(price);
+            //填充两个停站信息
             StopInfo a1 = new StopInfo();
-            CityInfo c1 = new CityInfo();
-            c1.setId(search.getCityid1());
-            c1.setName(cityInfoMapper.getNameByCityid(search.getCityid1()));
-            CityInfo c2 = new CityInfo();
-            c2.setId(search.getCityid2());
-            c2.setName(cityInfoMapper.getNameByCityid(search.getCityid2()));
-            a1.setCityInfo(c1);
-            a1.setLeave(tmp.get(m).getLeave());
             StopInfo a2 = new StopInfo();
-            a2.setArrive(tmp.get(n).getArrive());
+            for (int j = 0; j<tmp.size();j++){
+                if(tmp.get(j).getCityid() == search.getCityid1()){
+                    a1 = tmp.get(j);
+                }else if (tmp.get(j).getCityid() == search.getCityid2()){
+                    a2 = tmp.get(j);
+                }
+            }
+            //填充经停站的城市信息
+            CityInfo c1 = cityInfoMapper.selectByPrimaryKey(search.getCityid1());
+            CityInfo c2 = cityInfoMapper.selectByPrimaryKey(search.getCityid2());
+            a1.setCityInfo(c1);
             a2.setCityInfo(c2);
-            TrainInfo a3 = new TrainInfo();
-            a3.setNumber(temp.get(i).getNumber());
+//            TrainInfo a3 = new TrainInfo();
+//            a3.setNumber(temp.get(i).getNumber());
             ticket.setFromstop(a1);
             ticket.setTostop(a2);
-            ticket.setTrainInfo(a3);
+            ticket.setTrainInfo(temp.get(i));
 
-            //计算历时
+            //计算并填充历时
             String leave = tmp.get(m).getLeave();
             String arrive = tmp.get(n).getArrive();
             String time = Calculatetime(leave,arrive);
             System.out.println(time);
             ticket.setSeatnumber(time);
 
+            //完成一趟列车数据的填充，添加到返回值的列表中
             System.out.println(ticket);
             tickets.add(ticket);
         }
 
         return tickets;
     }
+
+    @Override
+    public int[] getUnsoldTicketNum(Search search) {
+        System.out.println("查询余票数" + search);
+        //注意：cityid中存储stopid而不是cityid
+        //获取改车次所有余票数据
+        List<UnsoldTicket> tickets = unsoldTicketMapper.getUnsoldTicketByTrainid(search.getTrainid());
+        //获取该车次的所有经停站
+        List<StopInfo> stops = stopInfoMapper.getStopByTrainid(search.getTrainid());
+        //生成路径
+        int[] path = new int[stops.size()];
+        int a,b = 0;
+        boolean m = false;
+        for (int i=0;i<stops.size();i++){
+            path[i] = stops.get(i).getId();
+            if(path[i] == search.getCityid1()){
+                a = i;
+            }else if(path[i] == search.getCityid2()){
+                b = i;
+            }
+        }
+        //筛选车票，剔除不符要求的余票
+        for (int i=0;i<tickets.size();i++){
+            if(!((tickets.get(i).getFromstopid()<=search.getCityid1()) && (tickets.get(i).getFromstopid()>=search.getCityid2()))){
+                tickets.remove(i);
+                i--;
+            }
+        }
+        //计算各类票的数量
+        int[] result = new int[3];
+        result[0] = result[1] =result[2] = 0;
+        for(int i=0;i<tickets.size();i++){
+            if (tickets.get(i).getSeatlevel() == 1){
+                result[0]++;
+            }else if (tickets.get(i).getSeatlevel() == 2){
+                result[1]++;
+            }else if (tickets.get(i).getSeatlevel() == 3){
+                result[2]++;
+            }
+        }
+
+        return result;
+    }
+
+
 }

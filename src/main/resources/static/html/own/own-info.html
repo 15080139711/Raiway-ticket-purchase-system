@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看个人信息</title>
+    <link rel="stylesheet" href="../../css/own-info.css">
+</head>
+<body>
+    <div id="allContent">
+        <div class="content_tit">
+            <div>基本信息</div>
+        </div>
+        <!--      显示  -->
+        <div class="content_view1">
+            <div class="con_view_rows">
+                <div class="view_rows_l">
+                    <span>*</span>
+                    用户名：
+                </div>
+                <div class="view_rows_r">
+                    zkr1207690847
+                </div>
+            </div>
+            <div class="con_view_rows">
+                <div class="view_rows_l">
+                    <span>*</span>
+                    姓名：
+                </div>
+                <div class="view_rows_r">
+                    张三
+                </div>
+            </div>
+            <div class="con_view_rows">
+                <div class="view_rows_l">
+                    <span>*</span>
+                    性别：
+                </div>
+                <div class="view_rows_r">
+                    男
+                </div>
+            </div>
+            <div class="con_view_rows">
+                <div class="view_rows_l">
+                    国家/地区：
+                </div>
+                <div class="view_rows_r">
+                    中国CHINA
+                </div>
+            </div>
+            <div class="con_view_rows">
+                <div class="view_rows_l">
+                    <span>*</span>
+                    证件类型：
+                </div>
+                <div class="view_rows_r">
+                    中国居民身份证
+                </div>
+            </div>
+            <div class="con_view_rows">
+                <div class="view_rows_l">
+                    <span>*</span>
+                    证件号码：
+                </div>
+                <div class="view_rows_r">
+<!--                    3508***********214-->
+<!--                    {{cardId}}-->
+                    {{hideId(cardId)}}
+                </div>
+            </div>
+            <div class="con_view_rows">
+                <div class="view_rows_l">
+                    核验状态：
+                </div>
+                <div class="view_rows_r">
+                    <span style="color:#ff8000;">已通过</span>
+                </div>
+            </div>
+        </div>
+        <div class="content_tit">
+            <div>联系方式</div>
+            <div class="edit1">编辑</div>
+        </div>
+        <!--      显示  -->
+        <div class="content_view2">
+            <div class="con_view_rows">
+                <div class="view_rows_l">
+                    <span>*</span>
+                    手机号：
+                </div>
+                <div class="view_rows_r">
+<!--                    180****5989-->
+                    {{hideTel(telephone)}}
+                    <span style="color:#ff8000;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp已通过核验</span>
+                </div>
+            </div>
+            <div class="con_view_rows">
+                <div class="view_rows_l">
+                    固定电话：
+                </div>
+                <div delay="a" class="view_rows_r" style="display: block"></div>
+                <!--              隐藏的文本框盒子  -->
+                <div class="hide_input_box" style="display: none">
+                    <input type="text" >
+                </div>
+            </div>
+            <div class="con_view_rows">
+                <div class="view_rows_l">
+                    邮箱：
+                </div>
+                <div class="view_rows_r">
+                    1207690847@qq.com    <span style="color:#ff8000;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp已通过核验</span>
+                </div>
+            </div>
+            <div class="con_view_rows">
+                <div class="view_rows_l">
+                    地址：
+                </div>
+                <div delay="a" class="view_rows_r" style="display: block"></div>
+                <div class="hide_input_box" style="display: none">
+                    <input type="text" >
+                </div>
+            </div>
+            <div class="con_view_rows">
+                <div class="view_rows_l">
+                    邮编：
+                </div>
+                <div delay="a" class="view_rows_r" style="display: block"></div>
+                <div class="hide_input_box" style="display: none">
+                    <input type="text" >
+                </div>
+            </div>
+        </div>
+        <div class="content_tit">
+            <div>附加信息</div>
+            <div class="edit2">编辑</div>
+        </div>
+        <!--      显示  -->
+        <div class="content_view3">
+            <div class="con_view_rows">
+                <div class="view_rows_l">
+                    <span>*</span>
+                    旅客类型：
+                </div>
+                <div delay="b" class="view_rows_r" style="display: block">
+                    成人
+                </div>
+                <div  class="hide_input_box2" style="display: none">
+                    <select id="selected">
+                        <option value="成人">成人</option>
+                        <option value="儿童">儿童</option>
+                        <option value="学生">学生</option>
+                        <option value="残疾军人、伤残人民警察">残疾军人、伤残人民警察</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/jquery-3.4.1.min.js"></script>
+    <script src="../../js/vue.min.js"></script>
+    <script>
+        $(function () {
+
+            var vm = new Vue({
+                el:'#allContent',
+                data:{
+                    cardId:"350823199709184214",
+                    telephone:"18030255989",
+                },
+                methods:{
+                    hideId:function (cardId) {
+                        if (cardId.length == 18){
+                            return cardId.replace(/(\d{4})\d{11}(\d{3})/,"$1***********$2") ;
+                        }
+                    },
+                    hideTel:function (telephone) {
+                        if (telephone.length == 11){
+                            return telephone.replace(/(\d{3})\d{4}(\d{4})/,"$1****$2") ;
+                        }
+                    }
+                }
+            })
+
+            //点击编辑显示修改文本框
+            $(".edit1").click(function () {
+                if ($(this).text() == "编辑"){
+                    $(this).text("保存");
+                    $(this).css("background","#ff8000");
+                    $(".hide_input_box").css("display","block");
+                    $("[delay='a']").css("display","none");
+                }else{
+                    $(this).text("编辑");
+                    $(this).css("background","#ffffff")
+                    $(".hide_input_box").css("display","none");
+                    $("[delay='a']").css("display","block");
+                }
+            })
+            $(".edit2").click(function () {
+                if ($(this).text() == "编辑"){
+                    $(this).text("保存");
+                    $(this).css("background","#ff8000");
+                    $(".hide_input_box2").css("display","block");
+                    $("[delay='b']").css("display","none");
+                }else{
+                    $(this).text("编辑");
+                    $(this).css("background","#ffffff")
+                    $(".hide_input_box2").css("display","none");
+                    $("[delay='b']").css("display","block");
+                }
+            })
+            //点击保存，文本框和选择列表修改为对应的
+            $(".hide_input_box input").change(function () {
+                var a = $(this).val();
+                if ($(".edit1").text() == "保存"){
+                    $(this).parent().prev().text(a);
+                }
+            })
+            $("#selected").change(function () {
+                var b = $(this).val();
+                if ($(".edit2").text() == "保存"){
+                    $(this).parent().prev().text(b);
+                }
+            })
+        //    ajax部分
+            $.ajax({
+                url:"http://127.0.0.1:8080/api/user/getInfo",
+                type:"post",
+                dataType:"json",
+                // contentType:'application/json;charset=UTF-8',
+                data:{
+                   id:"1"
+                },
+                // data:JSON.stringify(a),
+                success:function (data) {
+                    alert(data);
+                }
+            })
+
+        })
+    </script>
+</body>
+</html>

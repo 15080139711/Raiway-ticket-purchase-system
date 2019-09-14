@@ -21,7 +21,8 @@
     <tr><td>登陆名:</td><td><input type="text"></td><td>密码:</td><td><input type="password"></td></tr>
     <tr><td>身份证号码:</td><td><input type="text"></td><td>电子邮箱:</td><td><input type="email"></td></tr>
     <tr><td>电话号码:</td><td><input type="text"></td><td>乘客类型:</td><td><input type="text"></td></tr>
-    <tr><td>性别:</td><td><input type="text"></td><td>折扣:</td><td><input type="text"></td></tr>
+    <tr><td>性别:</td><td><input type="text"></td><td>学生优惠卡号:</td><td><input type="text"></td></tr>
+    <tr><td>用户状态:</td><td><input type="text"></td></tr>
   </table>
   <input  style="margin: 20px 10px 0px 0px ;float: right" type="button" value="确认添加" class="submit">
   <input style="margin: 20px 10px 0px 0px ;float: right" type="button" value="清空" class="clear">
@@ -31,15 +32,15 @@
 <script>
   $(function () {
     $(".clear").click(function () {
-      for(var i=1;i<5;i++) {
+      for(var i=1;i<=5;i++) {
               $(this).prev().prev().find("tr").eq(i).find("td").eq(1).find("input").val("");
               $(this).prev().prev().find("tr").eq(i).find("td").eq(3).find("input").val("");
       }
+      $(this).prev().prev().find("tr").eq(6).find("td").eq(1).find("input").val("");
     })
     $(".submit").click(function () {
-      alert("yes");
       $.ajax({
-        url:"http://localhost:8080/add_UserInfo",
+        url:"http://localhost:8080/backstage/add_UserInfo",
         type:"post",
         dataType:"json",
         data:{
@@ -53,15 +54,17 @@
           traveltype:$(this).prev().find("tr").eq(4).find("td").eq(3).find("input").val(),
           sex:$(this).prev().find("tr").eq(5).find("td").eq(1).find("input").val(),
           discountnumber:$(this).prev().find("tr").eq(5).find("td").eq(3).find("input").val(),
+          status:$(this).prev().find("tr").eq(6).find("td").eq(1).find("input").val(),
         },
         success:function (data) {
-          alert(data);
-          if(data.eq(true)){
-            alert("添加成功！！");
+          if(data==-1){
+            alert("用户已经被注册！！")
+          }else if(data==-2){
+        alert("联系人信息插入出现错误！")
           }else{
-            alert("添加失败！！");
+              alert("添加成功！！");
+            }
           }
-        }
       })
     })
   })

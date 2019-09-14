@@ -1,8 +1,11 @@
 package cn.train.mapper;
 
 import cn.train.enity.MapStopInfo;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface MapStopInfoMapper {
+    int insert_H (MapStopInfo mapStopInfo);
     int deleteByPrimaryKey(Integer id);
 
     int insert(MapStopInfo record);

@@ -1,8 +1,13 @@
 package cn.train.mapper;
 
 import cn.train.enity.TrainModel;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface TrainModelMapper {
+    List<TrainModel>getAll();
     int deleteByPrimaryKey(Integer id);
 
     int insert(TrainModel record);
