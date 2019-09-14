@@ -21,4 +21,6 @@ public interface ContactInfoMapper {
     int updateByPrimaryKeySelective(ContactInfo record);
 
     int updateByPrimaryKey(ContactInfo record);
+
+    List<ContactInfo> getCotactByUserid(Integer userid);
 }

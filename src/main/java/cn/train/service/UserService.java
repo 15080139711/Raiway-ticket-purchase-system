@@ -16,4 +16,6 @@ public interface UserService {
 
     UserInfo getInfo(int id);
     int UserActivate(UserInfo userInfo);
+
+    List<ContactInfo> getCotactByUserid(int userid);
 }

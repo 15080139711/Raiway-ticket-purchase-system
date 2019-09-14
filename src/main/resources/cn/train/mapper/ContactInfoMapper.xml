@@ -25,6 +25,12 @@
     select * from ContactInfo where userid=#{userid,jdbcType=INTEGER}
   </select>
 
+
+  <select id="getCotactByUserid" parameterType="java.lang.Integer" resultMap="ContactInfoResultMap">
+    select * from ContactInfo where userid = #{userid,jdbcType=INTEGER};
+  </select>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ContactInfoResultMap">
     select 
     <include refid="Base_Column_List" />

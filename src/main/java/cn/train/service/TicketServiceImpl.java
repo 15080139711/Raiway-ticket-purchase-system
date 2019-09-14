@@ -1,10 +1,7 @@
 package cn.train.service;
 
 import cn.train.enity.*;
-import cn.train.mapper.CityInfoMapper;
-import cn.train.mapper.MapCityInfoMapper;
-import cn.train.mapper.StopInfoMapper;
-import cn.train.mapper.TrainInfoMapper;
+import cn.train.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +22,8 @@ public class TicketServiceImpl implements TicketService {
     CityInfoMapper cityInfoMapper;
     @Autowired
     MapCityInfoMapper mapCityInfoMapper;
+    @Autowired
+    UnsoldTicketMapper unsoldTicketMapper;
 
     public float CalculatePrice(int[] path,int m,int n){
         System.out.println(path[0]+"-"+path[path.length-1]);
@@ -63,7 +62,6 @@ public class TicketServiceImpl implements TicketService {
         System.out.println("历时："+ time);
         return time;
     }
-
 
     @Override
     public List<UnsoldTicket> SingleSearch(Search search) {
@@ -153,4 +151,49 @@ public class TicketServiceImpl implements TicketService {
 
         return tickets;
     }
+
+    @Override
+    public int[] getUnsoldTicketNum(Search search) {
+        System.out.println("查询余票数" + search);
+        //注意：cityid中存储stopid而不是cityid
+        //获取改车次所有余票数据
+        List<UnsoldTicket> tickets = unsoldTicketMapper.getUnsoldTicketByTrainid(search.getTrainid());
+        //获取该车次的所有经停站
+        List<StopInfo> stops = stopInfoMapper.getStopByTrainid(search.getTrainid());
+        //生成路径
+        int[] path = new int[stops.size()];
+        int a,b = 0;
+        boolean m = false;
+        for (int i=0;i<stops.size();i++){
+            path[i] = stops.get(i).getId();
+            if(path[i] == search.getCityid1()){
+                a = i;
+            }else if(path[i] == search.getCityid2()){
+                b = i;
+            }
+        }
+        //筛选车票，剔除不符要求的余票
+        for (int i=0;i<tickets.size();i++){
+            if(!((tickets.get(i).getFromstopid()<=search.getCityid1()) && (tickets.get(i).getFromstopid()>=search.getCityid2()))){
+                tickets.remove(i);
+                i--;
+            }
+        }
+        //计算各类票的数量
+        int[] result = new int[3];
+        result[0] = result[1] =result[2] = 0;
+        for(int i=0;i<tickets.size();i++){
+            if (tickets.get(i).getSeatlevel() == 1){
+                result[0]++;
+            }else if (tickets.get(i).getSeatlevel() == 2){
+                result[1]++;
+            }else if (tickets.get(i).getSeatlevel() == 3){
+                result[2]++;
+            }
+        }
+
+        return result;
+    }
+
+
 }

@@ -11,4 +11,6 @@ public interface TicketService {
 
     List<UnsoldTicket> SingleSearch(Search search);
 
+    int[] getUnsoldTicketNum(Search search);
+
 }
