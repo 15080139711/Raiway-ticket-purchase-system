@@ -19,16 +19,16 @@
         <tr><td>车次:</td><td><input type="text"></td>
             <td>列车ID:</td><td><select size="1">
                 <option></option>
-                <option value="train.id" v-for="train in trainList">{{train.name}}</option>
+                <option  v-for="train in trainList" :value="train.id">{{train.name}}</option>
             </select></td></tr>
         <tr>
             <td>始发站:</td><td><select name="start_station" size="1">
                 <option></option>
-                <option v-for="city in cityList" v-blind:value="city.id">{{city.name}}</option>
+                <option v-for="city in cityList" :value="city.id">{{city.name}}</option>
             </select></td>
             <td>终点站:</td><td><select name="end_station" size="1">
                 <option></option>
-                <option v-for="city in cityList"v-blind:value="city.id">{{city.name}}</option>
+                <option v-for="city in cityList" :value="city.id">{{city.name}}</option>
             </select></td>
         </tr>
         <tr><td>停站数：</td><td><input type="text"></td></tr>
@@ -101,8 +101,12 @@
         $("#add_map").click(function () {
             alert("map");
             alert($(this).prev().find("tr").eq(0).find("td").eq(1).children().val());
+            alert($(this).prev().find("tr").eq(0).find("td").eq(3).children().val());
+            alert($(this).prev().find("tr").eq(1).find("td").eq(1).children().val());
+            alert($(this).prev().find("tr").eq(1).find("td").eq(3).children().val());
+            alert($(this).prev().find("tr").eq(2).find("td").eq(1).children().val());
             $.ajax({
-                url:"http://localhost8080/backstage/add_running",
+                url:"http://localhost:8080/backstage/add_running",
                 type:"post",
                 dataType:"json",
                 data:{
@@ -142,7 +146,7 @@
                     arrive:$(this).prev().find("tr").eq(1).find("td").eq(1).children().val(),
                     parktime:$(this).prev().find("tr").eq(1).find("td").eq(3).children().val(),
                     leave:$(this).prev().find("tr").eq(2).find("td").eq(1).children().val(),
-                    number:$(this).prev().find("tr").eq(2).find("td").eq(3).children().val(),
+                    number_:$(this).prev().find("tr").eq(2).find("td").eq(3).children().val(),
                     ticketgate:$(this).prev().find("tr").eq(3).find("td").eq(1).children().val(),
                 },
                 success:function (result) {

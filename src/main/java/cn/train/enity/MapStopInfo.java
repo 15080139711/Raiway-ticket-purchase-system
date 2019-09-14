@@ -11,7 +11,7 @@ public class MapStopInfo {
 
     private String leave;
 
-    private Integer number;
+    private Integer number_ ;
 
     private Integer trainid;
 
@@ -58,11 +58,11 @@ public class MapStopInfo {
     }
 
     public Integer getNumber() {
-        return number;
+        return number_ ;
     }
 
     public void setNumber(Integer number) {
-        this.number = number;
+        this.number_  = number;
     }
 
     public Integer getTrainid() {

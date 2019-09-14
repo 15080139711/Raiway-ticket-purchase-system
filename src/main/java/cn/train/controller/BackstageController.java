@@ -20,7 +20,7 @@ public class BackstageController {
     @Autowired
     BackstageService backstageService;
 //******运行图信息
-    //加 路线信息
+    //获取 路线信息
     @RequestMapping("backstage/get_maptrain")
     public List<MapTrainInfo> get_maptrain(){
         return backstageService.get_maptrain();
@@ -85,8 +85,8 @@ public class BackstageController {
 
 //**********火车信息
     //添加一辆 火车
-    @RequestMapping("/backstage/add_train")
-    public boolean add_train(TrainModel trainModel){
+    @RequestMapping("/backstage/add_trainmodel")
+    public boolean add_trainmodel(TrainModel trainModel){
         return backstageService.add_train(trainModel);
     }
     //获取 所有 火车 的信息 id ，name
@@ -94,6 +94,21 @@ public class BackstageController {
     public List<TrainModel> get_trainmodel(){
         return backstageService.get_trainmodel();
     }
-
+//**********车票信息
+    //已售出的
+    @RequestMapping("/backstage/get_soldticket")
+    public List<SoldTicket>get_soldticket(){
+        return backstageService.get_soldticket();
+    }
+    //未售出的
+    @RequestMapping("/backstage/get_unsoldticket")
+    public List<UnsoldTicket>get_unsoldticket(){
+        return backstageService.get_unsoldticket();
+    }
+//**********路线图
+ @RequestMapping("backstage/get_mapcity")
+    public List<MapCityInfo>get_mapcity(){
+        return backstageService.get_mapcity();
+ }
 }
 

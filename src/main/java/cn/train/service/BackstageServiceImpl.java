@@ -21,6 +21,22 @@ public class BackstageServiceImpl implements BackstageService {
     MapStopInfoMapper mapStopInfoMapper;
     @Autowired
     MapTrainInfoMapper mapTrainInfoMapper;
+    @Autowired
+    SoldTicketMapper soldTicketMapper;
+    @Autowired
+    UnsoldTicketMapper unsoldTicketMapper;
+    @Autowired
+    MapCityInfoMapper mapCityInfoMapper;
+
+    @Override
+    public List<SoldTicket> get_soldticket() {
+        return soldTicketMapper.getAll() ;
+    }
+
+    @Override
+    public List<UnsoldTicket> get_unsoldticket() {
+        return unsoldTicketMapper.getAll();
+    }
 
     @Override
     public List<MapTrainInfo> get_maptrain() {
@@ -34,7 +50,7 @@ public class BackstageServiceImpl implements BackstageService {
 
     @Override
     public boolean add_stopcity(MapStopInfo mapStopInfo) {
-        return mapStopInfoMapper.insert(mapStopInfo)==1?true:false;
+        return mapStopInfoMapper.insertSelective(mapStopInfo)==1?true:false;
     }
 
     @Override
@@ -87,6 +103,11 @@ public class BackstageServiceImpl implements BackstageService {
     @Override
     public List<TrainModel> get_trainmodel() {
         return trainModelMapper1.getAll();
+    }
+
+    @Override
+    public List<MapCityInfo> get_mapcity() {
+        return mapCityInfoMapper.getAll();
     }
 
     @Override

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:v-blind="http://mybatis.org/schema/mybatis-mapper" xmlns:v-for="http://www.w3.org/1999/xhtml">
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>查看与修改</title>
@@ -7,53 +7,34 @@
         tr td{text-align: center}
         a :hover{ color: red}
     </style>
-    <script src="../../js/jquery-3.4.1.min.js"></script>
-    <script src="../../js/vue.min.js"></script>
+    <script src="../../js/jquery-3.4.1.min.js">
+    </script>
     <script>
         $(function () {
             var getInfo=new Vue({
                 el:'#sold',
                 data:{
-                    mapcityList:{},
-                    cityList:{},
+                    soldList:{},
                 }
-                // ,methods:{
-                //     change:function (index) {
-                //         alert(index);
-                //         // for(var i=1;i<100;i++){
-                //             // if(index==this.cityList[i].id){
-                //             //     alert(i)
-                //             //     return this.cityList[i].name;
-                //             // }
-                //         // }
-                //     }
-                // }
             })
             $.ajax({
-                url:"http://localhost:8080/backstage/get_mapcity",
+                url:"http://localhost:8080/backstage/get_soldticket",
                 type:"post",
                 dataType:"json",
-                success:function (mapcitylist) {
-                    alert(mapcitylist),
-                        getInfo.mapcityList=mapcitylist;
+                success:function (soldList) {
+                    alert(soldList),
+                        getInfo.soldList=soldList;
                 }
-            }),
-                $.ajax({
-                    url:"http://localhost:8080/api/city/getAllcity",
-                    type:"post",
-                    dataType:"json",
-                    success:function (citylist) {
-                        alert(citylist),
-                            getInfo.cityList=citylist;
-                    }
-                }),
-
+            })
             $(".alter").click(function () {
                 $(".alter_info").css("display","inline");
             });
 
             $(".clear").click(function () {
                 alert("no");
+                for(var i=0;i<8;i++) {
+                    $(this).parent().prev().find("tr").eq(1).find("td").eq(i).find("input").val("");
+                }
             })
         })
     </script>
@@ -61,23 +42,23 @@
 <body>
 <div >
     <div >
-        <h2>路线图信息</h2>
+        <h2>已售出车票信息</h2>
         <table border="1" align="center" width="100%" id="sold">
             <tr>
-                <th>ID</th><th>起始城市</th><th>目的城市</th><th>距离</th><th>价格</th><th>操作</th>
+                <th>售出的车票ID</th><th>车次名</th><th>起始站名</th><th>终止站名</th><th>价格</th><th>座位种类</th><th>座位号</th><th>行号</th><th></th><th>身份证号</th><th>车厢号</th><th>联系人姓名</th><th>订单ID</th>
             </tr>
-            <tr v-for="city in mapcityList">
-                <td>{{city.id}}</td>
-<!--                <td>{{change(city.cityid1)}}</td>-->
-<!--                <td><select :value="city.cityid1">-->
-<!--                    <option></option>-->
-<!--                    <option v-for="cityname in cityList">{{cityname.name}}</option>-->
-<!--                </select></td>-->
-<!--                <td>{{change(city.cityid2)}}</td>-->
-                <td>{{city.cityid1)}}</td>
-                <td>{{city.cityid2)}}</td>
-                <td>{{city.distance}}</td>
-                <td>{{city.price}}</td>
+            <tr v-for="ticket in soldList">
+                <td>{{ticket.id}}</td>
+                <td>{{ticket.trainid.name}}</td>
+                <td>{{ticket.fromstopid.name}}</td>
+                <td>{{ticket.tostopid.name}}</td>
+                <td>{{ticket.price}}</td>
+                <td>{{ticket.seatlevel}}</td>
+                <td>{{ticket.seatnumber}}</td>
+                <td>{{ticket.rownumber}}</td>
+                <td>{{ticket.carnumber}}</td>
+                <td>{{ticket.contactid}}</td>
+                <td>{{ticket.orderid}}</td>
                 <td><a href="#"  class="alter">修改</a> | <a href="#" class="delete">删除</a></td>
             </tr>
         </table>
@@ -86,7 +67,6 @@
         </tr>
         <p class="msg">共找到47条年度预算记录，当前显示从第1条至第10条</p>
     </div>
-
 </div>
 <div style="display:none" class="alter_info">
     <table style="width: 100%">

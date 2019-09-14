@@ -14,6 +14,7 @@
     <script src="../../js/vue.js"></script>
 </head>
 <body>
+<div id="all">
 <div style="font-size: 20px" class="one"><b>添加列车信息：</b></div>
 <form >
     <table id="train"><caption><b>列车车次信息添加:(所有行信息都不可空)</b></caption>
@@ -46,12 +47,18 @@
         <caption><b>添加列车</b></caption>
     <tr><td>添加列车ID(可空)：</td><td><input type="text"></td><td> 添加列车名：</td><td><input type="text"></td><td><input type="button" value="确认添加列车"></td></tr>
     </table>
+    <table style="width: 100%" border="1">
+        <caption>已有列车列表</caption>
+        <tr><th>火车ID</th><th>火车名</th></tr>
+        <tr v-for="model in train_model"><td>{{model.id}}</td><td>{{model.name}}</td></tr>
+    </table>
+</div>
 </body>
 
 <script>
     $(function () {
         var getInfo =new Vue({
-            el:"#train",
+            el:"#all",
             data:{
                 cityList:{},
                 train_model:{},
@@ -70,7 +77,7 @@
             type:"post",
             dataType:"json",
             success:function (train) {
-                getInfo.train=train;
+                getInfo.train_model=train;
             }
         });
         $(".clear").click(function () {
@@ -102,9 +109,8 @@
             })
         })
         $("input[value='确认添加列车']").click(function () {
-            alert($(this).parent().prev().prev().prev().children().val());
             $.ajax({
-                url:"http://localhost:8080/backstage/add_train",
+                url:"http://localhost:8080/backstage/add_trainmodel",
                 type:"post",
                 dataType:"json",
                 data:{

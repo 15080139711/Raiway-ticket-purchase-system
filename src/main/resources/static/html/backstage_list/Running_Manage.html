@@ -61,6 +61,26 @@
         <tr>
             <td colspan="8"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
         </tr>
+        <table border="1" align="center" width="100%" >
+            <caption><h2>城市停站信息</h2></caption>
+            <tr>
+                <th>ID</th><th>车次ID</th><th>到达城市</th><th>到达时间</th><th>停留时间</th><th>离开时间</th><th>该线路的第 </th><th>操作</th>
+            </tr>
+            <tr v-for="city in mapcityList">
+                <td>{{city.id}}</td>
+                <!--                <td>{{change(city.cityid1)}}</td>-->
+                <!--                <td><select :value="city.cityid1">-->
+                <!--                    <option></option>-->
+                <!--                    <option v-for="cityname in cityList">{{cityname.name}}</option>-->
+                <!--                </select></td>-->
+                <!--                <td>{{change(city.cityid2)}}</td>-->
+                <td>{{city.cityid1)}}</td>
+                <td>{{city.cityid2)}}</td>
+                <td>{{city.distance}}</td>
+                <td>{{city.price}}</td>
+                <td><a href="#"  class="alter">修改</a> | <a href="#" class="delete">删除</a></td>
+            </tr>
+        </table>
         <p class="msg">共找到47条年度预算记录，当前显示从第1条至第10条</p>
     </div>
 </div>
