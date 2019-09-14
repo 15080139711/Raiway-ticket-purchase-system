@@ -22,10 +22,10 @@
         <!--登录部分-->
         <div id="login_part">
             <div delay="false" id="login_part1">
-<!--                <span id="space">|</span>-->
+                <!--                <span id="space">|</span>-->
                 <ul>
                     <li><a>扫码登录</a></li>
-<!--                    <span class="space">|</span>-->
+                    <!--                    <span class="space">|</span>-->
                     <li><a>账号登录</a></li>
                 </ul>
             </div>
@@ -61,7 +61,7 @@
                 <!-- 密码-->
                 <div id="lo_user_psd">
                     <label class="label2" for="password"><i id="icon_password"></i></label>
-                    <input type="text" id="password" placeholder="密码">
+                    <input type="password" id="password" placeholder="密码">
                 </div>
                 <!-- 验证码-->
                 <div id="lo_user_code"></div>
@@ -146,8 +146,8 @@
 <script src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/vue.min.js"></script>
 <script>
-    var username;
-    var password;
+    // var username;
+    // var password;
     //滑动验证效果
     jigsaw.init(document.getElementById('lo_user_code'), function () {
         // document.getElementById('msg').innerHTML = '验证通过！'
@@ -185,21 +185,31 @@
         //     "username":$("#userName").val(),
         //     "password":$("#password").val()
         // }
-        // console.log(a);
         $("#btn").click(function () {
+            var a = new Object();
+            a.name = $("#userName").val();
+            a.password = $("#password").val();
             $.ajax({
-                url:"http://127.0.0.1:8080/api/user/login",
-                type:"post",
-                dataType:"json",
-                // contentType:'application/json;charset=UTF-8',
-                data:{
-                    "username":$("#userName").val(),
-                    // username:"八戒",
-                    "password":$("#password").val()
+                url: "http://localhost:8080/api/user/login",
+                type: "post",
+                dataType: "json",
+                contentType: 'application/json;charset=UTF-8',
+                // data:{
+                //     "name":$("#userName").val(),
+                //     // username:"八戒",
+                //     "password":$("#password").val()
+                // },
+                data: JSON.stringify(a),
+                success: function (data) {
+                    if (data != null){
+                        alert('登入成功！');
+                        document.cookie = "cookie_userid = " + data.id;
+                        document.cookie = "cookie_username = " + data.name;
+                        location.href="http://localhost:8080/html/own/own_index.html";
+                    }
                 },
-                // data:JSON.stringify(a),
-                success:function (data) {
-                        alert(data);
+                error: function () {
+                    alert("登入出错");
                 }
             })
         })
