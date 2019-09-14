@@ -27,7 +27,7 @@
                     姓名：
                 </div>
                 <div class="view_rows_r">
-                    张轲容
+                    张三
                 </div>
             </div>
             <div class="con_view_rows">
@@ -160,6 +160,27 @@
     <script src="../../js/vue.min.js"></script>
     <script>
         $(function () {
+
+            var vm = new Vue({
+                el:'#allContent',
+                data:{
+                    cardId:"350823199709184214",
+                    telephone:"18030255989",
+                },
+                methods:{
+                    hideId:function (cardId) {
+                        if (cardId.length == 18){
+                            return cardId.replace(/(\d{4})\d{11}(\d{3})/,"$1***********$2") ;
+                        }
+                    },
+                    hideTel:function (telephone) {
+                        if (telephone.length == 11){
+                            return telephone.replace(/(\d{3})\d{4}(\d{4})/,"$1****$2") ;
+                        }
+                    }
+                }
+            })
+
             //点击编辑显示修改文本框
             $(".edit1").click(function () {
                 if ($(this).text() == "编辑"){
@@ -200,29 +221,21 @@
                     $(this).parent().prev().text(b);
                 }
             })
-        //    Vue部分
-
-        })
-    </script>
-    <script>
-        var vm = new Vue({
-            el:'#allContent',
-            data:{
-               cardId:"350823199709184214",
-                telephone:"18030255989"
-            },
-            methods:{
-                hideId:function (cardId) {
-                    if (cardId.length == 18){
-                        return cardId.replace(/(\d{4})\d{11}(\d{3})/,"$1***********$2") ;
-                    }
+        //    ajax部分
+            $.ajax({
+                url:"http://127.0.0.1:8080/api/user/getInfo",
+                type:"post",
+                dataType:"json",
+                // contentType:'application/json;charset=UTF-8',
+                data:{
+                   id:"1"
                 },
-                hideTel:function (telephone) {
-                    if (telephone.length == 11){
-                        return telephone.replace(/(\d{3})\d{4}(\d{4})/,"$1****$2") ;
-                    }
+                // data:JSON.stringify(a),
+                success:function (data) {
+                    alert(data);
                 }
-            }
+            })
+
         })
     </script>
 </body>

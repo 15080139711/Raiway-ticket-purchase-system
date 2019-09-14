@@ -38,7 +38,7 @@
                             <li>温馨服务查询</li>
                         </ul>
                     </li>
-                    <li>您好,<a href="">某某某</a></li>
+                    <li id="users_name">您好,<a href="">{{users_name}}</a></li>
                     <li><a href="">退出</a></li>
                 </ul>
                 <ul class="search">
@@ -350,6 +350,32 @@
 <script src="../../js/vue.min.js"></script>
 <script>
     $(function () {
+        //缓存用户
+        var userid;
+        var username;
+        function getCookie(cname)
+        {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++)
+            {
+                var c = ca[i].trim();
+                if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+            }
+            return "";
+        }
+        if (getCookie("cookie_userid") !=null){
+            userid = getCookie("cookie_userid");
+        }if (getCookie("cookie_username") !=null){
+            username = getCookie("cookie_username");
+        }
+        var vms = new Vue({
+            el:'#users_name',
+            data:{users_name:{}},
+            created:function () {
+                this.users_name = username;
+            }
+        })
 
         //左侧边栏滑入滑出特效
         $(".insurance_left>li>h2:not([delay='false'])").click(function () {
