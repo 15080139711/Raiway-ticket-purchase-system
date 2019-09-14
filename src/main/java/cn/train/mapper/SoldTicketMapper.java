@@ -20,4 +20,6 @@ public interface SoldTicketMapper {
     int updateByPrimaryKey(SoldTicket record);
 
     List<SoldTicket> selectByOrderid(Integer orderid);
+
+    int getIdBySoldTicket(SoldTicket soldTicket);
 }

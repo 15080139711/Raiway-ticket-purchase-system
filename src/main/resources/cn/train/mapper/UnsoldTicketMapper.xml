@@ -15,6 +15,10 @@
   <sql id="Base_Column_List">
     id, trainid, fromstopid, tostopid, price, seatnumber, rownumber, carnumber, seatlevel
   </sql>
+
+  <select id="getUnsoldTicketByLevelSeat" parameterType="cn.train.enity.SoldTicket" resultMap="UnsoldTicketResultMap">
+    select * from UnsoldTicket where seatnumber = #{seatnumber,jdbcType=VARCHAR} and seatlevel = #{seatlevel,jdbcType = INTEGER} and #{fromstopid,jdbcType=INTEGER} >= fromstopid  and tostopid >= #{tostopid,jdbcType=INTEGER}
+  </select>
   
   <select id="getUnsoldTicketByTrainid" parameterType="java.lang.Integer" resultMap="UnsoldTicketResultMap">
     select * from UnsoldTicket where trainid = #{trainid,jdbcType=INTEGER};
