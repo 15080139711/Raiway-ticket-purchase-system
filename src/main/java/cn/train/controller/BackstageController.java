@@ -1,9 +1,6 @@
 package cn.train.controller;
 
-import cn.train.enity.ContactInfo;
-import cn.train.enity.TrainInfo;
-import cn.train.enity.TrainModel;
-import cn.train.enity.UserInfo;
+import cn.train.enity.*;
 import cn.train.service.BackstageService;
 import cn.train.service.UserService;
 import cn.train.service.UserServiceImpl;
@@ -21,7 +18,23 @@ public class BackstageController {
     UserService userService;
     @Autowired
     BackstageService backstageService;
-
+    //运行图信息
+    @RequestMapping("backstage/get_maptrain")
+    @ResponseBody   //加 路线信息
+    public List<MapTrainInfo> get_maptrain(){
+        return backstageService.get_maptrain();
+    }
+    @RequestMapping("backstage/add_running")
+    @ResponseBody   //加 路线信息
+    public boolean add_running(MapTrainInfo mapTrainInfo){
+        return backstageService.add_running(mapTrainInfo)?true:false;
+    }
+    @RequestMapping("backstage/add_stopcity")
+    @ResponseBody   //加 城市经停信息
+    public boolean add_stopcity(MapStopInfo mapStopInfo){
+       return backstageService.add_stopcity(mapStopInfo)?true:false;
+    }
+    //用户信息
     @RequestMapping("/backstage/add_UserInfo")
     @ResponseBody
     public int add_UserInfo(UserInfo userInfo) {
@@ -66,7 +79,6 @@ public class BackstageController {
     @ResponseBody  //删除一条 车次 信息
     public boolean del_trainInfo(int id){
         backstageService.del_train(id);
-
         return true;
     }
     @RequestMapping("/backstage/get_trainInfo")

@@ -1,13 +1,7 @@
 package cn.train.service;
 
-import cn.train.enity.ContactInfo;
-import cn.train.enity.TrainInfo;
-import cn.train.enity.TrainModel;
-import cn.train.enity.UserInfo;
-import cn.train.mapper.ContactInfoMapper;
-import cn.train.mapper.TrainInfoMapper;
-import cn.train.mapper.TrainModelMapper;
-import cn.train.mapper.UserInfoMapper;
+import cn.train.enity.*;
+import cn.train.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +17,25 @@ public class BackstageServiceImpl implements BackstageService {
     TrainModelMapper trainModelMapper1;
     @Autowired
     TrainInfoMapper trainInfoMapper;
+    @Autowired
+    MapStopInfoMapper mapStopInfoMapper;
+    @Autowired
+    MapTrainInfoMapper mapTrainInfoMapper;
+
+    @Override
+    public List<MapTrainInfo> get_maptrain() {
+        return mapTrainInfoMapper.getAll();
+    }
+
+    @Override
+    public boolean add_running(MapTrainInfo mapTrainInfo) {
+        return mapTrainInfoMapper.insert(mapTrainInfo)==1?true:false;
+    }
+
+    @Override
+    public boolean add_stopcity(MapStopInfo mapStopInfo) {
+        return mapStopInfoMapper.insert(mapStopInfo)==1?true:false;
+    }
 
     @Override
     public boolean alter_UserInfo(UserInfo userInfo) {

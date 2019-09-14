@@ -24,6 +24,11 @@
     delete from MapStopInfo
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <select id="insert_H" parameterType="cn.train.enity.MapTrainInfo">
+    insert into MapTrainInfo (id,trainid,cityid,arrive,parktime,leave,number,ticktgate)
+    values (#{id,jdbcType=INTEGER}, #{trainid,jdbcType=INTEGER}, #{cityid,jdbcType=INTEGER}, #{arrive,jdbcType=VARCHAR},
+     #{parktime,jdbcType=INTEGER},#{leave,jdbcType=VARCHAR},#{number,jdbcType=INTEGER},#{ticketgate,jdbcType=VARCHAR})
+  </select>
   <insert id="insert" parameterType="cn.train.enity.MapStopInfo">
     insert into MapStopInfo (id, cityid, arrive, 
       parktime, leave, number, 
