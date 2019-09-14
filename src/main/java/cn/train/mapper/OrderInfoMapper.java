@@ -1,7 +1,11 @@
 package cn.train.mapper;
 
 import cn.train.enity.OrderInfo;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface OrderInfoMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +18,12 @@ public interface OrderInfoMapper {
     int updateByPrimaryKeySelective(OrderInfo record);
 
     int updateByPrimaryKey(OrderInfo record);
+
+    List<OrderInfo> getAllOrder(Integer userid);
+
+    List<OrderInfo> getUndoneOrder(Integer userid);
+
+    List<OrderInfo> getUnusedOrder(Integer userid);
+
+    List<OrderInfo> getHistoryOrder(Integer userid);
 }
