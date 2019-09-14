@@ -1,5 +1,6 @@
 package cn.train.mapper;
 
+import cn.train.enity.SoldTicket;
 import cn.train.enity.UnsoldTicket;
 import org.springframework.stereotype.Repository;
 
@@ -21,4 +22,6 @@ public interface UnsoldTicketMapper {
     int updateByPrimaryKey(UnsoldTicket record);
 
     List<UnsoldTicket> getUnsoldTicketByTrainid(int trainid);
+
+    List<UnsoldTicket> getUnsoldTicketByLevelSeat(SoldTicket soldTicket);
 }

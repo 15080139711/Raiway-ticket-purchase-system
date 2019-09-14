@@ -24,6 +24,12 @@ public class TicketServiceImpl implements TicketService {
     MapCityInfoMapper mapCityInfoMapper;
     @Autowired
     UnsoldTicketMapper unsoldTicketMapper;
+    @Autowired
+    OrderInfoMapper orderInfoMapper;
+    @Autowired
+    SoldTicketMapper soldTicketMapper;
+    @Autowired
+    ContactInfoMapper contactInfoMapper;
 
     public float CalculatePrice(int[] path,int m,int n){
         System.out.println(path[0]+"-"+path[path.length-1]);
@@ -158,6 +164,7 @@ public class TicketServiceImpl implements TicketService {
         //注意：cityid中存储stopid而不是cityid
         //获取改车次所有余票数据
         List<UnsoldTicket> tickets = unsoldTicketMapper.getUnsoldTicketByTrainid(search.getTrainid());
+        System.out.println(tickets);
         //获取该车次的所有经停站
         List<StopInfo> stops = stopInfoMapper.getStopByTrainid(search.getTrainid());
         //生成路径
@@ -174,7 +181,9 @@ public class TicketServiceImpl implements TicketService {
         }
         //筛选车票，剔除不符要求的余票
         for (int i=0;i<tickets.size();i++){
-            if(!((tickets.get(i).getFromstopid()<=search.getCityid1()) && (tickets.get(i).getFromstopid()>=search.getCityid2()))){
+            if(tickets.get(i).getFromstopid() <= search.getCityid1() && tickets.get(i).getTostopid() >= search.getCityid2()){
+
+            }else {
                 tickets.remove(i);
                 i--;
             }
@@ -193,6 +202,83 @@ public class TicketServiceImpl implements TicketService {
         }
 
         return result;
+    }
+
+    @Override
+    public OrderInfo submitTicket(SoldTicket soldTicket) {
+
+        //读取未售出车票信息
+        List<UnsoldTicket> unsoldTickets = unsoldTicketMapper.getUnsoldTicketByLevelSeat(soldTicket);
+        System.out.println("共有" + unsoldTickets.size() +"张票符合要求！");
+        //如果空则为没票状态或者没有该编号座位
+        if(unsoldTickets.size() == 0){
+            OrderInfo orderInfo = new OrderInfo();
+            return orderInfo;
+        }
+
+        //读取当前时间
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+        //生成一条订单数据
+        OrderInfo orderInfo1 = new OrderInfo();
+        orderInfo1.setUserid(soldTicket.getId());
+        orderInfo1.setPrice(soldTicket.getPrice());
+        orderInfo1.setMark(1);
+        orderInfo1.setStatus(1);
+        orderInfo1.setCreatedate(date);
+        //订单数据插入数据库
+        orderInfoMapper.insert(orderInfo1);
+        int orderid = orderInfoMapper.getOrderidByOrderInfo(orderInfo1.getUserid());
+        orderInfo1.setId(orderid);
+
+        //继续处理车票信息
+        UnsoldTicket unsoldTicket1 = unsoldTickets.get(0);
+        unsoldTicketMapper.deleteByPrimaryKey(unsoldTicket1.getId());
+        if(soldTicket.getFromstopid() > unsoldTicket1.getFromstopid()){
+            UnsoldTicket unsoldTicket2 = new UnsoldTicket();
+            unsoldTicket2.setTrainid(unsoldTicket1.getTrainid());
+            unsoldTicket2.setFromstopid(unsoldTicket1.getFromstopid());
+            unsoldTicket2.setTostopid(soldTicket.getFromstopid());
+            unsoldTicket2.setPrice(unsoldTicket1.getPrice()-soldTicket.getPrice());
+            unsoldTicket2.setSeatnumber(unsoldTicket1.getSeatnumber());
+            unsoldTicket2.setRownumber(unsoldTicket1.getRownumber());
+            unsoldTicket2.setCarnumber(unsoldTicket1.getCarnumber());
+            unsoldTicket2.setSeatlevel(unsoldTicket1.getSeatlevel());
+            unsoldTicketMapper.insert(unsoldTicket2);
+        }
+        if(soldTicket.getTostopid() < unsoldTicket1.getTostopid()){
+            UnsoldTicket unsoldTicket3 = new UnsoldTicket();
+            unsoldTicket3.setTrainid(unsoldTicket1.getTrainid());
+            unsoldTicket3.setFromstopid(soldTicket.getTostopid());
+            unsoldTicket3.setTostopid(unsoldTicket1.getTostopid());
+            unsoldTicket3.setSeatnumber(unsoldTicket1.getSeatnumber());
+            unsoldTicket3.setRownumber(unsoldTicket1.getRownumber());
+            unsoldTicket3.setCarnumber(unsoldTicket1.getCarnumber());
+            unsoldTicket3.setSeatlevel(unsoldTicket1.getSeatlevel());
+            unsoldTicketMapper.insert(unsoldTicket3);
+        }
+
+        //生成旅客车票
+        soldTicket.setOrderid(orderid);
+        soldTicket.setCarnumber(unsoldTicket1.getCarnumber());
+        soldTicket.setSeatnumber(unsoldTicket1.getSeatnumber());
+        soldTicket.setRownumber(unsoldTicket1.getRownumber());
+        soldTicket.setId(null);
+        //插入数据库
+        soldTicketMapper.insert(soldTicket);
+        int te = soldTicketMapper.getIdBySoldTicket(soldTicket);
+        soldTicket.setId(te);
+        //取联系人信息
+        ContactInfo contactInfo = contactInfoMapper.selectByPrimaryKey(soldTicket.getContactid());
+        soldTicket.setContactInfo(contactInfo);
+
+        List<SoldTicket> temp = new ArrayList<SoldTicket>();
+        temp.add(soldTicket);
+
+        orderInfo1.setTickets(temp);
+
+        return orderInfo1;
     }
 
 

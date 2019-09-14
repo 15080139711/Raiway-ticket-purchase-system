@@ -7,7 +7,8 @@ import java.util.List;
 
 @Repository
 public interface MapTrainInfoMapper {
-    List<MapTrainInfo>getAll();
+    List<MapTrainInfo> getAll();
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(MapTrainInfo record);

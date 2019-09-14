@@ -121,6 +121,4 @@ public class BackstageServiceImpl implements BackstageService {
         return  trainInfoMapper.deleteByPrimaryKey(id)==1?true:false;
 
     }
-
-
 }
