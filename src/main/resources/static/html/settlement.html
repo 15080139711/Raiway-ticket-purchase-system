@@ -40,7 +40,7 @@
                             <li>温馨服务查询</li>
                         </ul>
                     </li>
-                    <li>您好,<a href="">某某某</a></li>
+                    <li>您好,<span href="" id="users_name">{{users_name}}</span></li>
                     <li><a href="">退出</a></li>
                 </ul>
                 <ul class="search">
@@ -523,35 +523,64 @@
 <!--script-->
 <script>
     $(function () {
+        //缓存用户
+        var userid;
+        var username;
+        function getCookie(cname)
+        {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++)
+            {
+                var c = ca[i].trim();
+                if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+            }
+            return "";
+        }
+        if (getCookie("cookie_userid") !=null){
+            userid = getCookie("cookie_userid");
+        }if (getCookie("cookie_username") !=null){
+            username = getCookie("cookie_username");
+        }
+        var vms = new Vue({
+            el:'#users_name',
+            data:{users_name:{}},
+            created:function () {
+                this.users_name = username;
+            }
+        })
         //获取乘客信息
+        var a = new Object();
+        a.id = userid;
         $.ajax({
-            url:"",
+            url:"http://localhost:8080/api/user/getInfo",
             dataType:"json",
             type:"post",
-            data:{},
+            contentType:"application/json;charset=UTF-8",
+            data:JSON.stringify(a),
             success:function (data) {
-                va.pro_version = data;
+                va.name = data.name;
+                va.idnumber = data.idnumber;
+                va.phone = data.phone;
+                vp.name = data.name;
+                vp.idnumber = data.idnumber;
+                vp.phone = data.phone;
+            },error:function (error) {
+                alert('bb');
             }
         })
         var va = new Vue({
             el:"#layout_person",
             data: {
-                name:"唐三藏",
-                idnumber: "012346458",
-                phone:"1203697841",
+                name:{},
+                idnumber: {},
+                phone:{},
             }
         });
 
+
         // 获取列车信息
-        $.ajax({
-            url:"",
-            dataType:"json",
-            type:"post",
-            data:{},
-            success:function (data) {
-            }
-        })
-        var va = new Vue({
+        var v = new Vue({
             el:"#ticket_info",
             data: {
                 day:"2019-09-20（周五）",
@@ -563,6 +592,15 @@
 
             }
         });
+        $.ajax({
+            url:"",
+            dataType:"json",
+            type:"post",
+            data:{},
+            success:function (data) {
+            }
+        })
+
 
         //选择用户
         $("#normalPassenger_0").click(function () {
@@ -578,30 +616,30 @@
         })
 
         //提交订单
+        var tlevel=$("#ticketType_1").val();
+        var stype=$("#seatType_1").val();
+        var vp = new Vue({
+            el:"#modal_content_check",
+            data:{
+                name:{},
+                idnumber: {},
+                phone:{},
+                day:"2019-09-20（周五）",
+                Trained: "D3274",
+                Fromstopid:"厦门北 ",
+                Leave:"08:17",
+                Tostopid:"莆田 ",
+                Arrive:"09:15",
+                seatlevel:stype,
+                traveltype:tlevel,
+            }
+        })
         $("#submitOrder_id").click(function () {
             if ($("#normalPassenger_0").is(':checked')){
                 $(this).attr('data-target',"#myModal");
             }else {
                 $(this).attr('data-target',"#otherModal");
             }
-            var tlevel=$("#ticketType_1").val();
-            var stype=$("#seatType_1").val();
-            var vp = new Vue({
-                el:"#modal_content_check",
-                data:{
-                    name:"唐三藏",
-                    idnumber: "012346458",
-                    phone:"1203697841",
-                    day:"2019-09-20（周五）",
-                    Trained: "D3274",
-                    Fromstopid:"厦门北 ",
-                    Leave:"08:17",
-                    Tostopid:"莆田 ",
-                    Arrive:"09:15",
-                    seatlevel:stype,
-                    traveltype:tlevel,
-                }
-            })
             //选座
             var fid=null ;
             $(".seat-list li a").click(function () {
@@ -620,6 +658,18 @@
 
         })
 
+        //确认订单
+        $("#qr_submit_id").click(function () {
+            $.ajax({
+                url:"",
+                dataType:"json",
+                type:"post",
+                data:{},
+                success:function (data) {
+
+                }
+            })
+        })
 
     })
 </script>
