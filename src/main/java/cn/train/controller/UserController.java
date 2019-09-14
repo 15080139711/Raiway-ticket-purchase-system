@@ -5,10 +5,13 @@ import cn.train.enity.ContactInfo;
 import cn.train.enity.UserInfo;
 import cn.train.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -45,5 +48,11 @@ public class UserController {
     public int UserActivate(@RequestBody UserInfo userInfo){
         System.out.println("激活请求邮箱：" + userInfo.getEmail() + "密码：" + userInfo.getPassword());
         return userService.UserActivate(userInfo);
+    }
+
+    @RequestMapping("/api/user/getCotactByUserid")
+    public List<ContactInfo> getCotactByUserid(@RequestBody UserInfo userInfo){
+        System.out.println("取常用联系人数据userid：" + userInfo.getId());
+        return userService.getCotactByUserid(userInfo.getId());
     }
 }

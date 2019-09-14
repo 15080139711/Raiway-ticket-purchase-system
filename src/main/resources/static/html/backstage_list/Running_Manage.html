@@ -7,10 +7,25 @@
         tr td{text-align: center}
         a :hover{ color: red}
     </style>
-    <script src="../../js/jquery-3.4.1.min.js">
-    </script>
+    <script src="../../js/jquery-3.4.1.min.js"></script>
+    <script src="../../js/vue.min.js"></script>
     <script>
         $(function () {
+            var getInfo=new Vue({
+                el:"#run_train",
+                data:{
+                    runList:{}
+                }
+            });
+            $.ajax({
+                url:"http://localhost:8080/backstage/get_running",
+                type:'post',
+                dataType:"json",
+                success:function (runlist) {
+                    alert(runlist)
+                    getInfo.runList=runlist;
+                }
+            });
             $(".alter").click(function () {
                 $(".alter_info").css("display","inline");
             });
@@ -27,33 +42,21 @@
 <body>
 <div >
     <div >
-        <h2>用户信息</h2>
-        <table border="1" align="center" width="100%">
+        <h2>运行车次信息</h2>
+        <table border="1" align="center" width="100%" id="run_train">
             <tr>
-                <th>ID</th><th>登录名</th><th>密码</th><th>姓名</th><th>身份证号</th><th>电子邮箱</th><th>电话</th><th>乘客类型</th><th>操作</th>
+                <th>ID</th><th>车次名</th><th>火车ID</th><th>始发站</th><th>终点站</th><th>停站数</th><th>操作</th>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>销售部</td>
-                <td>2017</td>
-                <td>张三</td>
-                <td>12500</td>
-                <td>12500</td>
-                <td>110</td>
-                <td>学生票</td>
+            <tr v-for="run in runList">
+                <td>{{run.id}}</td>
+                <td>{{run.number}}</td>
+                <td>{{run.modelid.name}}</td>
+                <td>{{run.firststation.name}}</td>
+                <td>{{run.laststation.name}}</td>
+                <td>{{run.stopnumber}}</td>
                 <td><a href="#"  class="alter">修改</a> | <a href="#" class="delete">删除</a></td>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>销售部</td>
-                <td>2017</td>
-                <td>张三</td>
-                <td>12500</td>
-                <td>12500</td>
-                <td>110</td>
-                <td>学生票</td>
-                <td><a href="#" class="alter">修改</a> | <a href="#" class="delete">删除</a></td>
-            </tr>
+
         </table>
         <tr>
             <td colspan="8"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>

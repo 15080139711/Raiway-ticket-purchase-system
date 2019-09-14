@@ -10,6 +10,8 @@ public class Search {
 
     private String day2;
 
+    private int trainid;
+
     @Override
     public String toString() {
         return "Search{" +
@@ -17,7 +19,16 @@ public class Search {
                 ", cityid2=" + cityid2 +
                 ", day1='" + day1 + '\'' +
                 ", day2='" + day2 + '\'' +
+                ", trainid=" + trainid +
                 '}';
+    }
+
+    public int getTrainid() {
+        return trainid;
+    }
+
+    public void setTrainid(int trainid) {
+        this.trainid = trainid;
     }
 
     public String getDay2() {
