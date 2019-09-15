@@ -542,11 +542,11 @@
             }
             return "";
         }
-        // if (getCookie("cookie_userid") !=null){
-        //     userid = getCookie("cookie_userid");
-        // }if (getCookie("cookie_username") !=null){
-        //     username = getCookie("cookie_username");
-        // }
+        if (getCookie("cookie_userid") !=null){
+            userid = getCookie("cookie_userid");
+        }if (getCookie("cookie_username") !=null){
+            username = getCookie("cookie_username");
+        }
         var vms = new Vue({
             el:'#users_name',
             data:{users_name:{}},
