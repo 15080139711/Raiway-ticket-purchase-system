@@ -99,12 +99,12 @@
             window.location.reload();
         })
         $("#add_map").click(function () {
-            alert("map");
-            alert($(this).prev().find("tr").eq(0).find("td").eq(1).children().val());
-            alert($(this).prev().find("tr").eq(0).find("td").eq(3).children().val());
-            alert($(this).prev().find("tr").eq(1).find("td").eq(1).children().val());
-            alert($(this).prev().find("tr").eq(1).find("td").eq(3).children().val());
-            alert($(this).prev().find("tr").eq(2).find("td").eq(1).children().val());
+            // alert("map");
+            // alert($(this).prev().find("tr").eq(0).find("td").eq(1).children().val());
+            // alert($(this).prev().find("tr").eq(0).find("td").eq(3).children().val());
+            // alert($(this).prev().find("tr").eq(1).find("td").eq(1).children().val());
+            // alert($(this).prev().find("tr").eq(1).find("td").eq(3).children().val());
+            // alert($(this).prev().find("tr").eq(2).find("td").eq(1).children().val());
             $.ajax({
                 url:"http://localhost:8080/backstage/add_running",
                 type:"post",
@@ -117,11 +117,10 @@
                     stopnumber:$(this).prev().find("tr").eq(2).find("td").eq(1).children().val(),
                 }
                 ,success :function (result) {
-                    alert(result);
                     if(result==true){
                         alert("添加成功")
                     }else {
-                        alert("添加失败")
+                        alert("添加失败:车次名需5字内！")
                     }
                 }
 

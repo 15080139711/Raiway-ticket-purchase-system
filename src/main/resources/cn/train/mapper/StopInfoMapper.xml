@@ -18,6 +18,9 @@
   <select id="getStopByTrainid" parameterType="java.lang.Integer" resultMap="StopInfoResultMap">
     select * from StopInfo where trainid = #{trainid,jdbcType=INTEGER} ORDER BY number ASC;
   </select>
+  <select id="getAll" resultMap="StopInfoResultMap">
+    select * from StopInfo;
+  </select>
 
 
 

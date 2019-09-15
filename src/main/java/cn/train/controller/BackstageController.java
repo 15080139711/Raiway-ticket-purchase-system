@@ -20,15 +20,24 @@ public class BackstageController {
     @Autowired
     BackstageService backstageService;
 //******运行图信息
-    //获取 路线信息
+    //经停信息
+    @RequestMapping("backstage/get_mapstopInfo")
+    public List<MapStopInfo> get_mapstopInfo(){
+        return backstageService.get_mapstopInfo();
+    }
+    //获取 运行路线信息
     @RequestMapping("backstage/get_maptrain")
     public List<MapTrainInfo> get_maptrain(){
         return backstageService.get_maptrain();
     }
-    //加 路线信息
+    //加 运行 路线信息
     @RequestMapping("backstage/add_running")
     public boolean add_running(MapTrainInfo mapTrainInfo){
         return backstageService.add_running(mapTrainInfo)?true:false;
+    }
+    @RequestMapping("/backstage/del_running")
+    public boolean del_running(int id){
+        return  backstageService.del_running(id);
     }
     //加 城市经停信息
     @RequestMapping("backstage/add_stopcity")
@@ -109,6 +118,10 @@ public class BackstageController {
  @RequestMapping("backstage/get_mapcity")
     public List<MapCityInfo>get_mapcity(){
         return backstageService.get_mapcity();
+ }
+ @RequestMapping("backstage/del_mapInfo")
+    public boolean del_mapInfo(int id ){
+      return   backstageService.del_mapInfo(id);
  }
 }
 

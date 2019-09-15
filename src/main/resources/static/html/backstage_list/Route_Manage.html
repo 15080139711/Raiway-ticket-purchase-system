@@ -12,73 +12,71 @@
     <script>
         $(function () {
             var getInfo=new Vue({
-                el:'#sold',
+                el:'#map',
                 data:{
                     mapcityList:{},
                     cityList:{},
+                    init:{},
+                },
+                methods:{
+                    alter_:function (index) {
+                        getInfo.init=getInfo.mapcityList[index];
+                        $(".alter_info").css("display","inline");
+                    },
+                    delete_:function (index_id) {
+                        $.ajax({
+                            url:"http://localhost:8080/backstage/del_mapInfo",
+                            type:"post",
+                            dataType:"json",
+                            data:{
+                                id:index_id
+                            },success:function (result) {
+                                if(result==true){
+                                    alert("删除成功")
+                                    location.reload();
+                                }else{
+                                    alert("删除失败")
+                                }
+                            }
+                        })
+                    }
                 }
-                // ,methods:{
-                //     change:function (index) {
-                //         alert(index);
-                //         // for(var i=1;i<100;i++){
-                //             // if(index==this.cityList[i].id){
-                //             //     alert(i)
-                //             //     return this.cityList[i].name;
-                //             // }
-                //         // }
-                //     }
-                // }
             })
             $.ajax({
                 url:"http://localhost:8080/backstage/get_mapcity",
                 type:"post",
                 dataType:"json",
                 success:function (mapcitylist) {
-                    alert(mapcitylist),
                         getInfo.mapcityList=mapcitylist;
                 }
             }),
                 $.ajax({
-                    url:"http://localhost:8080/api/city/getAllcity",
+                    url:"http://localhost:8080/backstage/get_mapcity",
                     type:"post",
                     dataType:"json",
                     success:function (citylist) {
-                        alert(citylist),
                             getInfo.cityList=citylist;
                     }
-                }),
+                })
 
-            $(".alter").click(function () {
-                $(".alter_info").css("display","inline");
-            });
-
-            $(".clear").click(function () {
-                alert("no");
-            })
         })
     </script>
 </head>
 <body>
-<div >
+<div  id="map">
     <div >
         <h2>路线图信息</h2>
-        <table border="1" align="center" width="100%" id="sold">
+        <table border="1" align="center" width="100%" >
             <tr>
                 <th>ID</th><th>起始城市</th><th>目的城市</th><th>距离</th><th>价格</th><th>操作</th>
             </tr>
-            <tr v-for="city in mapcityList">
+            <tr v-for="(city,index) in mapcityList">
                 <td>{{city.id}}</td>
-<!--                <td>{{change(city.cityid1)}}</td>-->
-<!--                <td><select :value="city.cityid1">-->
-<!--                    <option></option>-->
-<!--                    <option v-for="cityname in cityList">{{cityname.name}}</option>-->
-<!--                </select></td>-->
-<!--                <td>{{change(city.cityid2)}}</td>-->
-                <td>{{city.cityid1)}}</td>
-                <td>{{city.cityid2)}}</td>
+                <td>{{city.cityInfo1.name}}</td>
+                <td>{{city.cityInfo2.name}}</td>
                 <td>{{city.distance}}</td>
                 <td>{{city.price}}</td>
-                <td><a href="#"  class="alter">修改</a> | <a href="#" class="delete">删除</a></td>
+                <td><a    @click="alter_(index)">修改</a> | <a @click="delete_(city.id)">删除</a></td>
             </tr>
         </table>
         <tr>
@@ -87,20 +85,52 @@
         <p class="msg">共找到47条年度预算记录，当前显示从第1条至第10条</p>
     </div>
 
-</div>
 <div style="display:none" class="alter_info">
     <table style="width: 100%">
         <tr>
-            <th>ID</th><th>登录名</th><th>密码</th><th>姓名</th><th>身份证号</th><th>电子邮箱</th><th>电话</th><th>乘客类型</th>
+            <th>ID</th><th>起始城市</th><th>目的城市</th><th>距离</th><th>价格</th>
         </tr>
         <tr>
-            <td><input type="text" size="1px" name="unluck"></td><td><input type="text"size="5px"></td><td><input type="password"size="5px"></td>
-            <td><input type="text" size="5px"></td><td><input type="text"size="10px"></td><td><input type="email"size="10px"></td>
-            <td><input type="text" size="5px"></td><td><input type="text"size="2px"></td>
+            <td><input  type="text"  :value="init.id"></td>
+
+            <td><select id="fir" size="1"  :value="init.cityid1" >
+                <option v-for="cit1 in cityList" value="cit1.id">{{cit1.name}}</option>
+                </select>
+                </td>
+            <td><select id="sec" size="1"  :value="init.cityid2" >
+                <option v-for="cit2 in cityList" value="cit2.id">{{cit2.name}}</option>
+                </select>
+                </td>
+<!--            <td><input type="text" :value="init.cityid1"></td>-->
+<!--            <td><input type="text" :value="init.cityid2"></td>-->
+            <td><input type="text" size="5px" :value="init.distance"></td>
+            <td><input type="text" size="10px" :value="init.price"></td>
         </tr>
     </table>
-    <div style="float: right; margin-top: 20px ;margin-right: 10px"><input type="button" class="clear" value="清空重输"></div>
+    <div style="float: right; margin-top: 20px ;margin-right: 10px"><input type="button" class="clear" value="取消修改"></div>
     <div style="float: right ;margin-top: 20px"><input type="button" class="submit" value="确认修改"></div>
 </div>
+</div>
+<script>
+    $(function () {
+        $(".clear").click(function () {
+            alert("取消修改")
+            location.reload();
+        })
+        $(".submit").click(function () {
+            alert("确认修改")
+            $.ajax({
+                url:"http://localhost:8080/backstage/del_mapInfo",
+                type:'post',
+                dataType:"json",
+                data:{
+
+                },success:function (data) {
+                    alert(data)
+                }
+            })
+        })
+    })
+</script>
 </body>
 </html>

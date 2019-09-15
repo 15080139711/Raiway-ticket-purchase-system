@@ -1,5 +1,6 @@
 package cn.train.mapper;
 
+import cn.train.enity.CityInfo;
 import cn.train.enity.MapCityInfo;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +15,7 @@ public interface MapCityInfoMapper {
 
     int insertSelective(MapCityInfo record);
 
-    MapCityInfo selectByPrimaryKey(Integer id);
+    CityInfo selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(MapCityInfo record);
 

@@ -14,6 +14,18 @@
   <sql id="Base_Column_List">
     id, cityid, arrive, parktime, `leave`, number_ , trainid, ticketgate
   </sql>
+  <select id="getAll" resultMap="BaseResultMap">
+    select *from MapStopInfo;
+  </select>
+
+  <select id="select_By_Maptrain" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(*) from MapStopInfo where trainid=#{trainid,jdbcType=INTEGER}
+  </select>
+
+  <select id="del_By_Maptrain" parameterType="java.lang.Integer">
+    delete from MapStopInfo where trainid=#{trainid,jdbcType=INTEGER}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

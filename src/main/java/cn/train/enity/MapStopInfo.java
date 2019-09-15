@@ -4,6 +4,7 @@ public class MapStopInfo {
     private Integer id;
 
     private Integer cityid;
+    private CityInfo cityInfo;
 
     private String arrive;
 
@@ -14,6 +15,7 @@ public class MapStopInfo {
     private Integer number_ ;
 
     private Integer trainid;
+    private TrainInfo trainInfo;
 
     private String ticketgate;
 
@@ -80,4 +82,20 @@ public class MapStopInfo {
     public void setTicketgate(String ticketgate) {
         this.ticketgate = ticketgate == null ? null : ticketgate.trim();
     }
+    public void setCityInfo(CityInfo cityInfo) {
+        this.cityInfo = cityInfo;
+    }
+
+    public TrainInfo getTrainInfo() {
+        return trainInfo;
+    }
+
+    public void setTrainInfo(TrainInfo trainInfo) {
+        this.trainInfo = trainInfo;
+    }
+    public CityInfo getCityInfo() {
+        return cityInfo;
+    }
+
+
 }

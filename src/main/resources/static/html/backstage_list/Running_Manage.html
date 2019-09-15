@@ -14,70 +14,101 @@
             var getInfo=new Vue({
                 el:"#run_train",
                 data:{
-                    runList:{}
+                    runList:{},
+                    mapstopList:{},
+                    init:{},
+                },
+                methods:{
+                    delete_:function (id) {
+                        $.ajax({
+                            url:"http://localhost:8080/backstage/del_running",
+                            type:'post',
+                            dataType:"json",
+                            data:{
+                                id:id,
+                            },
+                            success:function (result) {
+                                if(result==true){
+                                    alert("删除成功")
+                                    location.reload();
+                                }else{
+                                    alert("删除失败")
+                                }
+                            }
+                        })
+                    },
+                    alter_: function (index) {
+                        alert("ok")
+                        getInfo.init=getInfo.runList[index];
+                    }
                 }
             });
             $.ajax({
-                url:"http://localhost:8080/backstage/get_running",
+                url:"http://localhost:8080/api/train/getAllTrainInfo",
                 type:'post',
                 dataType:"json",
                 success:function (runlist) {
-                    alert(runlist)
                     getInfo.runList=runlist;
                 }
             });
-            $(".alter").click(function () {
-                $(".alter_info").css("display","inline");
-            });
-
-            $(".clear").click(function () {
-                alert("no");
-                for(var i=0;i<8;i++) {
-                    $(this).parent().prev().find("tr").eq(1).find("td").eq(i).find("input").val("");
+            $.ajax({
+                url:"http://localhost:8080/backstage/get_mapstopInfo",
+                type:'post',
+                dataType:"json",
+                success:function (mapstoplist) {
+                    getInfo.mapstopList=mapstoplist;
                 }
             })
         })
     </script>
 </head>
 <body>
-<div >
+<div id="run_train">
     <div >
-        <h2>运行车次信息</h2>
-        <table border="1" align="center" width="100%" id="run_train">
+        <table border="1" align="center" width="100%">
+            <caption><h2>运行车次信息</h2></caption>
             <tr>
                 <th>ID</th><th>车次名</th><th>火车ID</th><th>始发站</th><th>终点站</th><th>停站数</th><th>操作</th>
             </tr>
             <tr v-for="run in runList">
                 <td>{{run.id}}</td>
                 <td>{{run.number}}</td>
-                <td>{{run.modelid.name}}</td>
-                <td>{{run.firststation.name}}</td>
-                <td>{{run.laststation.name}}</td>
+                <td>{{run.trainModel.name}}</td>
+                <td>{{run.firstcity.name}}</td>
+                <td>{{run.lastcity.name}}</td>
                 <td>{{run.stopnumber}}</td>
-                <td><a href="#"  class="alter">修改</a> | <a href="#" class="delete">删除</a></td>
+                <td><a  @click="alter_(run.id)">修改</a> | <a  @click="delete_(run.id)">删除</a></td>
             </tr>
-
         </table>
         <tr>
             <td colspan="8"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
         </tr>
-        <table border="1" align="center" width="100%" >
+<!--        <div id="alter_train" style="display:none;">-->
+<!--        <tr ><td>{{init.id}}</td>-->
+<!--            <td>{{init.number}}</td>-->
+<!--            <td>{{init.trainModel.name}}</td>-->
+<!--            <td>{{init.firstcity.name}}</td>-->
+<!--            <td>{{init.lastcity.name}}</td>-->
+<!--            <td>{{init.stopnumber}}</td>-->
+<!--            <td><input type="button" class="clear" value="清空重输"></td>-->
+<!--            <td style="float: right ;margin-top: 20px"><input type="button" class="submit" value="确认修改"></td>-->
+<!--        </tr>-->
+        </div>
+
+        <table border="1" align="center" width="100%"  >
             <caption><h2>城市停站信息</h2></caption>
             <tr>
-                <th>ID</th><th>车次ID</th><th>到达城市</th><th>到达时间</th><th>停留时间</th><th>离开时间</th><th>该线路的第 </th><th>操作</th>
+                <th>ID</th><th>车次名</th><th>到达城市</th><th>到达时间</th><th>停留时间</th><th>离开时间</th><th>该线路的第（）站</th><th>检票口</th><th>操作</th>
             </tr>
-            <tr v-for="city in mapcityList">
-                <td>{{city.id}}</td>
-                <!--                <td>{{change(city.cityid1)}}</td>-->
-                <!--                <td><select :value="city.cityid1">-->
-                <!--                    <option></option>-->
-                <!--                    <option v-for="cityname in cityList">{{cityname.name}}</option>-->
-                <!--                </select></td>-->
-                <!--                <td>{{change(city.cityid2)}}</td>-->
-                <td>{{city.cityid1)}}</td>
-                <td>{{city.cityid2)}}</td>
-                <td>{{city.distance}}</td>
-                <td>{{city.price}}</td>
+            <tr v-for="stop in mapstopList">
+                <td>{{stop.id}}</td>
+                <td>{{stop.trainInfo.number}}</td>
+                <td>{{stop.cityInfo.name}}</td>
+                <td>{{stop.arrive}}</td>
+                <td>{{stop.parktime}}</td>
+                <td>{{stop.leave}}</td>
+                <td>{{stop.number}}</td>
+                <td>{{stop.ticketgate}}</td>
                 <td><a href="#"  class="alter">修改</a> | <a href="#" class="delete">删除</a></td>
             </tr>
         </table>

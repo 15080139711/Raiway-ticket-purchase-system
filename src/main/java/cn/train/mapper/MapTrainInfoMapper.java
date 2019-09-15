@@ -1,6 +1,7 @@
 package cn.train.mapper;
 
 import cn.train.enity.MapTrainInfo;
+import cn.train.enity.TrainInfo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface MapTrainInfoMapper {
 
     int insertSelective(MapTrainInfo record);
 
-    MapTrainInfo selectByPrimaryKey(Integer id);
+    TrainInfo selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(MapTrainInfo record);
 
