@@ -8,4 +8,6 @@ import java.util.List;
 @Service
 public interface TrainService {
     List<MapTrainInfo> getAllTrainInfo();
+
+    int generateDateTrain(String date);
 }

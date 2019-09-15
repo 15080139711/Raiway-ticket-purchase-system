@@ -31,4 +31,10 @@ public class TrainServiceImpl implements TrainService {
         }
         return list;
     }
+
+    @Override
+    public int generateDateTrain(String date) {
+        int result = 0;
+        return result;
+    }
 }

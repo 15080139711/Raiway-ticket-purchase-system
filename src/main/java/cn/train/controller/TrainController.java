@@ -30,4 +30,10 @@ public class TrainController {
     public List<MapTrainInfo> getAllTrainInfo(){
         return trainService.getAllTrainInfo();
     }
+
+    @RequestMapping("/api/train/generateDateTrain")
+    public int generateDateTrain(@RequestBody String date){
+        System.out.println("生成车次请求！日期：" + date);
+        return trainService.generateDateTrain(date);
+    }
 }
