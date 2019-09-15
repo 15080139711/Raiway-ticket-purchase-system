@@ -5,6 +5,8 @@ public class SoldTicket {
 
     private Integer trainid;
 
+    private TrainInfo trainInfo;
+
     private Integer fromstopid;
 
     private StopInfo fromstop;
@@ -34,6 +36,7 @@ public class SoldTicket {
         return "SoldTicket{" +
                 "id=" + id +
                 ", trainid=" + trainid +
+                ", trainInfo=" + trainInfo +
                 ", fromstopid=" + fromstopid +
                 ", fromstop=" + fromstop +
                 ", tostop=" + tostop +
@@ -47,6 +50,14 @@ public class SoldTicket {
                 ", orderid=" + orderid +
                 ", contactInfo=" + contactInfo +
                 '}';
+    }
+
+    public TrainInfo getTrainInfo() {
+        return trainInfo;
+    }
+
+    public void setTrainInfo(TrainInfo trainInfo) {
+        this.trainInfo = trainInfo;
     }
 
     public ContactInfo getContactInfo() {
