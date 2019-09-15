@@ -13,7 +13,7 @@
   </sql>
 
   <select id="getPriceByCityid" parameterType="cn.train.enity.MapCityInfo" resultType="java.lang.Float">
-    select price from MapCityInfo where (cityid1 = #{cityid1,jdbcType=INTEGER} and cityid2 = #{cityid2,jdbcType=INTEGER}) or (cityid2 = #{cityid1,jdbcType=INTEGER} and cityid1 = #{cityid2,jdbcType=INTEGER})
+    select max(price) from MapCityInfo where (cityid1 = #{cityid1,jdbcType=INTEGER} and cityid2 = #{cityid2,jdbcType=INTEGER}) or (cityid2 = #{cityid1,jdbcType=INTEGER} and cityid1 = #{cityid2,jdbcType=INTEGER})
   </select>
   <select id="getAll" resultMap="MapCityInfoResultMap">
     select * from MapCityInfo;

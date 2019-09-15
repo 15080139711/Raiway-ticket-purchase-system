@@ -23,7 +23,9 @@
     select * from TrainInfo;
   </select>
   
-  
+  <select id="getTrainidByTrainInfo" parameterType="cn.train.enity.TrainInfo" resultType="java.lang.Integer">
+    select id from TrainInfo where day = #{day,jdbcType=VARCHAR} and number = #{number,jdbcType=VARCHAR}
+  </select>
   
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="TrainInfoResultMap">

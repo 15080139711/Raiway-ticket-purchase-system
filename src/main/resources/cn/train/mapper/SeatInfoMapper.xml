@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.train.mapper.SeatInfoMapper">
-  <resultMap id="BaseResultMap" type="cn.train.enity.SeatInfo">
+  <resultMap id="SeatInfoResultMap" type="cn.train.enity.SeatInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="modelid" jdbcType="INTEGER" property="modelid" />
     <result column="seatlevel" jdbcType="INTEGER" property="seatlevel" />
@@ -12,7 +12,12 @@
   <sql id="Base_Column_List">
     id, modelid, seatlevel, carnumber, rownumber, seatnumber
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+  <select id="getSeatInfoByModelid" parameterType="java.lang.Integer" resultMap="SeatInfoResultMap">
+    select * from SeatInfo where modelid = #{modelid,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="SeatInfoResultMap">
     select 
     <include refid="Base_Column_List" />
     from SeatInfo

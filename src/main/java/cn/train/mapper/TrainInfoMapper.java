@@ -21,4 +21,6 @@ public interface TrainInfoMapper {
     int updateByPrimaryKey(TrainInfo record);
 
     List<TrainInfo> getTrainByDay(String day);
+
+    int getTrainidByTrainInfo(TrainInfo trainInfo);
 }
