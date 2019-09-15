@@ -265,6 +265,7 @@
             </p>
         </div>
     </div>
+
     <!--乘客信息-->
     <div class="layout person" id="layout_person">
         <div class="lay-hd">
@@ -329,15 +330,15 @@
                         <option value="H">外国人永久居留身份证</option>
                     </select>
                     </td>
-                    <td><div class="pos-rel"><input  id="passenger_id_no_1" type="hidden" class="inptxt w160" v-bind:value="idnumber" disabled="disabled" title="不允许修改乘车人信息" size="20" maxlength="35" style="color:#999999"><div class="w160-focus" id="passenger_id_no_1_notice"></div></div>
+                    <td><div class="pos-rel"><input  id="passenger_id_no_1" type="hidden" class="inptxt w160" v-bind:value="hideId(idnumber)" disabled="disabled" title="不允许修改乘车人信息" size="20" maxlength="35" style="color:#999999"><div class="w160-focus" id="passenger_id_no_1_notice"></div></div>
                     </td>
-                    <td><div class="pos-rel"><input  id="phone_no_1" type="hidden" class="inptxt w110" v-bind:value="phone" title="不允许修改乘车人信息" disabled="disabled" size="11" maxlength="20" style="color:#999999"><div class="w160-focus" id="phone_no_1_notice"></div></div>
+                    <td><div class="pos-rel"><input  id="phone_no_1" type="hidden" class="inptxt w110" v-bind:value="hideTel(phone)" title="不允许修改乘车人信息" disabled="disabled" size="11" maxlength="20" style="color:#999999"><div class="w160-focus" id="phone_no_1_notice"></div></div>
                     </td>
                     <td style="width:40px;">
                         <a href="javascript:" id="addchild_1" name="addchild_default_0"></a>
                     </td>
                     <td title="删除常用联系人">
-                        <span class="i-del" onclick="javascript:delPassengerInfo(this);" id="del_1_default_0"></span>
+                        <span class="i-del" id="del_1_default_0"></span>
                     </td>
                 </tr>
                 </tbody>
@@ -441,26 +442,30 @@
                 <div class="info2" id="check_ticket_tit_id">
                     <strong class="mr5">{{day}}</strong><strong class="ml5">{{Trained}}</strong>次<strong class="ml5">{{Fromstopid}}</strong>站<strong>（{{Leave}}开）—{{Tostopid}}</strong>站（{{Arrive}}到）
                 </div>
-                <table class="table-a" id="check_ticket_info"><tbody><tr><th width="28" rowspan="1" colspan="1">序号</th>
-                    <th rowspan="1" colspan="1">席别</th>
-                    <th id="bed_show" style="display: none;" rowspan="1" colspan="1">铺别</th>
-                    <th rowspan="1" colspan="1">票种</th>
-                    <th rowspan="1" colspan="1">姓名</th>
-                    <th rowspan="1" colspan="1">证件类型</th>
-                    <th rowspan="1" colspan="1">证件号码</th>
-                    <th rowspan="1" colspan="1">手机号码</th>
-                </tr>
-                </tbody><tbody id="check_ticketInfo_id">
-                <tr>
-                    <td align="center">1</td>
-                    <td>{{seatlevel}}</td>
-                    <td>{{traveltype}}</td>
-                    <td title="">{{name}}</td>
-                    <td> 中国居民身份证 </td>
-                    <td>{{idnumber}}</td>
-                    <td>{{phone}}</td>
-                </tr>
-                </tbody>
+                <table class="table-a" id="check_ticket_info">
+                    <tbody>
+                    <tr>
+                        <th width="28" rowspan="1" colspan="1">序号</th>
+                        <th rowspan="1" colspan="1">席别</th>
+                        <th id="bed_show" style="display: none;" rowspan="1" colspan="1">铺别</th>
+                        <th rowspan="1" colspan="1">票种</th>
+                        <th rowspan="1" colspan="1">姓名</th>
+                        <th rowspan="1" colspan="1">证件类型</th>
+                        <th rowspan="1" colspan="1">证件号码</th>
+                        <th rowspan="1" colspan="1">手机号码</th>
+                    </tr>
+                    </tbody>
+                    <tbody id="check_ticketInfo_id">
+                    <tr>
+                        <td align="center">1</td>
+                        <td>{{seatlevel}}</td>
+                        <td>{{traveltype}}</td>
+                        <td title="">{{name}}</td>
+                        <td> 中国居民身份证 </td>
+                        <td>{{hideId(idnumber)}}</td>
+                        <td>{{hideTel(phone)}}</td>
+                    </tr>
+                    </tbody>
                 </table>
                 <p style="color: #3177BF;" id="notice_1_id">*如果本次列车剩余席位无法满足您的选座需求，系统将自动为您分配席位。</p>
                 <div class="seat-sel seat-sel-round" id="id-seat-sel" style="display: block;">
@@ -486,7 +491,7 @@
                 </div>
                 <p id="sy_ticket_num_id">欢迎乘坐本次列车，祝您旅途愉快</p>
                 <div class="lay-btn" id="confirmDiv" style="padding: 10px 0px;">
-                    <a id="back_edit_id" href="settlement.html" class="btn92" shape="rect">返回修改</a>
+                    <a id="back_edit_id" href="http://localhost:8080/html/settlement.html" class="btn92" shape="rect">返回修改</a>
                     <a href="" class="btn92s" id="qr_submit_id" shape="rect">确认</a>
                 </div>
             </div>
@@ -524,8 +529,8 @@
 <script>
     $(function () {
         //缓存用户
-        var userid;
-        var username;
+        var userid=13;
+        var username="八戒";
         function getCookie(cname)
         {
             var name = cname + "=";
@@ -575,6 +580,18 @@
                 name:{},
                 idnumber: {},
                 phone:{},
+            },
+            methods:{
+                hideId:function (idnumber) {
+                    if(idnumber.length == 18){
+                        return idnumber.replace(/(\d{4})\d{11}(\d{3})/,"$1***********$2");
+                    }
+                },
+                hideTel:function (phone) {
+                    if(phone.length == 11){
+                        return phone.replace(/(\d{3})\d{4}(\d{4})/,"$1****$2");
+                    }
+                }
             }
         });
 
@@ -632,6 +649,18 @@
                 Arrive:"09:15",
                 seatlevel:stype,
                 traveltype:tlevel,
+            },
+            methods:{
+                hideId:function (idnumber) {
+                    if(idnumber.length == 18){
+                        return idnumber.replace(/(\d{4})\d{11}(\d{3})/,"$1***********$2");
+                    }
+                },
+                hideTel:function (phone) {
+                    if(phone.length == 11){
+                        return phone.replace(/(\d{3})\d{4}(\d{4})/,"$1****$2");
+                    }
+                }
             }
         })
         $("#submitOrder_id").click(function () {
@@ -641,7 +670,8 @@
                 $(this).attr('data-target',"#otherModal");
             }
             //选座
-            var fid=null ;
+
+            var fid = null ;
             $(".seat-list li a").click(function () {
                 if(fid == $(this).attr('id')){
                     $(".seat-list li a").attr('style',"background-position:-80px 0");
@@ -653,20 +683,34 @@
                     $(this).attr('style',"background-position:-40px 0");
                     fid=$(this).attr('id');
                     $("#selectNo").html("1/1");
+                    seatNo = $(this).html();
                 }
             })
 
         })
 
+
         //确认订单
+        var seatNo = null;
+        var PayObj = {
+            fName:vp.name,
+            fidnumber:vp.idnumber,
+            fphone:vp.phone,
+            fseatlevel:vp.seatlevel,
+            ftraveltype:vp.traveltype,
+            fseatNo:seatNo
+            };
         $("#qr_submit_id").click(function () {
             $.ajax({
-                url:"",
+                url:'@Url.Action("1.html")',
                 dataType:"json",
                 type:"post",
-                data:{},
+                data:{PayObj},
                 success:function (data) {
-
+                    alert(250);
+                    location.href="http://localhost:8080/html/1.html";
+                },error:function (e) {
+                    alert(0);
                 }
             })
         })
