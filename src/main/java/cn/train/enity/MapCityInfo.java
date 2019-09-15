@@ -4,12 +4,30 @@ public class MapCityInfo {
     private Integer id;
 
     private Integer cityid1;
+    private CityInfo cityInfo1;
 
     private Integer cityid2;
+    private CityInfo cityInfo2;
 
     private Integer distance;
 
     private Float price;
+
+    public CityInfo getCityInfo1() {
+        return cityInfo1;
+    }
+
+    public void setCityInfo1(CityInfo cityInfo1) {
+        this.cityInfo1 = cityInfo1;
+    }
+
+    public CityInfo getCityInfo2() {
+        return cityInfo2;
+    }
+
+    public void setCityInfo2(CityInfo cityInfo2) {
+        this.cityInfo2 = cityInfo2;
+    }
 
     public Integer getId() {
         return id;

@@ -136,5 +136,11 @@ public class UserServiceImpl implements UserService {
         return contactInfoMapper.getCotactByUserid(userid);
     }
 
+    @Override
+    public int deleteContactByUserid(int id) {
+        int m = contactInfoMapper.deleteByPrimaryKey(id);
+        return m;
+    }
+
 
 }

@@ -13,6 +13,10 @@
     id, userid, createdate, paydate, price, status
   </sql>
 
+  <select id="getOrderidByOrderInfo" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select max(id) from OrderInfo where userid = #{userid,jdbcType=INTEGER}
+  </select>
+
   <select id="getAllOrder" parameterType="java.lang.Integer" resultMap="OrderInfoResultMap">
     select * from OrderInfo where userid = #{userid,jdbcType=INTEGER}
   </select>
@@ -41,10 +45,10 @@
   </delete>
   <insert id="insert" parameterType="cn.train.enity.OrderInfo">
     insert into OrderInfo (id, userid, createdate, 
-      paydate, price, status
+      paydate, price, status,mark
       )
     values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{createdate,jdbcType=VARCHAR}, 
-      #{paydate,jdbcType=VARCHAR}, #{price,jdbcType=REAL}, #{status,jdbcType=INTEGER}
+      #{paydate,jdbcType=VARCHAR}, #{price,jdbcType=REAL}, #{status,jdbcType=INTEGER}, #{mark,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.train.enity.OrderInfo">

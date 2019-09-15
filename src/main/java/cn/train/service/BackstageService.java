@@ -5,9 +5,14 @@ import cn.train.enity.*;
 import java.util.List;
 
 public interface BackstageService {
+    //车票
+    public List<SoldTicket>get_soldticket();
+    public List<UnsoldTicket>get_unsoldticket();
     //运行图
+    public List<MapStopInfo>get_mapstopInfo();
     public List<MapTrainInfo>get_maptrain();
     public boolean add_running(MapTrainInfo mapTrainInfo);
+    public boolean del_running(int id);
     public boolean add_stopcity(MapStopInfo mapStopInfo);
     //用户
     public  boolean alter_UserInfo(UserInfo userInfo);
@@ -21,4 +26,7 @@ public interface BackstageService {
     //火车
     public boolean add_train(TrainModel trainModel);
     public List<TrainModel>get_trainmodel();
+    //路线图
+    public List<MapCityInfo>get_mapcity();
+    public boolean del_mapInfo(int id);
 }

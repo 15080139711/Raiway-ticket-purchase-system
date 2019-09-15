@@ -23,6 +23,15 @@
     select * from SoldTicket where orderid = #{orderid,jdbcType=INTEGER}
   </select>
 
+  <select id="getAll" resultMap="SoldTicketResultMap">
+    SELECT  * from SoldTicket;
+  </select>
+
+
+  <select id="getIdBySoldTicket" parameterType="cn.train.enity.SoldTicket" resultType="java.lang.Integer">
+    select * from SoldTicket where contactid = #{contactid,jdbcType=INTEGER} and orderid = #{orderid,jdbcType=INTEGER};
+  </select>
+
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="SoldTicketResultMap">
     select 

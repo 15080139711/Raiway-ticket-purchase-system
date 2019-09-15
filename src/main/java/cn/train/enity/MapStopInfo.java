@@ -4,16 +4,18 @@ public class MapStopInfo {
     private Integer id;
 
     private Integer cityid;
+    private CityInfo cityInfo;
 
     private String arrive;
 
     private Integer parktime;
 
-    private String leave;
+    private String lefts;
 
-    private Integer number;
+    private Integer number ;
 
     private Integer trainid;
+    private TrainInfo trainInfo;
 
     private String ticketgate;
 
@@ -49,20 +51,20 @@ public class MapStopInfo {
         this.parktime = parktime;
     }
 
-    public String getLeave() {
-        return leave;
+    public String getlefts() {
+        return lefts;
     }
 
-    public void setLeave(String leave) {
-        this.leave = leave == null ? null : leave.trim();
+    public void setlefts(String lefts) {
+        this.lefts = lefts == null ? null : lefts.trim();
     }
 
     public Integer getNumber() {
-        return number;
+        return number ;
     }
 
     public void setNumber(Integer number) {
-        this.number = number;
+        this.number  = number;
     }
 
     public Integer getTrainid() {
@@ -80,4 +82,20 @@ public class MapStopInfo {
     public void setTicketgate(String ticketgate) {
         this.ticketgate = ticketgate == null ? null : ticketgate.trim();
     }
+    public void setCityInfo(CityInfo cityInfo) {
+        this.cityInfo = cityInfo;
+    }
+
+    public TrainInfo getTrainInfo() {
+        return trainInfo;
+    }
+
+    public void setTrainInfo(TrainInfo trainInfo) {
+        this.trainInfo = trainInfo;
+    }
+    public CityInfo getCityInfo() {
+        return cityInfo;
+    }
+
+
 }

@@ -1,11 +1,9 @@
 package cn.train.service;
 
-import cn.train.enity.CityInfo;
 import cn.train.enity.OrderInfo;
 import cn.train.enity.SoldTicket;
 import cn.train.enity.StopInfo;
 import cn.train.mapper.*;
-import com.sun.corba.se.pept.transport.ContactInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

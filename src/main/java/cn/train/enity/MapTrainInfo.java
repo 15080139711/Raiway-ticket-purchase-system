@@ -7,11 +7,56 @@ public class MapTrainInfo {
 
     private Integer modelid;
 
+    private TrainModel trainModel;
+
     private Integer firststation;
+
+    private CityInfo firstcity;
+
+    private CityInfo lastcity;
 
     private Integer laststation;
 
     private Integer stopnumber;
+
+    @Override
+    public String toString() {
+        return "MapTrainInfo{" +
+                "id=" + id +
+                ", number='" + number + '\'' +
+                ", modelid=" + modelid +
+                ", trainModel=" + trainModel +
+                ", firststation=" + firststation +
+                ", firstcity=" + firstcity +
+                ", lastcity=" + lastcity +
+                ", laststation=" + laststation +
+                ", stopnumber=" + stopnumber +
+                '}';
+    }
+
+    public TrainModel getTrainModel() {
+        return trainModel;
+    }
+
+    public void setTrainModel(TrainModel trainModel) {
+        this.trainModel = trainModel;
+    }
+
+    public CityInfo getFirstcity() {
+        return firstcity;
+    }
+
+    public void setFirstcity(CityInfo firstcity) {
+        this.firstcity = firstcity;
+    }
+
+    public CityInfo getLastcity() {
+        return lastcity;
+    }
+
+    public void setLastcity(CityInfo lastcity) {
+        this.lastcity = lastcity;
+    }
 
     public Integer getModelid() {
         return modelid;

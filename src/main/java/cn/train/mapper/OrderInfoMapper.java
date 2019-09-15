@@ -26,4 +26,6 @@ public interface OrderInfoMapper {
     List<OrderInfo> getUnusedOrder(Integer userid);
 
     List<OrderInfo> getHistoryOrder(Integer userid);
+
+    int getOrderidByOrderInfo(Integer userid);
 }
