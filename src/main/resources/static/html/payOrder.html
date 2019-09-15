@@ -39,7 +39,7 @@
                             <li>温馨服务查询</li>
                         </ul>
                     </li>
-                    <li>您好,<a href="" id="users_name" >{{users_name}}</a></li>
+                    <li>您好,<a href="#" id="users_name">{{users_name}}</a></li>
                     <li><a href="">退出</a></li>
                 </ul>
                 <ul class="search">
@@ -229,7 +229,7 @@
         <h3><span>
 			            席位已锁定，请在<span class="colorA">30</span>
 分钟内进行支付，完成网上购票。
-			      		<span>支付剩余时间：<strong id="ShowTime" class="colorA"><strong>00分25秒</strong></strong>
+			      		<span>支付剩余时间：<strong id="ShowTime" class="colorA"><strong id="txt"></strong></strong>
 </span>
 </span>
         </h3>
@@ -240,47 +240,47 @@
         <div class="lay-hd">订单信息</div>
         <div class="lay-bd">
             <div v-for="(item,index) in productList">
-            <div class="info" id="show_title_ticket">
+                <div class="info" id="show_title_ticket">
 
-            <strong class="mr5">{{day}}</strong> <strong class="mr5">{{Trained}} 次 </strong> <strong class="ml5">{{Fromstopid}}</strong>站<strong>（{{lefts}}开）—{{Tostopid}}</strong>站（
+                    <strong class="mr5">2019-09-08（周日）</strong> <strong class="mr5">G157 次 </strong> <strong class="ml5">北京南</strong>站<strong>（17:36开）—上海虹桥</strong>站（
 
-            {{Arrive}}到）
-        </div>
-            <table class="table-a" id="table_list"><tbody><tr><th width="40" rowspan="1" colspan="1"><strong>序号</strong>
-            </th>
-                <th width="75" rowspan="1" colspan="1"><strong>姓名</strong>
+                    23:32到）
+                </div>
+                <table class="table-a" id="table_list"><tbody><tr><th width="40" rowspan="1" colspan="1"><strong>序号</strong>
                 </th>
-                <th width="140" rowspan="1" colspan="1"><strong>证件类型</strong>
-                </th>
-                <th width="210" rowspan="1" colspan="1"><strong>证件号码</strong>
-                </th>
-                <th width="140" rowspan="1" colspan="1"><strong>票种</strong>
-                </th>
-                <th width="70" rowspan="1" colspan="1"><strong>席别</strong>
-                </th>
-                <th width="70" rowspan="1" colspan="1"><strong>车厢</strong>
-                </th>
-                <th width="70" rowspan="1" colspan="1"><strong>席位号</strong>
-                </th>
-                <th rowspan="1" colspan="1"><strong>票价（元）</strong>
-                </th>
-            </tr>
-<!--            </tbody><tbody id="show_ticket_message">-->
-<!--            <tr>-->
-<!--                <td align="center">{{item.index}}</td>-->
-<!--                <td>{{item.name}}</td>-->
-<!--                <td>中国居民身份证</td>-->
-<!--                <td>{{item.number}}</td>-->
-<!--                <td>成人票</td>-->
-<!--                <td>{{item.seatlevel}}</td>-->
-<!--                <td>{{item.Carnumber}}</td>-->
+                    <th width="75" rowspan="1" colspan="1"><strong>姓名</strong>
+                    </th>
+                    <th width="140" rowspan="1" colspan="1"><strong>证件类型</strong>
+                    </th>
+                    <th width="210" rowspan="1" colspan="1"><strong>证件号码</strong>
+                    </th>
+                    <th width="140" rowspan="1" colspan="1"><strong>票种</strong>
+                    </th>
+                    <th width="70" rowspan="1" colspan="1"><strong>席别</strong>
+                    </th>
+                    <th width="70" rowspan="1" colspan="1"><strong>车厢</strong>
+                    </th>
+                    <th width="70" rowspan="1" colspan="1"><strong>席位号</strong>
+                    </th>
+                    <th rowspan="1" colspan="1"><strong>票价（元）</strong>
+                    </th>
+                </tr>
+                </tbody><tbody id="show_ticket_message">
+                <tr>
+                    <td align="center">{{item.index}}</td>
+                    <td title="柯志公">{{item.name}}</td>
+                    <td>中国居民身份证</td>
+                    <td>{{item.number}}</td>
+                    <td>成人票</td>
+                    <td>{{item.seatlevel}}</td>
+                    <td>{{item.Carnumber}}</td>
 
-<!--                <td>{{item.Seatnumber}}</td>-->
+                    <td>{{item.Seatnumber}}</td>
 
-<!--                <td>{{item.Price}}</td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-            </table>
+                    <td>{{item.Price}}</td>
+                </tr>
+                </tbody>
+                </table>
             </div>
             <div id="insurance_renderTicket_div" role="document"><div class="bx-box"><div class="bx-hd"><!--   铁路旅客人身意外伤害保险<label class="label-buy"><input type="checkbox" class="check" id="insurance_buy_check"/>购买</label>
                   		                 <span class="color999">（保费2元，最高赔付￥20万+医疗2份）</span>
@@ -298,24 +298,24 @@
                 <table class="table-c" id="insurance_table" style="display: none;">
                     <tbody><tr>
                         <th width="40">序号</th>
-                    <th width="200">旅客信息</th>
-                    <th width="220">车次信息</th>
-                    <th class="last">购买保险产品</th>
-                </tr>
+                        <th width="200">旅客信息</th>
+                        <th width="220">车次信息</th>
+                        <th class="last">购买保险产品</th>
+                    </tr>
                     <tr v-for="item in productList" id="ins_tr_1" attri="1_1_GE_N" traininfo="1_07_001B" psginfo="1_3503***********417_柯志公_cadb67c291dea4a28e9c92068e7d8365d38b4fd2f5aa7b7d4e064fd5b996dec7d186f709c21e78f69db78cec1854693b_">
                         <td>{{item.id}}</td> <td>{{item.name}}<br>{{item.number}}</td>
                         <td><strong class="mr5">G157</strong>北京南--上海虹桥</td>
                         <td class="bx-info"> <div><span>
                         <input type="checkbox" v-bind:checked="item.isSelect" @click="item.isSelect=!item.isSelect" name="ins_checkbox" class="check"  >
                         <span class="cyx">乘意险</span> <span>￥<strong class="colorA">3.0</strong>元×1份</span><span class="color999 ml10"></span></span></div> </td><!--<tr--></tr>
-                <tr class="t-ft"><td class="left" colspan="2"><label>
-                    <input type="checkbox" class="check" id="ins_select_all" @click="selectProduct(isSelectAll)" v-bind:checked="isSelectAll">
-                    全选</label>
-                </td>
-                    <td class="right" colspan="2">保险费：¥ <strong id="ins_fee_total" class="colorA">{{ message.totalPrice}}</strong>
+                    <tr class="t-ft"><td class="left" colspan="2"><label>
+                        <input type="checkbox" class="check" id="ins_select_all" @click="selectProduct(isSelectAll)" v-bind:checked="isSelectAll">
+                        全选</label>
                     </td>
-                </tr>
-                </tbody>
+                        <td class="right" colspan="2">保险费：¥ <strong id="ins_fee_total" class="colorA">{{ message.totalPrice}}</strong>
+                        </td>
+                    </tr>
+                    </tbody>
                 </table>
             </div>
             </div>
@@ -327,7 +327,7 @@
                                 &times;
                             </button>
                             <h4 class="modal-title" id="myModalLabel">
-                               保险条款
+                                保险条款
                             </h4>
                         </div>
                         <div class="modal-body">
@@ -570,81 +570,81 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal --></div>
             <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                            &times;
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel3">
-                            铁路车票快递服务协议
-                        </h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="name">甲方：中国铁路客户服务中心网站注册用户（购票人）&nbsp;乙方：京铁物流有限公司</div>
-                        <div class="name"></div>
-                        <h2>一、约定事项</h2>
-                        <p>1.甲方在铁路客户服务中心网站购票后，委托乙方将所购车票换取纸质车票，按双方约定时间，由乙方的客户代表送达至甲方指定的地址交付给收件人，并支付车票快递服务费。</p>
-                        <p>2.甲方在铁路客户服务中心网站购票，没有如实、正确填写乘车人使用的有效身份证件等信息，致使乘车人持送达的车票无法进站、乘车等所引起的一切后果由甲方承担。</p>
-                        <p><strong>3.甲方已经阅读《铁路车票快递服务须知》，并作为本协议一部分共同执行。</strong>
-                        </p>
-                        <h2>二、适用车票</h2>
-                        <p>由于网络购票至送达收件人车票期间需要换取纸质车票及分拣等多项作业过程，甲方对本协议和<strong>《铁路车票快递服务须知》</strong>
-                            确定的送票服务均认可为车票快递服务,购票人在网站购票时，符合以下条件的，可自愿选择车票快递服务。</p>
-                        <p>1．购票人应保证在铁路客户服务中心网站购票填写的乘车人有效身份证件真实有效，中华人民共和国公民须使用身份证购票乘车，港、澳居民须使用来往内地通行证购票乘车，台湾居民须使用来往大陆通行证购票乘车，外籍人员须使用护照购票乘车。</p>
-                        <p>2．使用有效证件在网站购买的全价票（含“折”字票）和儿童票、残疾军人<strong>（伤残警察）</strong>
-                            优惠票，不含学生票。</p>
-                        <p>3．购票人选择车票快递，通过与快递企业订立本协议予以确认。</p>
-                        <h2>三、送达时限</h2>
-                        <p>车票快递的服务时间为<strong>7：00-22：00</strong>
-                            ，凡购买当日和次日开车的车票不配送，购买第三日及以后开车的车票可以配送：</p>
-                        <p>a)开车时间为第三日<strong>0:00-12:00</strong>
-                            间的车票，于第二日<strong>20:00</strong>
-                            以前送达（交付凭证用特殊标记标识）；</p>
-                        <p>b)开车时间为第三日<strong>12:01-24:00</strong>
-                            间的车票，于开车前5小时送达；</p>
-                        <p>c)开车时间为第四日<strong>0:00-12:00</strong>
-                            之间开车的车票，于第三日<strong>20:00</strong>
-                            前送达。</p>
-                        <p>d)其他车票，自购票日3日内送达。</p>
-                        <h2>四、快递服务费及支付</h2>
-                        <p>车票快递服务按件收费，同一地址同一收件人（乘车人），不超过5张车票，按17元收取；超出数量为1-5张时，按2件收费；以此类推。甲方成功签收任意一张车票，即应按件向乙方支付快递服务费。</p>
-                        <p>快递服务费由甲方在网站上与购票票款一并支付，乙方在送达车票时提供相应发票；整单未交付时，退还车票快递服务费。</p>
-                        <h2>五、签收</h2>
-                        <p>车票送达时，甲方要提供收件人（乘车人）有效身份证件原件，当乘车人使用有效证件为港、澳居民来往内地通行证、台湾居民来往大陆通行证、外籍人员护照时须查看证件原件后交付；购买车票为残疾军人<strong>（伤残警察）</strong>
-                            优惠车票时须查看《中华人民共和国残疾军人证》或《中华人民共和国伤残人民警察证》<strong>原件</strong>
-                            后交付。对于交付的车票，收件人核对车票无误后签字确认。</p>
-                        <p>收件人委托他人代收（简称代收人）时，客户代表需要通过电话与登记的收件人进行核实，由收件人向客户代表发送手机短信明示代收人姓名、性别、年龄和特此代收授权等内容。客户代表同时要查验代收人有效身份证件原件并由代收人在签收联签字，客户代表登记代收人证件号码后交付车票。</p>
-                        <p>因甲方原因造成车票无法交付时，待网站恢复车票状态后，甲方可自行办理改签、退票、换取纸质车票等相关业务。</p>
-                        <h2>六、甲方的权利和义务</h2>
-                        <p>1.甲方保证在铁路客户服务中心网站购票使用的身份证件真实有效。</p>
-                        <p>2.甲方有权在双方约定时间内收到快递的车票。</p>
-                        <p>3.甲方应正确、完整、规范地填写详细的收件地址、收件人姓名、手机号码等信息，并确保收件人持有效身份证件原件在约定时间期限、地址接收车票。</p>
-                        <p>4. 甲方有权在预定车票快递服务日起至车票载明开车日后30日内获得免费信息查询服务；包括物流信息、12306网站购票信息。</p>
-                        <p>5. 甲方在乙方换取纸质车票前有权取消车票快递服务，并由乙方返还车票快递服务费。</p>
-                        <h2>七、乙方的权利和义务</h2>
-                        <p>1.乙方快递服务客户代表应佩戴规定“车票快递服务客户代表”证件上门服务。</p>
-                        <p>2.乙方应保证在约定时间内将车票送达收件人。</p>
-                        <p>3.车票送达时，乙方有权按本协议第五条核验收件人（乘车人）有效身份证件原件。</p>
-                        <p>4.保证甲方个人信息安全、不外泄。</p>
-                        <p>5.对未送达车票，及时恢复车票的原始状态。</p>
-                        <h2>八、责任免除条款</h2>
-                        <p>1.因不可抗力造成延误派送、无法派送的，双方均不承担责任。</p>
-                        <p>2.因甲方收件信息填写错误、无人签收、电话无人接听、收件人拒收等原因造成车票未能适时送达的，及引发的延迟办理退票和产生的相关损失，乙方不承担相应责任。</p>
-                        <p>3.整单未交付时，甲方不承担车票快递服务费。</p>
-                        <p>4.基于车票可能获得的收益、利润、商业机会、商业价值等任何直接、间接损失，乙方不承担任何责任。</p>
-                        <h2>九、双方共同声明</h2>
-                        <p>甲、乙双方均承诺依法购票和履行本协议，共同谴责倒卖火车票的不法行为。</p>
-                        <h2>十、争议解决</h2>
-                        <p>因履行本协议发生的争议，由当事人协商解决。协商不成的，须向有管辖权的法院提起诉讼。</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                        </button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
-        </div>
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel3">
+                                铁路车票快递服务协议
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="name">甲方：中国铁路客户服务中心网站注册用户（购票人）&nbsp;乙方：京铁物流有限公司</div>
+                            <div class="name"></div>
+                            <h2>一、约定事项</h2>
+                            <p>1.甲方在铁路客户服务中心网站购票后，委托乙方将所购车票换取纸质车票，按双方约定时间，由乙方的客户代表送达至甲方指定的地址交付给收件人，并支付车票快递服务费。</p>
+                            <p>2.甲方在铁路客户服务中心网站购票，没有如实、正确填写乘车人使用的有效身份证件等信息，致使乘车人持送达的车票无法进站、乘车等所引起的一切后果由甲方承担。</p>
+                            <p><strong>3.甲方已经阅读《铁路车票快递服务须知》，并作为本协议一部分共同执行。</strong>
+                            </p>
+                            <h2>二、适用车票</h2>
+                            <p>由于网络购票至送达收件人车票期间需要换取纸质车票及分拣等多项作业过程，甲方对本协议和<strong>《铁路车票快递服务须知》</strong>
+                                确定的送票服务均认可为车票快递服务,购票人在网站购票时，符合以下条件的，可自愿选择车票快递服务。</p>
+                            <p>1．购票人应保证在铁路客户服务中心网站购票填写的乘车人有效身份证件真实有效，中华人民共和国公民须使用身份证购票乘车，港、澳居民须使用来往内地通行证购票乘车，台湾居民须使用来往大陆通行证购票乘车，外籍人员须使用护照购票乘车。</p>
+                            <p>2．使用有效证件在网站购买的全价票（含“折”字票）和儿童票、残疾军人<strong>（伤残警察）</strong>
+                                优惠票，不含学生票。</p>
+                            <p>3．购票人选择车票快递，通过与快递企业订立本协议予以确认。</p>
+                            <h2>三、送达时限</h2>
+                            <p>车票快递的服务时间为<strong>7：00-22：00</strong>
+                                ，凡购买当日和次日开车的车票不配送，购买第三日及以后开车的车票可以配送：</p>
+                            <p>a)开车时间为第三日<strong>0:00-12:00</strong>
+                                间的车票，于第二日<strong>20:00</strong>
+                                以前送达（交付凭证用特殊标记标识）；</p>
+                            <p>b)开车时间为第三日<strong>12:01-24:00</strong>
+                                间的车票，于开车前5小时送达；</p>
+                            <p>c)开车时间为第四日<strong>0:00-12:00</strong>
+                                之间开车的车票，于第三日<strong>20:00</strong>
+                                前送达。</p>
+                            <p>d)其他车票，自购票日3日内送达。</p>
+                            <h2>四、快递服务费及支付</h2>
+                            <p>车票快递服务按件收费，同一地址同一收件人（乘车人），不超过5张车票，按17元收取；超出数量为1-5张时，按2件收费；以此类推。甲方成功签收任意一张车票，即应按件向乙方支付快递服务费。</p>
+                            <p>快递服务费由甲方在网站上与购票票款一并支付，乙方在送达车票时提供相应发票；整单未交付时，退还车票快递服务费。</p>
+                            <h2>五、签收</h2>
+                            <p>车票送达时，甲方要提供收件人（乘车人）有效身份证件原件，当乘车人使用有效证件为港、澳居民来往内地通行证、台湾居民来往大陆通行证、外籍人员护照时须查看证件原件后交付；购买车票为残疾军人<strong>（伤残警察）</strong>
+                                优惠车票时须查看《中华人民共和国残疾军人证》或《中华人民共和国伤残人民警察证》<strong>原件</strong>
+                                后交付。对于交付的车票，收件人核对车票无误后签字确认。</p>
+                            <p>收件人委托他人代收（简称代收人）时，客户代表需要通过电话与登记的收件人进行核实，由收件人向客户代表发送手机短信明示代收人姓名、性别、年龄和特此代收授权等内容。客户代表同时要查验代收人有效身份证件原件并由代收人在签收联签字，客户代表登记代收人证件号码后交付车票。</p>
+                            <p>因甲方原因造成车票无法交付时，待网站恢复车票状态后，甲方可自行办理改签、退票、换取纸质车票等相关业务。</p>
+                            <h2>六、甲方的权利和义务</h2>
+                            <p>1.甲方保证在铁路客户服务中心网站购票使用的身份证件真实有效。</p>
+                            <p>2.甲方有权在双方约定时间内收到快递的车票。</p>
+                            <p>3.甲方应正确、完整、规范地填写详细的收件地址、收件人姓名、手机号码等信息，并确保收件人持有效身份证件原件在约定时间期限、地址接收车票。</p>
+                            <p>4. 甲方有权在预定车票快递服务日起至车票载明开车日后30日内获得免费信息查询服务；包括物流信息、12306网站购票信息。</p>
+                            <p>5. 甲方在乙方换取纸质车票前有权取消车票快递服务，并由乙方返还车票快递服务费。</p>
+                            <h2>七、乙方的权利和义务</h2>
+                            <p>1.乙方快递服务客户代表应佩戴规定“车票快递服务客户代表”证件上门服务。</p>
+                            <p>2.乙方应保证在约定时间内将车票送达收件人。</p>
+                            <p>3.车票送达时，乙方有权按本协议第五条核验收件人（乘车人）有效身份证件原件。</p>
+                            <p>4.保证甲方个人信息安全、不外泄。</p>
+                            <p>5.对未送达车票，及时恢复车票的原始状态。</p>
+                            <h2>八、责任免除条款</h2>
+                            <p>1.因不可抗力造成延误派送、无法派送的，双方均不承担责任。</p>
+                            <p>2.因甲方收件信息填写错误、无人签收、电话无人接听、收件人拒收等原因造成车票未能适时送达的，及引发的延迟办理退票和产生的相关损失，乙方不承担相应责任。</p>
+                            <p>3.整单未交付时，甲方不承担车票快递服务费。</p>
+                            <p>4.基于车票可能获得的收益、利润、商业机会、商业价值等任何直接、间接损失，乙方不承担任何责任。</p>
+                            <h2>九、双方共同声明</h2>
+                            <p>甲、乙双方均承诺依法购票和履行本协议，共同谴责倒卖火车票的不法行为。</p>
+                            <h2>十、争议解决</h2>
+                            <p>因履行本协议发生的争议，由当事人协商解决。协商不成的，须向有管辖权的法院提起诉讼。</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                            </button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
             <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -676,12 +676,12 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal -->
             </div>
-            </div>
-            <div class="qp-info" id="qp_info"><div class="hd">取票方式：<span class="mr15">
+        </div>
+        <div class="qp-info" id="qp_info"><div class="hd">取票方式：<span class="mr15">
                 <input type="radio" checked="checked" name="qp" id="qpfs_zq">
 <label for="qpfs_zq" style="cursor: pointer;">自取</label>
 </span>
-                <span><input type="radio" name="qp" id="qpfs_sp">
+            <span><input type="radio" name="qp" id="qpfs_sp">
 <label for="qpfs_sp" style="cursor: pointer;">车票快递</label>
 <span id="contract_agree_id" style="margin-left: 15px;display: none;"><input id="_agree_id" name="_agree_name" type="checkbox" value="0">
 
@@ -693,131 +693,131 @@
  	     	</span>
 </span>
 
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="display: none;" id="deliver_msg"></span>
-            </div>
-                <div class="bd" id="detail_logistics" style="display: none;"><table class="table-c"><colgroup><col width="40">
-                    <col>
-                    <col width="200">
-                    <col width="70">
-                    <col width="235">
-                    <col width="70">
-                </colgroup>
-                    <tbody id="ps_body"><tr><th>序号</th>
-                        <th>快递车票信息</th>
-                        <th>收件地址</th>
-                        <th>物流企业</th>
-                        <th>配送规则</th>
-                        <th>快递确认</th>
-                    </tr>
-                    <tr id="wl_tr_1" chooseest=""><td>第1件</td>
-                        <td id="addTicket_1"><span class="sel-sp sel-add" data-toggle="modal" data-target="#myModal4" href="#">请点击选择需要快递的车票</span></td>
-                        <td id="addAddress_1"><span class="sel-sp sel-add" onclick="$.checkHasLoad(this,false,false)">选择配送地址</span>
-                        </td>
-                        <td id="price_1"></td>
-                        <td id="rule_1" style="text-align:left;padding-left:5px;"></td>
-                        <td id="operate_1"><div><a href="javascript:void(0);" onclick="$.preCancel(this,true);" class="btn72" style="width:55px;">取消</a>
-                        </div>
-                            <div><a href="javascript:void(0);" onclick="$.saveInfo(this,true);" class="btn72" style="width:55px;margin-top: 10px;">保存</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr><td colspan="3" class="side-left"><a href="javascript:void(0);" class="add" onclick="$.addPSXX();">增加配送件数</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="display: none;" id="deliver_msg"></span>
+        </div>
+            <div class="bd" id="detail_logistics" style="display: none;"><table class="table-c"><colgroup><col width="40">
+                <col>
+                <col width="200">
+                <col width="70">
+                <col width="235">
+                <col width="70">
+            </colgroup>
+                <tbody id="ps_body"><tr><th>序号</th>
+                    <th>快递车票信息</th>
+                    <th>收件地址</th>
+                    <th>物流企业</th>
+                    <th>配送规则</th>
+                    <th>快递确认</th>
+                </tr>
+                <tr id="wl_tr_1" chooseest=""><td>第1件</td>
+                    <td id="addTicket_1"><span class="sel-sp sel-add" data-toggle="modal" data-target="#myModal4" href="#">请点击选择需要快递的车票</span></td>
+                    <td id="addAddress_1"><span class="sel-sp sel-add" onclick="$.checkHasLoad(this,false,false)">选择配送地址</span>
                     </td>
-                        <td colspan="3" class="side-right"><div class="total-box"><div class="item"><strong>快递费：</strong>
-                            <span class="price" id="total_kdf"></span>
+                    <td id="price_1"></td>
+                    <td id="rule_1" style="text-align:left;padding-left:5px;"></td>
+                    <td id="operate_1"><div><a href="javascript:void(0);" onclick="$.preCancel(this,true);" class="btn72" style="width:55px;">取消</a>
+                    </div>
+                        <div><a href="javascript:void(0);" onclick="$.saveInfo(this,true);" class="btn72" style="width:55px;margin-top: 10px;">保存</a>
                         </div>
-                        </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                </div>
-            </div>
-            <div class="total-box"><div class="item">总票价：<span class="price" id="total_ticket_price">{{ AllPrice(message.totalPrice)}}</span>
-            </div>
-                <div class="item" style="display: none;">快递费：<span class="price" id="total_wl_price">-</span>
-                </div>
-                <div class="item" style="display: none;">保险费：<span class="price" id="total_ins_price">{{message.totalPrice}}</span>
-                </div>
-                <div class="item" style="display: none;">付款总额：<span class="price" id="total_all_price">{{ AllPrice(message.totalPrice)}}</span>
-                </div>
-            </div>
-            <div class="notice" style="width: 910px; display: none;" id="scroll"><strong>公告：</strong>
-                <div class="notice_in"><ul id="sizzle-1567922675001" style="margin-top: 0px;">
-                    <li><a href="#nogo" style="color: red;" shape="rect">铁路12306网站已在北京铁路局、昆明铁路局、广州铁路（集团）公司、成都铁路局管辖范围内开展车票快递服务，如您有需要，请点选上方的“车票快递”。</a>
-                    </li></ul>
-                </div>
-                <a href="#nogo" class="i-close" shape="rect"></a>
-            </div>
-            <div class="lay-btn bt_blue"><!-- th:if="${tour_flag eq 'wc'}"  -->
-                <!-- 往返车次按钮 -->
-                <!-- 往返车次按钮 -->
-                <!-- 单程车次按钮 -->
-
-<!--                    <a href="javascript:" class="btn92" id="cancelButton" shape="rect">取消订单</a>-->
-<!--                    <span><a href="javascript:" class="btn92s" id="payButton" shape="rect">网上支付</a>-->
-<!--</span>-->
-                    <input class="btn92" type="button" value="取消订单">
-                    <input class="btn92s" type="button" value="网上支付">
-
-                <!-- 改签车次按钮 -->
-                <!-- 积分支付成功form表单 -->
-            </div>
-            <div class="tips-box"><p><code id="dcfc_wxts_1"><span style="font-size: 14px;font-weight:bold;color:black">温馨提示：</span>
-                <br clear="none">
-
-                1. 请在指定时间内完成网上支付。<br clear="none">
-
-                2. 逾期未支付，系统将取消本次交易。<br clear="none">
-
-                3. 在完成支付或取消本订单之前，您将无法购买其他车票。<br clear="none">
-
-                4. 退票费如下核收：开车前15天（不含）以上退票的，不收取退票费；票面乘车站开车时间前48小时以上的按票价5%计，24小时以上、不足48小时的按票价10%计，不足24小时的按票价20%计。  开车前48小时～15天期间内，改签或变更到站至距开车15天以上的其他列车，又在距开车15天前退票的，仍核收5%的退票费。 办理车票改签或“变更到站”时，新车票票价低于原车票的，退还差额，对差额部分核收退票费并执行现行退票费标准。上述计算的尾数以5角为单位，尾数小于2.5角的舍去、2.5角以上且小于7.5角的计为5角、7.5角以上的进为1元。退票费最低按2元计收。 改签或变更到站后的车票乘车日期在春运期间的，退票时一律按开车时间前不足24小时标准核收退票费。2019年春运期间为1月21日至3月1日。<br clear="none">
-
-                5. 保险费3元，最高保障30万元意外身故、伤残和3万元意外医疗。未成年人须由其父母投保，保险费1元，最高保障10万元意外身故、伤残和1万元意外医疗。<br clear="none">
-
-                6. 请您充分理解保险责任、责任免除、保险期间、合同解除等约定，凭电子保单查询号登陆<a shape="rect" href="http://www.china-ric.com" target="_blank">www.china-ric.com</a>
-                查看电子保单。<br clear="none">
-
-                7. 跨境旅客旅行须知详见铁路跨境旅客相关运输组织规则和车站公告。<br clear="none">
-
-                8. 未尽事宜详见《铁路旅客运输规程》等有关规定和车站公告。<br clear="none">
-            </code>
-                <code id="dcfc_wxts_2" style="display: none;"><span style="font-size: 14px;font-weight:bold;color:black">温馨提示：</span>
-                    <br clear="none">
-
-                    1. 请点击车票，选择/取消配送的车票。<br clear="none">
-
-                    2. 车票快递服务按件收费，每件限一个地址，且不超过5张车票。<br clear="none">
-
-                    3. 车票快递服务费由快递（物流）企业按照国家有关规定确定，网站代为收取。<br clear="none">
-
-                    4. 除购买当日和次日开车的车票不提供快递服务外，其他均可选择快递服务。<br clear="none">
-
-                    5. 车票快递城市和地址范围以12306网站公布为准，超出区域暂不提供快递服务。<br clear="none">
-
-                    6. 您最多可添加20个车票配送地址，对已支付的地址30天内不可再删除与修改。 <br clear="none">
-
-                    7. 车票快递的服务时间为6：00-22：00。<br clear="none">
-
-                    8. 请您先选择省、市、区/县、街道/镇信息，然后在填写框中填写具体地址、门牌号码、单位等信息，并请准确填写收件人姓名和手机号码。<br clear="none">
-
-                    9. 开车时间为第三日0:00-12:00的车票，于第二日20:00以前送达；开车时间为第三日12:01-24:00的车票，于开车前5小时送达；开车时间为第四日0:00-12:00的车票，于第三日20:00前送达；其他车票，自购票日3日内送达。<br clear="none">
-
-                    10. 填写快递信息完毕后，请您点击“网上支付”完成快递费与购票票款的一并支付，快递（物流）企业送票人员在送达车票时提供车票快递服务费的发票。<br clear="none">
-
-                    11. 请在指定时间内完成网上支付； 逾期未支付，系统将取消本次交易；在完成支付或取消本订单之前，您将无法购买其他车票。<br clear="none">
-
-                    12. 退票费如下核收：开车前15天（不含）以上退票的，不收取退票费；票面乘车站开车时间前48小时以上的按票价5%计，24小时以上、不足48小时的按票价10%计，不足24小时的按票价20%计。  开车前48小时～15天期间内，改签或变更到站至距开车15天以上的其他列车，又在距开车15天前退票的，仍核收5%的退票费。 办理车票改签或“变更到站”时，新车票票价低于原车票的，退还差额，对差额部分核收退票费并执行现行退票费标准。上述计算的尾数以5角为单位，尾数小于2.5角的舍去、2.5角以上且小于7.5角的计为5角、7.5角以上的进为1元。退票费最低按2元计收。 改签或变更到站后的车票乘车日期在春运期间的，退票时一律按开车时间前不足24小时标准核收退票费。2019年春运期间为1月21日至3月1日。<br clear="none">
-
-                    13. 跨境旅客旅行须知详见铁路跨境旅客相关运输组织规则和车站公告。<br clear="none">
-
-                    14. 未尽事宜详见《铁路旅客运输规程》等有关规定和车站公告。<br clear="none">
-                </code>
-            </p>
+                    </td>
+                </tr>
+                <tr><td colspan="3" class="side-left"><a href="javascript:void(0);" class="add" onclick="$.addPSXX();">增加配送件数</a>
+                </td>
+                    <td colspan="3" class="side-right"><div class="total-box"><div class="item"><strong>快递费：</strong>
+                        <span class="price" id="total_kdf"></span>
+                    </div>
+                    </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
             </div>
         </div>
+        <div class="total-box"><div class="item">总票价：<span class="price" id="total_ticket_price">{{ AllPrice(message.totalPrice)}}</span>
+        </div>
+            <div class="item" style="display: none;">快递费：<span class="price" id="total_wl_price">-</span>
+            </div>
+            <div class="item" style="display: none;">保险费：<span class="price" id="total_ins_price">{{message.totalPrice}}</span>
+            </div>
+            <div class="item" style="display: none;">付款总额：<span class="price" id="total_all_price">{{ AllPrice(message.totalPrice)}}</span>
+            </div>
+        </div>
+        <div class="notice" style="width: 910px; display: none;" id="scroll"><strong>公告：</strong>
+            <div class="notice_in"><ul id="sizzle-1567922675001" style="margin-top: 0px;">
+                <li><a href="#nogo" style="color: red;" shape="rect">铁路12306网站已在北京铁路局、昆明铁路局、广州铁路（集团）公司、成都铁路局管辖范围内开展车票快递服务，如您有需要，请点选上方的“车票快递”。</a>
+                </li></ul>
+            </div>
+            <a href="#nogo" class="i-close" shape="rect"></a>
+        </div>
+        <div class="lay-btn bt_blue"><!-- th:if="${tour_flag eq 'wc'}"  -->
+            <!-- 往返车次按钮 -->
+            <!-- 往返车次按钮 -->
+            <!-- 单程车次按钮 -->
+
+            <!--                    <a href="javascript:" class="btn92" id="cancelButton" shape="rect">取消订单</a>-->
+            <!--                    <span><a href="javascript:" class="btn92s" id="payButton" shape="rect">网上支付</a>-->
+            <!--</span>-->
+            <input class="btn92" type="button" value="取消订单">
+            <input class="btn92s" type="button" value="网上支付">
+
+            <!-- 改签车次按钮 -->
+            <!-- 积分支付成功form表单 -->
+        </div>
+        <div class="tips-box"><p><code id="dcfc_wxts_1"><span style="font-size: 14px;font-weight:bold;color:black">温馨提示：</span>
+            <br clear="none">
+
+            1. 请在指定时间内完成网上支付。<br clear="none">
+
+            2. 逾期未支付，系统将取消本次交易。<br clear="none">
+
+            3. 在完成支付或取消本订单之前，您将无法购买其他车票。<br clear="none">
+
+            4. 退票费如下核收：开车前15天（不含）以上退票的，不收取退票费；票面乘车站开车时间前48小时以上的按票价5%计，24小时以上、不足48小时的按票价10%计，不足24小时的按票价20%计。  开车前48小时～15天期间内，改签或变更到站至距开车15天以上的其他列车，又在距开车15天前退票的，仍核收5%的退票费。 办理车票改签或“变更到站”时，新车票票价低于原车票的，退还差额，对差额部分核收退票费并执行现行退票费标准。上述计算的尾数以5角为单位，尾数小于2.5角的舍去、2.5角以上且小于7.5角的计为5角、7.5角以上的进为1元。退票费最低按2元计收。 改签或变更到站后的车票乘车日期在春运期间的，退票时一律按开车时间前不足24小时标准核收退票费。2019年春运期间为1月21日至3月1日。<br clear="none">
+
+            5. 保险费3元，最高保障30万元意外身故、伤残和3万元意外医疗。未成年人须由其父母投保，保险费1元，最高保障10万元意外身故、伤残和1万元意外医疗。<br clear="none">
+
+            6. 请您充分理解保险责任、责任免除、保险期间、合同解除等约定，凭电子保单查询号登陆<a shape="rect" href="http://www.china-ric.com" target="_blank">www.china-ric.com</a>
+            查看电子保单。<br clear="none">
+
+            7. 跨境旅客旅行须知详见铁路跨境旅客相关运输组织规则和车站公告。<br clear="none">
+
+            8. 未尽事宜详见《铁路旅客运输规程》等有关规定和车站公告。<br clear="none">
+        </code>
+            <code id="dcfc_wxts_2" style="display: none;"><span style="font-size: 14px;font-weight:bold;color:black">温馨提示：</span>
+                <br clear="none">
+
+                1. 请点击车票，选择/取消配送的车票。<br clear="none">
+
+                2. 车票快递服务按件收费，每件限一个地址，且不超过5张车票。<br clear="none">
+
+                3. 车票快递服务费由快递（物流）企业按照国家有关规定确定，网站代为收取。<br clear="none">
+
+                4. 除购买当日和次日开车的车票不提供快递服务外，其他均可选择快递服务。<br clear="none">
+
+                5. 车票快递城市和地址范围以12306网站公布为准，超出区域暂不提供快递服务。<br clear="none">
+
+                6. 您最多可添加20个车票配送地址，对已支付的地址30天内不可再删除与修改。 <br clear="none">
+
+                7. 车票快递的服务时间为6：00-22：00。<br clear="none">
+
+                8. 请您先选择省、市、区/县、街道/镇信息，然后在填写框中填写具体地址、门牌号码、单位等信息，并请准确填写收件人姓名和手机号码。<br clear="none">
+
+                9. 开车时间为第三日0:00-12:00的车票，于第二日20:00以前送达；开车时间为第三日12:01-24:00的车票，于开车前5小时送达；开车时间为第四日0:00-12:00的车票，于第三日20:00前送达；其他车票，自购票日3日内送达。<br clear="none">
+
+                10. 填写快递信息完毕后，请您点击“网上支付”完成快递费与购票票款的一并支付，快递（物流）企业送票人员在送达车票时提供车票快递服务费的发票。<br clear="none">
+
+                11. 请在指定时间内完成网上支付； 逾期未支付，系统将取消本次交易；在完成支付或取消本订单之前，您将无法购买其他车票。<br clear="none">
+
+                12. 退票费如下核收：开车前15天（不含）以上退票的，不收取退票费；票面乘车站开车时间前48小时以上的按票价5%计，24小时以上、不足48小时的按票价10%计，不足24小时的按票价20%计。  开车前48小时～15天期间内，改签或变更到站至距开车15天以上的其他列车，又在距开车15天前退票的，仍核收5%的退票费。 办理车票改签或“变更到站”时，新车票票价低于原车票的，退还差额，对差额部分核收退票费并执行现行退票费标准。上述计算的尾数以5角为单位，尾数小于2.5角的舍去、2.5角以上且小于7.5角的计为5角、7.5角以上的进为1元。退票费最低按2元计收。 改签或变更到站后的车票乘车日期在春运期间的，退票时一律按开车时间前不足24小时标准核收退票费。2019年春运期间为1月21日至3月1日。<br clear="none">
+
+                13. 跨境旅客旅行须知详见铁路跨境旅客相关运输组织规则和车站公告。<br clear="none">
+
+                14. 未尽事宜详见《铁路旅客运输规程》等有关规定和车站公告。<br clear="none">
+            </code>
+        </p>
+        </div>
     </div>
+</div>
 
 </div>
 <!-- 公共友情链接 -->
@@ -876,9 +876,9 @@
 
 </body>
 <script src="../js/vue.js"></script>
-<script >
+<script>
+    var c = 30*60;
     $(function () {
-        //缓存用户
         var userid=11;
         var username="八戒";
         var startPoint;//出发城市
@@ -945,7 +945,6 @@
                 this.users_name = username;
             }
         })
-
         var c = new Object();
         c.id=11;
         c.trainid=1;
@@ -968,11 +967,51 @@
                 alert("cuo");
             }
         })
+
+        $("input[name='qp']").click(function () {
+            document.getElementById('contract_agree_id').style.display="inline";
+        })
+        $("input[id='qpfs_zq']").click(function () {
+            document.getElementById('contract_agree_id').style.display="none";
+        })
+        $("input[id='insurance_buy_and_agree']").click(function () {
+            document.getElementById('insurance_tips').style.display="block";
+            $('#insurance_table').toggle();
+            $('.item').toggle();
+
+        })
+        $("#_agree_id").click(function () {
+            $('#detail_logistics').toggle();
+        })
+        $(".btn92s").click(function () {
+            if(c>0)
+            {
+                window.location.href=("http://localhost:8080/html/");
+            }else
+            {
+                alert("超时支付")
+            }
+        })
         var vm = new Vue({
             el:".layout",
             data:
                 {
-                    productList:[],
+                    productList:[
+                        {
+                            'id':1,
+                            'name':'kzg',
+                            'Trained':'G23',
+                            'Fromstopid':'上海',
+                            'Tostopid':'天津',
+                            'Price': 550,
+                            'Seatnumber':'01b',
+                            'rownumber':'',
+                            'Carnumber':'第七节',
+                            'seatlevel':'二等坐',
+                            'number':'2343523546',
+
+                        }
+                    ],
                     u_name:username,
                     day:startDate,
                     Trained: train_num,
@@ -1029,26 +1068,24 @@
         })
 
 
-        $("input[name='qp']").click(function () {
-            document.getElementById('contract_agree_id').style.display="inline";
-        })
-        $("input[id='qpfs_zq']").click(function () {
-            document.getElementById('contract_agree_id').style.display="none";
-        })
-        $("input[id='insurance_buy_and_agree']").click(function () {
-            document.getElementById('insurance_tips').style.display="block";
-            $('#insurance_table').toggle();
-            $('.item').toggle();
-
-        })
-        $("#_agree_id").click(function () {
-            $('#detail_logistics').toggle();
-        })
-
-
-
 
     })
+
+
+    function timedCount() {
+        if(c >= 0) {
+            t = setTimeout( "timedCount()",1000);
+            minutes = Math.floor(c / 60);
+            seconds = Math.floor(c % 60);
+            msg =   minutes + "分" + seconds + "秒";
+            c = c - 1;
+            document.getElementById('txt').innerText =  msg
+        } else {
+            alert("时间到")
+        }
+    }
+
+    window.onload=timedCount;
 
 
 </script>
