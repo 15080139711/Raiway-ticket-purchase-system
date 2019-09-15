@@ -22,7 +22,13 @@
     select * from StopInfo;
   </select>
 
+  <select id="selectMaxidByTrainid" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select max(id) from StopInfo where trainid = #{trainid,jdbcType=INTEGER}
+  </select>
 
+  <select id="selectMinidByTrainid" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select min(id) from StopInfo where trainid = #{trainid,jdbcType=INTEGER}
+  </select>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="StopInfoResultMap">
     select 

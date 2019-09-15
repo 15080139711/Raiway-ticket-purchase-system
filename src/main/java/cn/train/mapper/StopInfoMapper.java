@@ -20,4 +20,8 @@ public interface StopInfoMapper {
     int updateByPrimaryKey(StopInfo record);
 
     List<StopInfo> getStopByTrainid(Integer trainid);
+
+    int selectMaxidByTrainid(int trainid);
+
+    int selectMinidByTrainid(int trainid);
 }

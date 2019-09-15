@@ -16,5 +16,6 @@ public interface TicketService {
     int[] getUnsoldTicketNum(Search search);
 
     OrderInfo submitTicket(SoldTicket soldTicket);
+    public float CalculatePrice(int[] path,int m,int n);
 
 }
