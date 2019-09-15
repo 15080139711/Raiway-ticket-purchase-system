@@ -102,6 +102,7 @@
 }
 .order_item_table tr{
     height: 60px;
+    line-height: 60px;
 }
 .order_item_table td{
     /*padding: 15px 10px;*/
@@ -148,6 +149,7 @@
 }
 .td6 span{
     display: inline-block;
+    line-height: 22px;
     width: 56px;
     height: 22px;
     border: 1px solid #b1d6fe;
