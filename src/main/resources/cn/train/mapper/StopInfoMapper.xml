@@ -7,12 +7,12 @@
     <result column="cityid" jdbcType="INTEGER" property="cityid" />
     <result column="arrive" jdbcType="VARCHAR" property="arrive" />
     <result column="parktime" jdbcType="INTEGER" property="parktime" />
-    <result column="left" jdbcType="VARCHAR" property="left" />
+    <result column="lefts" jdbcType="VARCHAR" property="lefts" />
     <result column="number" jdbcType="INTEGER" property="number" />
     <result column="ticketgate" jdbcType="VARCHAR" property="ticketgate" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, trainid, cityid, arrive, parktime, left, number, ticketgate
+    id, trainid, cityid, arrive, parktime, lefts, number, ticketgate
   </sql>
 
   <select id="getStopByTrainid" parameterType="java.lang.Integer" resultMap="StopInfoResultMap">
@@ -36,10 +36,10 @@
   </delete>
   <insert id="insert" parameterType="cn.train.enity.StopInfo">
     insert into StopInfo (id, trainid, cityid, 
-      arrive, parktime, left, 
+      arrive, parktime, lefts, 
       number, ticketgate)
     values (#{id,jdbcType=INTEGER}, #{trainid,jdbcType=INTEGER}, #{cityid,jdbcType=INTEGER}, 
-      #{arrive,jdbcType=VARCHAR}, #{parktime,jdbcType=INTEGER}, #{left,jdbcType=VARCHAR}, 
+      #{arrive,jdbcType=VARCHAR}, #{parktime,jdbcType=INTEGER}, #{lefts,jdbcType=VARCHAR}, 
       #{number,jdbcType=INTEGER}, #{ticketgate,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.train.enity.StopInfo">
@@ -60,8 +60,8 @@
       <if test="parktime != null">
         parktime,
       </if>
-      <if test="left != null">
-        left,
+      <if test="lefts != null">
+        lefts,
       </if>
       <if test="number != null">
         number,
@@ -86,8 +86,8 @@
       <if test="parktime != null">
         #{parktime,jdbcType=INTEGER},
       </if>
-      <if test="left != null">
-        #{left,jdbcType=VARCHAR},
+      <if test="lefts != null">
+        #{lefts,jdbcType=VARCHAR},
       </if>
       <if test="number != null">
         #{number,jdbcType=INTEGER},
@@ -112,8 +112,8 @@
       <if test="parktime != null">
         parktime = #{parktime,jdbcType=INTEGER},
       </if>
-      <if test="left != null">
-        left = #{left,jdbcType=VARCHAR},
+      <if test="lefts != null">
+        lefts = #{lefts,jdbcType=VARCHAR},
       </if>
       <if test="number != null">
         number = #{number,jdbcType=INTEGER},
@@ -130,7 +130,7 @@
       cityid = #{cityid,jdbcType=INTEGER},
       arrive = #{arrive,jdbcType=VARCHAR},
       parktime = #{parktime,jdbcType=INTEGER},
-      left = #{left,jdbcType=VARCHAR},
+      lefts = #{lefts,jdbcType=VARCHAR},
       number = #{number,jdbcType=INTEGER},
       ticketgate = #{ticketgate,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

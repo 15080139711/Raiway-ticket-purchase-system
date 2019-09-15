@@ -6,13 +6,13 @@
     <result column="cityid" jdbcType="INTEGER" property="cityid" />
     <result column="arrive" jdbcType="VARCHAR" property="arrive" />
     <result column="parktime" jdbcType="INTEGER" property="parktime" />
-    <result column="leave" jdbcType="VARCHAR" property="leave" />
+    <result column="lefts" jdbcType="VARCHAR" property="lefts" />
     <result column="number" jdbcType="INTEGER" property="number" />
     <result column="trainid" jdbcType="INTEGER" property="trainid" />
     <result column="ticketgate" jdbcType="VARCHAR" property="ticketgate" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, cityid, arrive, parktime, `leave`, number_ , trainid, ticketgate
+    id, cityid, arrive, parktime, `lefts`, number , trainid, ticketgate
   </sql>
   <select id="getAll" resultMap="BaseResultMap">
     select *from MapStopInfo;
@@ -37,16 +37,16 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 <!--  <select id="insert_H" parameterType="cn.train.enity.MapTrainInfo">-->
-<!--    insert into MapTrainInfo (id,trainid,cityid,arrive,parktime,leave,number_,ticktgate)-->
+<!--    insert into MapTrainInfo (id,trainid,cityid,arrive,parktime,lefts,number,ticktgate)-->
 <!--    values (#{id,jdbcType=INTEGER}, #{trainid,jdbcType=INTEGER}, #{cityid,jdbcType=INTEGER}, #{arrive,jdbcType=VARCHAR},-->
-<!--     #{parktime,jdbcType=INTEGER},#{leave,jdbcType=VARCHAR},#{number_,jdbcType=INTEGER},#{ticketgate,jdbcType=VARCHAR})-->
+<!--     #{parktime,jdbcType=INTEGER},#{lefts,jdbcType=VARCHAR},#{number,jdbcType=INTEGER},#{ticketgate,jdbcType=VARCHAR})-->
 <!--  </select>-->
   <insert id="insert" parameterType="cn.train.enity.MapStopInfo">
     insert into MapStopInfo (id, cityid, arrive, 
-      parktime, `leave`,number_,
+      parktime, lefts, number,
       trainid, ticketgate )
     values (#{id,jdbcType=INTEGER}, #{cityid,jdbcType=INTEGER}, #{arrive,jdbcType=VARCHAR}, 
-      #{parktime,jdbcType=INTEGER}, #{leave,jdbcType=VARCHAR}, #{number_,jdbcType=INTEGER},
+      #{parktime,jdbcType=INTEGER}, #{lefts,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER},
       #{trainid,jdbcType=INTEGER}, #{ticketgate,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.train.enity.MapStopInfo">
@@ -64,11 +64,11 @@
       <if test="parktime != null">
         parktime,
       </if>
-      <if test="leave != null">
-        leave,
+      <if test="lefts != null">
+        lefts,
       </if>
-      <if test="number_ != null">
-        number_,
+      <if test="number != null">
+        number,
       </if>
       <if test="trainid != null">
         trainid,
@@ -90,11 +90,11 @@
       <if test="parktime != null">
         #{parktime,jdbcType=INTEGER},
       </if>
-      <if test="leave != null">
-        #{leave,jdbcType=VARCHAR},
+      <if test="lefts != null">
+        #{lefts,jdbcType=VARCHAR},
       </if>
-      <if test="number_ != null">
-        #{number_,jdbcType=INTEGER},
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
       </if>
       <if test="trainid != null">
         #{trainid,jdbcType=INTEGER},
@@ -116,11 +116,11 @@
       <if test="parktime != null">
         parktime = #{parktime,jdbcType=INTEGER},
       </if>
-      <if test="leave != null">
-        leave = #{leave,jdbcType=VARCHAR},
+      <if test="lefts != null">
+        lefts = #{lefts,jdbcType=VARCHAR},
       </if>
-      <if test="number_  != null">
-        number_  = #{number_,jdbcType=INTEGER},
+      <if test="number  != null">
+        number  = #{number,jdbcType=INTEGER},
       </if>
       <if test="trainid != null">
         trainid = #{trainid,jdbcType=INTEGER},
@@ -136,8 +136,8 @@
     set cityid = #{cityid,jdbcType=INTEGER},
       arrive = #{arrive,jdbcType=VARCHAR},
       parktime = #{parktime,jdbcType=INTEGER},
-      leave = #{leave,jdbcType=VARCHAR},
-      number_  = #{number_,jdbcType=INTEGER},
+      lefts = #{lefts,jdbcType=VARCHAR},
+      number  = #{number,jdbcType=INTEGER},
       trainid = #{trainid,jdbcType=INTEGER},
       ticketgate = #{ticketgate,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

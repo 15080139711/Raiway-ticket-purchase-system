@@ -10,9 +10,9 @@ public class MapStopInfo {
 
     private Integer parktime;
 
-    private String leave;
+    private String lefts;
 
-    private Integer number_ ;
+    private Integer number ;
 
     private Integer trainid;
     private TrainInfo trainInfo;
@@ -51,20 +51,20 @@ public class MapStopInfo {
         this.parktime = parktime;
     }
 
-    public String getLeave() {
-        return leave;
+    public String getlefts() {
+        return lefts;
     }
 
-    public void setLeave(String leave) {
-        this.leave = leave == null ? null : leave.trim();
+    public void setlefts(String lefts) {
+        this.lefts = lefts == null ? null : lefts.trim();
     }
 
     public Integer getNumber() {
-        return number_ ;
+        return number ;
     }
 
     public void setNumber(Integer number) {
-        this.number_  = number;
+        this.number  = number;
     }
 
     public Integer getTrainid() {
