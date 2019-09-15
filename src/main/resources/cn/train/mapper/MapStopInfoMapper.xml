@@ -12,8 +12,20 @@
     <result column="ticketgate" jdbcType="VARCHAR" property="ticketgate" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, cityid, arrive, parktime, leave, number, trainid, ticketgate
+    id, cityid, arrive, parktime, `leave`, number_ , trainid, ticketgate
   </sql>
+  <select id="getAll" resultMap="BaseResultMap">
+    select *from MapStopInfo;
+  </select>
+
+  <select id="select_By_Maptrain" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(*) from MapStopInfo where trainid=#{trainid,jdbcType=INTEGER}
+  </select>
+
+  <select id="del_By_Maptrain" parameterType="java.lang.Integer">
+    delete from MapStopInfo where trainid=#{trainid,jdbcType=INTEGER}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -24,17 +36,17 @@
     delete from MapStopInfo
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <select id="insert_H" parameterType="cn.train.enity.MapTrainInfo">
-    insert into MapTrainInfo (id,trainid,cityid,arrive,parktime,leave,number,ticktgate)
-    values (#{id,jdbcType=INTEGER}, #{trainid,jdbcType=INTEGER}, #{cityid,jdbcType=INTEGER}, #{arrive,jdbcType=VARCHAR},
-     #{parktime,jdbcType=INTEGER},#{leave,jdbcType=VARCHAR},#{number,jdbcType=INTEGER},#{ticketgate,jdbcType=VARCHAR})
-  </select>
+<!--  <select id="insert_H" parameterType="cn.train.enity.MapTrainInfo">-->
+<!--    insert into MapTrainInfo (id,trainid,cityid,arrive,parktime,leave,number_,ticktgate)-->
+<!--    values (#{id,jdbcType=INTEGER}, #{trainid,jdbcType=INTEGER}, #{cityid,jdbcType=INTEGER}, #{arrive,jdbcType=VARCHAR},-->
+<!--     #{parktime,jdbcType=INTEGER},#{leave,jdbcType=VARCHAR},#{number_,jdbcType=INTEGER},#{ticketgate,jdbcType=VARCHAR})-->
+<!--  </select>-->
   <insert id="insert" parameterType="cn.train.enity.MapStopInfo">
     insert into MapStopInfo (id, cityid, arrive, 
-      parktime, leave, number, 
-      trainid, ticketgate)
+      parktime, `leave`,number_,
+      trainid, ticketgate )
     values (#{id,jdbcType=INTEGER}, #{cityid,jdbcType=INTEGER}, #{arrive,jdbcType=VARCHAR}, 
-      #{parktime,jdbcType=INTEGER}, #{leave,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, 
+      #{parktime,jdbcType=INTEGER}, #{leave,jdbcType=VARCHAR}, #{number_,jdbcType=INTEGER},
       #{trainid,jdbcType=INTEGER}, #{ticketgate,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.train.enity.MapStopInfo">
@@ -55,8 +67,8 @@
       <if test="leave != null">
         leave,
       </if>
-      <if test="number != null">
-        number,
+      <if test="number_ != null">
+        number_,
       </if>
       <if test="trainid != null">
         trainid,
@@ -81,8 +93,8 @@
       <if test="leave != null">
         #{leave,jdbcType=VARCHAR},
       </if>
-      <if test="number != null">
-        #{number,jdbcType=INTEGER},
+      <if test="number_ != null">
+        #{number_,jdbcType=INTEGER},
       </if>
       <if test="trainid != null">
         #{trainid,jdbcType=INTEGER},
@@ -107,8 +119,8 @@
       <if test="leave != null">
         leave = #{leave,jdbcType=VARCHAR},
       </if>
-      <if test="number != null">
-        number = #{number,jdbcType=INTEGER},
+      <if test="number_  != null">
+        number_  = #{number_,jdbcType=INTEGER},
       </if>
       <if test="trainid != null">
         trainid = #{trainid,jdbcType=INTEGER},
@@ -125,7 +137,7 @@
       arrive = #{arrive,jdbcType=VARCHAR},
       parktime = #{parktime,jdbcType=INTEGER},
       leave = #{leave,jdbcType=VARCHAR},
-      number = #{number,jdbcType=INTEGER},
+      number_  = #{number_,jdbcType=INTEGER},
       trainid = #{trainid,jdbcType=INTEGER},
       ticketgate = #{ticketgate,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

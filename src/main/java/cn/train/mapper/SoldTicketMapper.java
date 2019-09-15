@@ -7,6 +7,7 @@ import java.util.List;
 
 @Repository
 public interface SoldTicketMapper {
+    List<SoldTicket>getAll();
     int deleteByPrimaryKey(Integer id);
 
     int insert(SoldTicket record);

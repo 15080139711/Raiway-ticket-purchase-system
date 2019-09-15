@@ -8,6 +8,7 @@ import java.util.List;
 
 @Repository
 public interface UnsoldTicketMapper {
+    List<UnsoldTicket>getAll();
     int deleteByPrimaryKey(Integer id);
 
     int insert(UnsoldTicket record);

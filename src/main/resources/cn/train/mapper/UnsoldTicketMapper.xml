@@ -23,6 +23,10 @@
   <select id="getUnsoldTicketByTrainid" parameterType="java.lang.Integer" resultMap="UnsoldTicketResultMap">
     select * from UnsoldTicket where trainid = #{trainid,jdbcType=INTEGER};
   </select>
+
+  <select id="getAll" resultMap="UnsoldTicketResultMap">
+    SELECT  * from  UnsoldTicket;
+  </select>
   
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="UnsoldTicketResultMap">
