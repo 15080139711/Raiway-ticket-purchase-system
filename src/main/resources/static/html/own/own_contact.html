@@ -42,7 +42,7 @@
                 <!--   显示所有联系人  -->
                 <tr class="show_tr" v-for="(people,index) in peopleList" style="display:block">
                     <td class="td1">
-                        <div><input name="checks" type="checkbox"><span>&nbsp{{people.id}}</span></div>
+                        <div><input name="checks" type="checkbox"><span style="display:none">&nbsp{{people.id}}</span></div>
                     </td>
                     <td class="td2">
                         <div>{{people.name}}</div>
@@ -57,7 +57,7 @@
                         <div>{{people.phone}}</div>
                     </td>
                     <td class="td6">
-                        <div><span @click="changeType(index)">{{people.traveltype}}</span></div>
+                        <div><span>{{changeType(people.traveltype)}}</span></div>
                     </td>
                     <td class="td7">
                         <div style="color: #00cc0c">已通过</div>
@@ -71,36 +71,7 @@
                         </div>
                     </td>
                 </tr>
-                <!--   当搜索对应联系人时显示  -->
-                <!--                <tr id="hide_tr" style="display:none">-->
-                <!--                    <td class="td1">-->
-                <!--                        <div><input  name="checks" type="checkbox"><span>&nbsp{{id}}</span></div>-->
-                <!--                    </td>-->
-                <!--                    <td class="td2">-->
-                <!--                        <div>{{name}}</div>-->
-                <!--                    </td>-->
-                <!--                    <td class="td3">-->
-                <!--                        <div>中国居民身份证</div>-->
-                <!--                    </td>-->
-                <!--                    <td class="td4">-->
-                <!--                        <div>{{idnumber}}</div>-->
-                <!--                    </td>-->
-                <!--                    <td class="td5">-->
-                <!--                        <div>{{phone}}</div>-->
-                <!--                    </td>-->
-                <!--                    <td class="td6">-->
-                <!--                        <div><span @click="changeType(index)">{{traveltype}}</span></div>-->
-                <!--                    </td>-->
-                <!--                    <td class="td7">-->
-                <!--                        <div style="color: #00cc0c">已通过</div>-->
-                <!--                    </td>-->
-                <!--                    <td class="td8">-->
-                <!--                        <div>-->
-                <!--                            <a href="javascript:void(0);"><i @click="dele(index)"><img src="../../images/own/icon-del.png"></i></a>-->
-                <!--                            <a class="edict" href="javascript:void(0);"><i><img src="../../images/own/icon-edit.png"></i></a>-->
-                <!--                        </div>-->
-                <!--                    </td>-->
-                <!--                </tr>-->
+
                 </tbody>
             </table>
         </div>
@@ -159,13 +130,12 @@
             methods: {
                 //删除单个联系人
                 dele: function (index) {
-                    alert("1");
+                    // var abcd = this.peopleList[index].id;     //测试获得删除按钮同一行的联系人id
+                    // alert(abcd);
                     //2.ajax部分：删除单个联系人信息
                     //删除部分vue1那边有定义可能有冲突
-                    // $(".td8>a:first").click(function () {
-                        // alert("1");
                         var d = new Object();
-                        d.id = 18;                //传删除按钮对应行的联系人id
+                        d.id = this.peopleList[index].id;                //传删除按钮对应行的联系人id
                         $.ajax({
                             url: "http://localhost:8080/api/user/deleteContactByUserid",
                             type: "post",
@@ -173,13 +143,12 @@
                             contentType: 'application/json;charset=UTF-8',
                             data: JSON.stringify(d),
                             success: function (data) {
-                                alert(data);
+                                alert("删除成功！");
                             },
                             error:function () {
                                 alert("错误");
                             }
                         })
-                    // })
                     this.peopleList.splice(index, 1);
                 },
                 //清空搜索文本框
@@ -188,47 +157,21 @@
                     // $(this).prev().val("");
                 },
                 //改变乘客类型
+                changeType:function (index) {
+                    var types = index;
+                    // alert(abcd);
+                    if (types == 1){
+                        return types = "成人" ;
+                    }else if (types == 2){
+                        return types = "学生" ;
+                    }else if (types == 3){
+                        return types = "儿童" ;
+                    }else{
+                        return types = "残疾军人、伤残人民警察" ;
+                    }
+                }
             }
         })
-
-
-        //3.ajax部分：搜索一个联系人信息
-        // $(".search_box>a").click(function () {
-        //     // alert("1"); //绑定成功
-        //     // console.log($(".search_box>input").val()); //取到搜索框的值
-        //     var e = new Object();
-        //     e.name = $(".search_box>input").val();
-        //     $.ajax({
-        //         url:"http://localhost:8080/backstage/select_contact",
-        //         type:"post",
-        //         dataType:"json",
-        //         contentType:'application/json;charset=UTF-8',
-        //         data:JSON.stringify(e),
-        //         success:function (data) {
-        //             alert(data.name);
-        //             vn.id = data.id;
-        //             vn.name = data.name;
-        //             vn.idnumber = data.idnumber;
-        //             vn.phone = data.phone;
-        //             vn.traveltype = data.traveltype;
-        //         }
-        //     })
-        //      //ajax请求结束后隐藏的tr出现
-        //     $("#hide_tr").style.display = "block";   //顺序可能不对 可能需要放在ajax请求前面
-        //     $(".show_tr").style.display = "none";   //所有联系人列表隐藏
-        // })
-
-        //3.Vue部分:搜索单个联系人
-        // var vn = new Vue({
-        //     el:"#allContent",
-        //     data:{
-        //         id:{},
-        //         name:{},
-        //         idnumber:{},
-        //         phone:{},
-        //         traveltype:{}
-        //     }
-        // })
 
 
         //jQuery部分
