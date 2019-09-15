@@ -13,7 +13,7 @@ public class StopInfo {
 
     private Integer parktime;
 
-    private String leave;
+    private String left;
 
     private Integer number;
 
@@ -36,7 +36,7 @@ public class StopInfo {
                 ", cityInfo=" + cityInfo +
                 ", arrive='" + arrive + '\'' +
                 ", parktime=" + parktime +
-                ", leave='" + leave + '\'' +
+                ", left='" + left + '\'' +
                 ", number=" + number +
                 ", ticketgate='" + ticketgate + '\'' +
                 '}';
@@ -82,12 +82,12 @@ public class StopInfo {
         this.parktime = parktime;
     }
 
-    public String getLeave() {
-        return leave;
+    public String getleft() {
+        return left;
     }
 
-    public void setLeave(String leave) {
-        this.leave = leave == null ? null : leave.trim();
+    public void setleft(String left) {
+        this.left = left == null ? null : left.trim();
     }
 
     public Integer getNumber() {

@@ -48,11 +48,11 @@ public class TicketServiceImpl implements TicketService {
         return price;
     }
 
-    public String Calculatetime(String leave, String arrive){
+    public String Calculatetime(String left, String arrive){
         DateFormat df = new SimpleDateFormat("HH:mm:ss");
         String time = new String();
         try {
-            Date lea = df.parse(leave);
+            Date lea = df.parse(left);
             Date arr = df.parse(arrive);
             //相减得毫秒级时间差
             long diff = arr.getTime()-lea.getTime();
@@ -144,9 +144,9 @@ public class TicketServiceImpl implements TicketService {
             ticket.setTrainInfo(temp.get(i));
 
             //计算并填充历时
-            String leave = tmp.get(m).getLeave();
+            String left = tmp.get(m).getleft();
             String arrive = tmp.get(n).getArrive();
-            String time = Calculatetime(leave,arrive);
+            String time = Calculatetime(left,arrive);
             System.out.println(time);
             ticket.setSeatnumber(time);
 
