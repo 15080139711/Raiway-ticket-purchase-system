@@ -12,33 +12,6 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
-<script >
-    $(function () {
-        $("input[name='qp']").click(function () {
-            document.getElementById('contract_agree_id').style.display="inline";
-        })
-        $("input[id='qpfs_zq']").click(function () {
-            document.getElementById('contract_agree_id').style.display="none";
-        })
-        $("input[id='insurance_buy_and_agree']").click(function () {
-            document.getElementById('insurance_tips').style.display="block";
-            $('#insurance_table').toggle();
-            $('.item').toggle();
-
-        })
-        $("#_agree_id").click(function () {
-            $('#detail_logistics').toggle();
-        })
-
-
-
-
-})
-
-
-
-
-</script>
 <body>
 <!-- 公共顶部 -->
 <div class="header" id="ggdb">
@@ -66,7 +39,7 @@
                             <li>温馨服务查询</li>
                         </ul>
                     </li>
-                    <li>您好,<a href="">某某某</a></li>
+                    <li>您好,<a href="" id="users_name" >{{users_name}}</a></li>
                     <li><a href="">退出</a></li>
                 </ul>
                 <ul class="search">
@@ -269,9 +242,9 @@
             <div v-for="(item,index) in productList">
             <div class="info" id="show_title_ticket">
 
-            <strong class="mr5">2019-09-08（周日）</strong> <strong class="mr5">G157 次 </strong> <strong class="ml5">北京南</strong>站<strong>（17:36开）—上海虹桥</strong>站（
+            <strong class="mr5">{{day}}</strong> <strong class="mr5">{{Trained}} 次 </strong> <strong class="ml5">{{Fromstopid}}</strong>站<strong>（{{lefts}}开）—{{Tostopid}}</strong>站（
 
-            23:32到）
+            {{Arrive}}到）
         </div>
             <table class="table-a" id="table_list"><tbody><tr><th width="40" rowspan="1" colspan="1"><strong>序号</strong>
             </th>
@@ -292,21 +265,21 @@
                 <th rowspan="1" colspan="1"><strong>票价（元）</strong>
                 </th>
             </tr>
-            </tbody><tbody id="show_ticket_message">
-            <tr>
-                <td align="center">{{item.index}}</td>
-                <td title="柯志公">{{item.name}}</td>
-                <td>中国居民身份证</td>
-                <td>{{item.number}}</td>
-                <td>成人票</td>
-                <td>{{item.seatlevel}}</td>
-                <td>{{item.Carnumber}}</td>
+<!--            </tbody><tbody id="show_ticket_message">-->
+<!--            <tr>-->
+<!--                <td align="center">{{item.index}}</td>-->
+<!--                <td>{{item.name}}</td>-->
+<!--                <td>中国居民身份证</td>-->
+<!--                <td>{{item.number}}</td>-->
+<!--                <td>成人票</td>-->
+<!--                <td>{{item.seatlevel}}</td>-->
+<!--                <td>{{item.Carnumber}}</td>-->
 
-                <td>{{item.Seatnumber}}</td>
+<!--                <td>{{item.Seatnumber}}</td>-->
 
-                <td>{{item.Price}}</td>
-            </tr>
-            </tbody>
+<!--                <td>{{item.Price}}</td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
             </table>
             </div>
             <div id="insurance_renderTicket_div" role="document"><div class="bx-box"><div class="bx-hd"><!--   铁路旅客人身意外伤害保险<label class="label-buy"><input type="checkbox" class="check" id="insurance_buy_check"/>购买</label>
@@ -903,42 +876,111 @@
 
 </body>
 <script src="../js/vue.js"></script>
-<script>
-
-    var vm = new Vue({
-       el:".layout",
-        data:
+<script >
+    $(function () {
+        //缓存用户
+        var userid=11;
+        var username="八戒";
+        var startPoint;//出发城市
+        var endPoint;//到达城市
+        var city_fid;//出发城市id
+        var city_tid;//到达城市id
+        var startDate;//出发日期
+        var train_num;//列车号
+        var f_time;//出发时间
+        var t_time;//到达时间
+        var train_id;//列车id
+        var t_price;//车票价格
+        var seatNo;//作为号
+        var seat_leavel;//座位类型
+        var contentId;//联系人ID
+        function getCookie(cname)
+        {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++)
             {
-                productList:[
-                    {
-                        'id':1,
-                        'name':'kzg',
-                        'Trained':'G23',
-                        'Fromstopid':'上海',
-                        'Tostopid':'天津',
-                        'Price': 550,
-                        'Seatnumber':'01b',
-                        'rownumber':'',
-                        'Carnumber':'第七节',
-                        'seatlevel':'二等坐',
-                        'number':'2343523546',
+                var c = ca[i].trim();
+                if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+            }
+            return "";
+        }
+        // if (getCookie("cookie_userid") !=null){
+        //     userid = getCookie("cookie_userid");
+        // }
+        // if (getCookie("cookie_username") !=null){
+        //     username = getCookie("cookie_username");
+        // }
+        if (getCookie("cookie_startPoint") !=null){
+            startPoint = getCookie("cookie_startPoint");
+        }if (getCookie("cookie_endPoint") !=null){
+            endPoint = getCookie("cookie_endPoint");
+        }if (getCookie("cookie_city_fid") !=null){
+            city_fid = getCookie("cookie_city_fid");
+        }if (getCookie("cookie_city_tid") !=null){
+            city_tid = getCookie("cookie_city_tid");
+        }if (getCookie("cookie_startDate") !=null){
+            startDate = getCookie("cookie_startDate");
+        }if (getCookie("cookie_train_num") !=null){
+            train_num = getCookie("cookie_train_num");
+        }if (getCookie("cookie_train_f_time") !=null){
+            f_time = getCookie("cookie_train_f_time");
+        }if (getCookie("cookie_train_t_time") !=null){
+            t_time = getCookie("cookie_train_t_time");
+        }if (getCookie("cookie_train_id") !=null){
+            train_id = getCookie("cookie_train_id");
+        }if (getCookie("cookie_train_price") !=null){
+            t_price = getCookie("cookie_train_price");
+        }if (getCookie("cookie_seat_number") !=null){
+            seatNo = getCookie("cookie_seat_number");
+        }if (getCookie("cookie_seat_level") !=null){
+            seat_leavel = getCookie("cookie_seat_level");
+        }if (getCookie("cookie_contentid") !=null){
+            contentId = getCookie("cookie_contentid");
+        }
+        var vms = new Vue({
+            el:'#users_name',
+            data:{users_name:{}},
+            created:function () {
+                this.users_name = username;
+            }
+        })
 
-                    },
-                    {   'id':1,
-                        'name':'kzg',
-                        'Trained':'',
-                        'Fromstopid':'',
-                        'Tostopid':'',
-                        'Price': 550,
-                        'Seatnumber':'',
-                        'rownumber':'',
-                        'Carnumber':'',
-                        'seatlevel':'二等坐',
-                        'number':'2343523546',
-
-                    }
-                ]
-            },
+        var c = new Object();
+        c.id=11;
+        c.trainid=1;
+        c.fromstopid=1;
+        c.tostopid=6;
+        c.price=150;
+        c.seatnumber="F";
+        c.seatlevel=3;
+        c.contactid=14;
+        $.ajax({
+            url:"http://localhost:8080/api/ticket/submitTicket",
+            dataType:"json",
+            type:"post",
+            contentType:"application/json;charset=UTF-8",
+            data:JSON.stringify(c),
+            success:function (data) {
+                alert("success");
+                vm.productList = data;
+            },error:function (e) {
+                alert("cuo");
+            }
+        })
+        var vm = new Vue({
+            el:".layout",
+            data:
+                {
+                    productList:[],
+                    u_name:username,
+                    day:startDate,
+                    Trained: train_num,
+                    Fromstopid:startPoint,
+                    lefts:f_time,
+                    Tostopid:endPoint,
+                    Arrive:t_time,
+                },
             methods:
                 {
 
@@ -961,29 +1003,53 @@
                     }
 
                 },
-                    computed:{
-                        //检测是否全选
-                        isSelectAll:function(){
-                            //如果productList中每一条数据的isSelect都为true，返回true，否则返回false;
-                            return this.productList.every(function (val) { return val.isSelect});
-                        },
-                        message:function(){
-                            var prolist = this.productList.filter(function (val) { return val.isSelect}),
-                                totalPri = 0;
-                            for (var i = 0,len = prolist.length; i < len; i++) {
-                                totalPri+=3;
-                            }
-                            return {totalPrice:totalPri}
-                        },
-                    },
-                        mounted:function () {
-                            var _this=this;
-                            //为productList添加select（是否选中）字段，初始值为true
-                            this.productList.map(function (item) {
-                                _this.$set(item, 'isSelect', false);
-                            })
-                        }
+            computed:{
+                //检测是否全选
+                isSelectAll:function(){
+                    //如果productList中每一条数据的isSelect都为true，返回true，否则返回false;
+                    return this.productList.every(function (val) { return val.isSelect});
+                },
+                message:function(){
+                    var prolist = this.productList.filter(function (val) { return val.isSelect}),
+                        totalPri = 0;
+                    for (var i = 0,len = prolist.length; i < len; i++) {
+                        totalPri+=3;
+                    }
+                    return {totalPrice:totalPri}
+                },
+            },
+            mounted:function () {
+                var _this=this;
+                //为productList添加select（是否选中）字段，初始值为true
+                this.productList.map(function (item) {
+                    _this.$set(item, 'isSelect', false);
+                })
+            }
+
+        })
+
+
+        $("input[name='qp']").click(function () {
+            document.getElementById('contract_agree_id').style.display="inline";
+        })
+        $("input[id='qpfs_zq']").click(function () {
+            document.getElementById('contract_agree_id').style.display="none";
+        })
+        $("input[id='insurance_buy_and_agree']").click(function () {
+            document.getElementById('insurance_tips').style.display="block";
+            $('#insurance_table').toggle();
+            $('.item').toggle();
+
+        })
+        $("#_agree_id").click(function () {
+            $('#detail_logistics').toggle();
+        })
+
+
+
 
     })
+
+
 </script>
 </html>

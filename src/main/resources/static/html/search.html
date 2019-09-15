@@ -41,7 +41,7 @@
 								<li>温馨服务查询</li>
 							</ul>
 						</li>
-						<li>您好,<a href="">某某某</a></li>
+						<li>您好,<span href="" id="users_name">{{users_name}}</span></li>
 						<li><a href="">退出</a></li>
 					</ul>
 					<ul class="search">
@@ -320,8 +320,8 @@
                                 <strong class="start-s">{{traInfo.fromstop.cityInfo.name}}</strong><strong class="end-s">{{traInfo.tostop.cityInfo.name}}</strong>
                             </div>
                             <div class="cds">
-                                <strong class="start-t">{{traInfo.fromstop.cityInfo.saletime}}</strong>
-                                <strong class="color999">{{traInfo.tostop.cityInfo.saletime}}</strong>
+                                <strong class="start-t">{{traInfo.fromstop.lefts}}</strong>
+                                <strong class="color999">{{traInfo.tostop.lefts}}</strong>
                             </div>
                             <div class="ls" id="240000G1010N_ls">
                                 <strong>{{traInfo.seatnumber}}</strong>
@@ -329,7 +329,7 @@
                             </div>
                         </div>
                     </td>
-                    <td  width="46" align="center" style="cursor: pointer;color: #f80;" id="SWZ_240000G1010N">候补</td>
+                    <td  width="46" align="center" style="cursor: pointer;color: #f80;" id="SWZ_240000G1010N">有</td>
                     <td  width="46" align="center" style="cursor: pointer;color: #f80;" id="TDZ_240000G1010N">候补</td>
                     <td  width="46" align="center" class="yes" style="cursor: pointer;"  id="ZY_240000G1010N">有</td>
                     <td  width="46" align="center" class="yes" style="cursor: pointer;"  id="ZE_240000G1010N">有</td>
@@ -427,8 +427,8 @@
 <script>
     $(function () {
 		//缓存信息
-		// var userid=13;
-		// var username="八戒";
+		var userid=13;
+		var username="八戒";
 		var startPoint;
 		var endPoint;
 		var city_fid;
@@ -461,15 +461,19 @@
 		}if (getCookie("cookie_startDate") !=null){
 			startDate = getCookie("cookie_startDate");
 		}
-		alert(city_fid+city_tid);
-		// var vms = new Vue({
-		// 	el:'#users_name',
-		// 	data:{users_name:{}},
-		// 	created:function () {
-		// 		this.users_name = username;
-		// 	}
-		// })
+		var vms = new Vue({
+			el:'#users_name',
+			data:{users_name:{}},
+			created:function () {
+				this.users_name = username;
+			}
+		})
     	//搜索列车信息
+        var train_num;
+		var f_time;
+		var t_time;
+		var train_id;
+		var t_price;
 		var a = new Object();
 		a.cityid1 = city_fid;
 		a.cityid2 = city_tid;
@@ -492,17 +496,26 @@
 				trainInfos:[],
 			},methods:{
 				getInfos:function (index) {
-					this.trainInfos.splice(index,1)
+					train_num = this.trainInfos[index].trainInfo.number;
+					f_time = this.trainInfos[index].fromstop.lefts;
+					t_time = this.trainInfos[index].tostop.lefts;
+					train_id = this.trainInfos[index].fromstop.trainid;
+					t_price  = this.trainInfos[index].price;
+					document.cookie = "cookie_train_num = " + train_num+ "; path=/html/";
+					document.cookie = "cookie_train_f_time = " + f_time+ "; path=/html/";
+					document.cookie = "cookie_train_t_time = " + t_time+ "; path=/html/";
+					document.cookie = "cookie_train_id = " + train_id+ "; path=/html/";
+					document.cookie = "cookie_train_price = " + t_price+ "; path=/html/";
+					location.href="http://localhost:8080/html/settlement.html";
 				}
 			}
 		});
-	//	确认提交
-	// 	$("#qr_submit_id").click(function () {
-	// 		var a = $().parent().parent().children().eq(3).text();
-	// 		alert(a);
-	//
-	// 		location.href="http://localhost:8080/html/settlement.html";
-	// 	})
+
+		// 确认提交
+		// $("#qr_submit_id").click(function () {
+		// 	alert(a);
+		// 	location.href="http://localhost:8080/html/settlement.html";
+		// })
 
     })
 

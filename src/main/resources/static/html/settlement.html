@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-for="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>结算</title>
@@ -239,24 +239,24 @@
                 次
                 <strong class="ml5">{{Fromstopid}}</strong>
                 站
-                <strong>（{{Leave}}开）—{{Tostopid}}</strong>
+                <strong>（{{lefts}}开）—{{Tostopid}}</strong>
                 站（{{Arrive}}到）
             </p>
             <p class="t-con" id="ticket_con_id">
                 <span id="ticket_status_id" class="s1">
                     商务座（
-                    <span class="colorA">￥78.0</span>
-                    ）2张票
+                    <span class="colorA">{{sprice}}</span>
+                    ）{{seatinfo[0]}}张票
                 </span>
                 <span class="s1">
                     二等座（
-                    <span class="colorA">￥49.0</span>
-                    ）有票
+                    <span class="colorA">{{price}}</span>
+                    ）{{seatinfo[1]}}张票
                 </span>
                 <span class="s1">
-                    无座（
-                    <span class="colorA">￥49.0</span>
-                    ）有票
+                    一等座（
+                    <span class="colorA">{{fprice}}</span>
+                    ）{{seatinfo[2]}}张票
                 </span>
 
             </p>
@@ -280,11 +280,15 @@
             <div class="per-sel">
                 <div class="item clearfix">
                     <img class="cy" id="normal_passenger_image_id" title="常用联系人" src="../images/icon0.png"></img>
-                    <ul id="normal_passenger_id">
-                        <li>
-                            <input totaltimes="99" typeflag="1" id="normalPassenger_0" type="checkbox" class="check"><label class="label-name">{{name}}</label>
-                        </li>
-                    </ul>
+                    <div class="near_on">
+                        <input totaltimes="99" typeflag="1" id="normalPassenger_0" type="checkbox" class="check fpeople"><label class="label-name">{{name}}</label>
+                        <ul id="normal_often_id" class="ofpeople" v-for="(vp,index) in oftenUser">
+                            <li>
+                                <input totaltimes="99" typeflag="1"  type="checkbox" class="check"><label class="label-name">{{vp.name}}</label>
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
             <table class="per-ticket">
@@ -305,15 +309,15 @@
                 <tr id="tr_id_1">
                     <td align="center">1</td>
                     <td><select id="ticketType_1" name="confirmTicketType">
-                        <option name="ticket_type_option" selected="selected">成人票</option>
-                        <option>学生票 </option>
+                        <option name="ticket_type_option" selected="selected" value="成人票">成人票</option>
+                        <option value="学生票">学生票 </option>
                     </select>
                     </td>
                     <td>
                         <select id="seatType_1">
-                            <option selected="selected">二等座</option>
-                            <option>一等座</option>
-                            <option>商务座</option>
+                            <option selected="selected" value="二等座">二等座</option>
+                            <option value="一等座">一等座</option>
+                            <option value="商务座">商务座</option>
                         </select>
                     </td>
                     <td>
@@ -440,7 +444,7 @@
             </div>
             <div id="form_data" class="up-box-bd ticket-check">
                 <div class="info2" id="check_ticket_tit_id">
-                    <strong class="mr5">{{day}}</strong><strong class="ml5">{{Trained}}</strong>次<strong class="ml5">{{Fromstopid}}</strong>站<strong>（{{Leave}}开）—{{Tostopid}}</strong>站（{{Arrive}}到）
+                    <strong class="mr5">{{day}}</strong><strong class="ml5">{{Trained}}</strong>次<strong class="ml5">{{Fromstopid}}</strong>站<strong>（{{lefts}}开）—{{Tostopid}}</strong>站（{{Arrive}}到）
                 </div>
                 <table class="table-a" id="check_ticket_info">
                     <tbody>
@@ -492,7 +496,7 @@
                 <p id="sy_ticket_num_id">欢迎乘坐本次列车，祝您旅途愉快</p>
                 <div class="lay-btn" id="confirmDiv" style="padding: 10px 0px;">
                     <a id="back_edit_id" href="http://localhost:8080/html/settlement.html" class="btn92" shape="rect">返回修改</a>
-                    <a href="" class="btn92s" id="qr_submit_id" shape="rect">确认</a>
+                    <a href="#" class="btn92s" id="qr_submit_id" shape="rect">确认</a>
                 </div>
             </div>
         </div><!-- /.modal-content -->
@@ -531,6 +535,16 @@
         //缓存用户
         var userid=13;
         var username="八戒";
+        var startPoint;//出发城市
+        var endPoint;//到达城市
+        var city_fid;//出发城市id
+        var city_tid;//到达城市id
+        var startDate;//出发日期
+        var train_num;//列车号
+        var f_time;//出发时间
+        var t_time;//到达时间
+        var train_id;//列车id
+        var t_price;//车票价格
         function getCookie(cname)
         {
             var name = cname + "=";
@@ -542,10 +556,32 @@
             }
             return "";
         }
-        if (getCookie("cookie_userid") !=null){
-            userid = getCookie("cookie_userid");
-        }if (getCookie("cookie_username") !=null){
-            username = getCookie("cookie_username");
+        // if (getCookie("cookie_userid") !=null){
+        //     userid = getCookie("cookie_userid");
+        // }
+        // if (getCookie("cookie_username") !=null){
+        //     username = getCookie("cookie_username");
+        // }
+        if (getCookie("cookie_startPoint") !=null){
+            startPoint = getCookie("cookie_startPoint");
+        }if (getCookie("cookie_endPoint") !=null){
+            endPoint = getCookie("cookie_endPoint");
+        }if (getCookie("cookie_city_fid") !=null){
+            city_fid = getCookie("cookie_city_fid");
+        }if (getCookie("cookie_city_tid") !=null){
+            city_tid = getCookie("cookie_city_tid");
+        }if (getCookie("cookie_startDate") !=null){
+            startDate = getCookie("cookie_startDate");
+        }if (getCookie("cookie_train_num") !=null){
+            train_num = getCookie("cookie_train_num");
+        }if (getCookie("cookie_train_f_time") !=null){
+            f_time = getCookie("cookie_train_f_time");
+        }if (getCookie("cookie_train_t_time") !=null){
+            t_time = getCookie("cookie_train_t_time");
+        }if (getCookie("cookie_train_id") !=null){
+            train_id = getCookie("cookie_train_id");
+        }if (getCookie("cookie_train_price") !=null){
+            t_price = getCookie("cookie_train_price");
         }
         var vms = new Vue({
             el:'#users_name',
@@ -571,7 +607,7 @@
                 vp.idnumber = data.idnumber;
                 vp.phone = data.phone;
             },error:function (error) {
-                alert('bb');
+                alert('assasaa');
             }
         })
         var va = new Vue({
@@ -580,6 +616,7 @@
                 name:{},
                 idnumber: {},
                 phone:{},
+                oftenUser:[],
             },
             methods:{
                 hideId:function (idnumber) {
@@ -595,28 +632,64 @@
             }
         });
 
-
-        // 获取列车信息
-        var v = new Vue({
-            el:"#ticket_info",
-            data: {
-                day:"2019-09-20（周五）",
-                Trained: "D3274",
-                Fromstopid:"厦门北 ",
-                Leave:"08:17",
-                Tostopid:"莆田 ",
-                Arrive:"09:15",
-
-            }
-        });
+        //常用联系人
+        var contentId = 11;
+        var ao = new Object();
+        ao.id = contentId;
         $.ajax({
-            url:"",
+            url:"http://localhost:8080/api/user/getCotactByUserid",
             dataType:"json",
             type:"post",
-            data:{},
+            contentType:"application/json;charset=UTF-8",
+            data:JSON.stringify(ao),
             success:function (data) {
+                va.oftenUser = data;
+            },error:function (error) {
+                alert('121');
             }
         })
+        // 获取列车信息
+        var vb = new Vue({
+            el:"#ticket_tit_id",
+            data: {
+                day:startDate,
+                Trained: train_num,
+                Fromstopid:startPoint,
+                lefts:f_time,
+                Tostopid:endPoint,
+                Arrive:t_time,
+            }
+        });
+
+
+        //获取列车座位量
+        var c = new Object();
+        c.cityid1 = 1;
+        c.cityid2 = 2;
+        c.trainid = 1;
+        $.ajax({
+            url:"http://localhost:8080/api/ticket/getUnsoldTicketNum",
+            dataType:"json",
+            type:"post",
+            contentType:"application/json;charset=UTF-8",
+            data:JSON.stringify(c),
+            success:function (data) {
+                vc.seatinfo = data;
+            },error:function (e) {
+                alert("cuo");
+            }
+        })
+        var f_price = t_price * 2;
+        var s_price = t_price * 4;
+        var vc = new Vue({
+            el:"#ticket_con_id",
+            data: {
+                seatinfo:[],
+                price:t_price,
+                fprice:f_price,
+                sprice:s_price,
+            },
+        });
 
 
         //选择用户
@@ -633,20 +706,20 @@
         })
 
         //提交订单
-        var tlevel=$("#ticketType_1").val();
-        var stype=$("#seatType_1").val();
+        var tlevel = $("#seatType_1 option:selected").val();
+        var stype = $("#ticketType_1 option:selected").val();
         var vp = new Vue({
             el:"#modal_content_check",
             data:{
                 name:{},
                 idnumber: {},
                 phone:{},
-                day:"2019-09-20（周五）",
-                Trained: "D3274",
-                Fromstopid:"厦门北 ",
-                Leave:"08:17",
-                Tostopid:"莆田 ",
-                Arrive:"09:15",
+                day:startDate,
+                Trained: train_num,
+                Fromstopid:startPoint,
+                lefts:f_time,
+                Tostopid:endPoint,
+                Arrive:t_time,
                 seatlevel:stype,
                 traveltype:tlevel,
             },
@@ -664,6 +737,8 @@
             }
         })
         $("#submitOrder_id").click(function () {
+            alert(tlevel);
+            alert(stype);
             if ($("#normalPassenger_0").is(':checked')){
                 $(this).attr('data-target',"#myModal");
             }else {
@@ -692,27 +767,12 @@
 
         //确认订单
         var seatNo = null;
-        var PayObj = {
-            fName:vp.name,
-            fidnumber:vp.idnumber,
-            fphone:vp.phone,
-            fseatlevel:vp.seatlevel,
-            ftraveltype:vp.traveltype,
-            fseatNo:seatNo
-            };
+        var seat_leavel = vp.seatlevel;
         $("#qr_submit_id").click(function () {
-            $.ajax({
-                url:'@Url.Action("1.html")',
-                dataType:"json",
-                type:"post",
-                data:{PayObj},
-                success:function (data) {
-                    alert(250);
-                    location.href="http://localhost:8080/html/1.html";
-                },error:function (e) {
-                    alert(0);
-                }
-            })
+            document.cookie = "cookie_seat_number = " + seatNo+ "; path=/html/";
+            document.cookie = "cookie_seat_level = " + seat_leavel+ "; path=/html/";
+            document.cookie = "cookie_contentid = " + contentId+ "; path=/html/";
+            location.href="http://localhost:8080/html/payOrder.html"
         })
 
     })
