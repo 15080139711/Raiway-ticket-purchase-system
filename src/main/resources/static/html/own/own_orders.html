@@ -12,7 +12,7 @@
 </head>
 <body>
 <!-- 右侧栏 -->
-<div class="right">
+<div id="allContent" class="right">
     <!-- 菜单 -->
     <div class="menu">
         <ul>
@@ -24,7 +24,99 @@
     <!-- 主体1  未完成订单-->
     <div class="main1" style="display:block;">
         <div class="content">
-            <div class="details_no">
+            <div class="details1" style="display: block">
+                <div class="title_box">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th>车次信息</th>
+                            <th>旅客信息</th>
+                            <th>席位信息</th>
+                            <th>票价</th>
+                            <th>车票状态</th>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="order_box">
+                    <div class="order_box_hd">
+                        <i></i>
+                        <div class="order_hd_info1">
+                            <span class="hd_span1">订票日期：</span>
+                            <span class="hd_span2">{{undoneOrders[0].createdate}}</span>
+                        </div>
+                        <div class="order_hd_info2">
+                            <span class="hd_span1">订单号：</span>
+                            <span class="hd_span2">EJ{{undoneOrders[0].id}}</span>
+                        </div>
+                        <div class="order_hd_info3">
+                            <span>候补兑现订单</span>
+                        </div>
+                    </div>
+                    <div class="order_box_bd">
+                        <table>
+                            <tbody>
+                            <tr class="first_tr">
+                                <td class="tr1_td1">
+                                    <div class="tr1_td1_div1">
+                                        {{undoneOrders[0].tickets[0].fromstop.cityInfo.name}}→{{undoneOrders[0].tickets[0].tostop.cityInfo.name}} D6677
+                                    </div>
+                                    <div class="tr1_td1_div2">
+                                        2019-10-07&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp19:43 开
+                                    </div>
+                                </td>
+                                <td class="tr1_td2">
+                                    <div>张三</div>
+                                    <div>中国居民身份证</div>
+                                </td>
+                                <td class="tr1_td3">
+                                    <div>二等座</div>
+                                    <div>05车17C号</div>
+                                </td>
+                                <td class="tr1_td4">
+                                    <div>成人票</div>
+                                    <div><span>89.5</span>元</div>
+                                </td>
+                                <td class="tr1_td5">
+                                    <div>已支付</div>
+                                    <div><a href="">退票</a></div>
+                                </td>
+                            </tr>
+                            <tr class="second_tr">
+                                <td class="tr2_td1"></td>
+                                <td colspan="6" class="tr2_td2">
+                                    <div class="btn_right">
+                                        <a class="bt_r_a1" href="" style="background-color:#ff8201;color:#fff;">订单详情</a>
+                                        <a class="bt_r_a2" href="">购/赠/退保险</a>
+                                        <a class="bt_r_a3" href="">改签</a>
+                                        <a class="bt_r_a4" href="">变更到站</a>
+                                        <a class="bt_r_a5" href="">餐饮•特产</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--  分页部分          -->
+                <div class="page_part">
+                    <div class="total_page">
+                        共<span>1</span>页
+                    </div>
+                    <div class="total_page_a">
+                        <a href="">1</a>
+                    </div>
+                    <div class="jump_page">
+                        到<input type="text">页
+                    </div>
+                    <div class="btn">
+                        <a href="">确定</a>
+                    </div>
+                </div>
+            </div>
+            <!--    没票的时候的页面        -->
+            <div class="details_no" style="display:none">
                 <div class="details_img"><img src="../../images/own/logo.png" alt=""></div>
                 <div class="details_txt">
                     <p>您没有对应的订单内容哦～</p>
@@ -235,7 +327,99 @@
             <a href="">查询</a>
         </div>
         <div class="main3_content">
-            <div class="details_no">
+            <div class="details1" style="display: block">
+                <div class="title_box">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th>车次信息</th>
+                            <th>旅客信息</th>
+                            <th>席位信息</th>
+                            <th>票价</th>
+                            <th>车票状态</th>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="order_box">
+                    <div class="order_box_hd">
+                        <i></i>
+                        <div class="order_hd_info1">
+                            <span class="hd_span1">订票日期：</span>
+                            <span class="hd_span2">2019-09-04</span>
+                        </div>
+                        <div class="order_hd_info2">
+                            <span class="hd_span1">订单号：</span>
+                            <span class="hd_span2">EJ86957834</span>
+                        </div>
+                        <div class="order_hd_info3">
+                            <span>候补兑现订单</span>
+                        </div>
+                    </div>
+                    <div class="order_box_bd">
+                        <table>
+                            <tbody>
+                            <tr class="first_tr">
+                                <td class="tr1_td1">
+                                    <div class="tr1_td1_div1">
+                                        长汀南→厦门北 D6677
+                                    </div>
+                                    <div class="tr1_td1_div2">
+                                        2019-10-07&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp19:43 开
+                                    </div>
+                                </td>
+                                <td class="tr1_td2">
+                                    <div>张三</div>
+                                    <div>中国居民身份证</div>
+                                </td>
+                                <td class="tr1_td3">
+                                    <div>二等座</div>
+                                    <div>05车17C号</div>
+                                </td>
+                                <td class="tr1_td4">
+                                    <div>成人票</div>
+                                    <div><span>89.5</span>元</div>
+                                </td>
+                                <td class="tr1_td5">
+                                    <div>已支付</div>
+                                    <div><a href="">退票</a></div>
+                                </td>
+                            </tr>
+                            <tr class="second_tr">
+                                <td class="tr2_td1"></td>
+                                <td colspan="6" class="tr2_td2">
+                                    <div class="btn_right">
+                                        <a class="bt_r_a1" href="" style="background-color:#ff8201;color:#fff;">订单详情</a>
+                                        <a class="bt_r_a2" href="">购/赠/退保险</a>
+                                        <a class="bt_r_a3" href="">改签</a>
+                                        <a class="bt_r_a4" href="">变更到站</a>
+                                        <a class="bt_r_a5" href="">餐饮•特产</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--  分页部分          -->
+                <div class="page_part">
+                    <div class="total_page">
+                        共<span>1</span>页
+                    </div>
+                    <div class="total_page_a">
+                        <a href="">1</a>
+                    </div>
+                    <div class="jump_page">
+                        到<input type="text">页
+                    </div>
+                    <div class="btn">
+                        <a href="">确定</a>
+                    </div>
+                </div>
+            </div>
+            <!--    没票的时候的页面        -->
+            <div class="details_no" style="display:none">
                 <div class="details_img"><img src="../../images/own/logo.png" alt=""></div>
                 <div class="details_txt">
                     <p>您没有对应的订单内容哦～</p>
@@ -262,8 +446,58 @@
 </div>
 
 <script src="../../js/jquery-3.4.1.min.js"></script>
+<script src="../../js/vue.min.js"></script>
 <script>
     $(function () {
+
+        //缓存用户读取cookie
+        var userid;
+        var username;
+        function getCookie(cname)
+        {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++)
+            {
+                var c = ca[i].trim();
+                if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+            }
+            return "";
+        }
+        if (getCookie("cookie_userid") !=null){
+            userid = getCookie("cookie_userid");
+        }if (getCookie("cookie_username") !=null){
+            username = getCookie("cookie_username");
+        }
+
+
+        //1.ajax部分：获取未完成订单
+        var e = new Object();
+        e.userid = userid;
+        $.ajax({
+           url:"http://localhost:8080/api/order/getUndoneOrder" ,
+           type:"post",
+           dataType:"json",
+           contentType:"application/json;charset=UTF-8",
+           data:JSON.stringify(e),
+           success:function (data) {
+               alert(data[0].tickets[0].trainInfo.number);
+               vm.undoneOrders = data;
+           },
+           error:function () {
+               alert("出现错误");
+           }
+        })
+
+        //1.Vue部分：绑定未完成订单数据
+        var vm = new Vue({
+            el:"#allContent",
+            data:{
+                undoneOrders:[]
+            }
+        })
+
+        //jQuery特效部分
         // 鼠标移到未出行订单状态中实现变色和变小手效果
         var $lis = $(".nav>ul>li");
         $lis.mouseenter(function () {
