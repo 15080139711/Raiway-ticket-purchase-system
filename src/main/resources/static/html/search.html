@@ -321,7 +321,7 @@
                             </div>
                             <div class="cds">
                                 <strong class="start-t">{{traInfo.fromstop.lefts}}</strong>
-                                <strong class="color999">{{traInfo.tostop.lefts}}</strong>
+                                <strong class="color999">{{traInfo.tostop.arrive}}</strong>
                             </div>
                             <div class="ls" id="240000G1010N_ls">
                                 <strong>{{traInfo.seatnumber}}</strong>
@@ -329,10 +329,10 @@
                             </div>
                         </div>
                     </td>
-                    <td  width="46" align="center" style="cursor: pointer;color: #f80;" id="SWZ_240000G1010N">有</td>
+                    <td  width="46" align="center" class="yes" style="cursor: pointer;color: #00cc0c" id="SWZ_240000G1010N">有</td>
                     <td  width="46" align="center" style="cursor: pointer;color: #f80;" id="TDZ_240000G1010N">候补</td>
-                    <td  width="46" align="center" class="yes" style="cursor: pointer;"  id="ZY_240000G1010N">有</td>
-                    <td  width="46" align="center" class="yes" style="cursor: pointer;"  id="ZE_240000G1010N">有</td>
+                    <td  width="46" align="center" class="yes" style="cursor: pointer;color: #00cc0c"  id="ZY_240000G1010N">有</td>
+                    <td  width="46" align="center" class="yes" style="cursor: pointer;color: #00cc0c"  id="ZE_240000G1010N">有</td>
                     <td  width="46" align="center" style="cursor: pointer;" id="GR_240000G1010N">&#45;&#45;</td>
                     <td  width="46" align="center" style="cursor: pointer;" id="RW_240000G1010N">&#45;&#45;</td>
                     <td  width="46" align="center" style="cursor: pointer;" id="SRRB_240000G1010N">&#45;&#45;</td>
@@ -486,6 +486,7 @@
 			data:JSON.stringify(a),
 			success:function (data) {
 				va.trainInfos = data;
+
 			},error:function (e) {
 				alert("cuo");
 			}
@@ -493,12 +494,13 @@
 		var va = new Vue({
 			el:"#info-box",
 			data: {
+				trainId:{},
 				trainInfos:[],
 			},methods:{
 				getInfos:function (index) {
 					train_num = this.trainInfos[index].trainInfo.number;
 					f_time = this.trainInfos[index].fromstop.lefts;
-					t_time = this.trainInfos[index].tostop.lefts;
+					t_time = this.trainInfos[index].tostop.arrive;
 					train_id = this.trainInfos[index].fromstop.trainid;
 					t_price  = this.trainInfos[index].price;
 					document.cookie = "cookie_train_num = " + train_num+ "; path=/html/";
@@ -511,11 +513,29 @@
 			}
 		});
 
-		// 确认提交
-		// $("#qr_submit_id").click(function () {
-		// 	alert(a);
-		// 	location.href="http://localhost:8080/html/settlement.html";
+		//获取列车座位量
+		// var c = new Object();
+		// c.cityid1 = city_fid;
+		// c.cityid2 = city_tid;
+		// c.trainid = train_id;
+		// $.ajax({
+		// 	url:"http://localhost:8080/api/ticket/getUnsoldTicketNum",
+		// 	dataType:"json",
+		// 	type:"post",
+		// 	contentType:"application/json;charset=UTF-8",
+		// 	data:JSON.stringify(c),
+		// 	success:function (data) {
+		// 		vc.seatinfo = data;
+		// 	},error:function (e) {
+		// 		alert("cuo");
+		// 	}
 		// })
+		// var vc = new Vue({
+		// 	el:"#ticket_con_id",
+		// 	data: {
+		// 		seatinfo:[],
+		// 	},
+		// });
 
     })
 

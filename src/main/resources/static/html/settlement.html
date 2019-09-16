@@ -462,8 +462,8 @@
                     <tbody id="check_ticketInfo_id">
                     <tr>
                         <td align="center">1</td>
-                        <td>{{seatlevel}}</td>
-                        <td>{{traveltype}}</td>
+                        <td>{{seat_level}}</td>
+                        <td>{{ticket_class}}</td>
                         <td title="">{{name}}</td>
                         <td> 中国居民身份证 </td>
                         <td>{{hideId(idnumber)}}</td>
@@ -633,7 +633,7 @@
         });
 
         //常用联系人
-        var contentId = 11;
+        var contentId = userid;
         var ao = new Object();
         ao.id = contentId;
         $.ajax({
@@ -706,8 +706,8 @@
         })
 
         //提交订单
-        var tlevel = $("#seatType_1 option:selected").val();
-        var stype = $("#ticketType_1 option:selected").val();
+        // var tlevel = $("#seatType_1 option:selected").val();
+        // var stype = $("#ticketType_1 option:selected").val();
         var vp = new Vue({
             el:"#modal_content_check",
             data:{
@@ -720,8 +720,8 @@
                 lefts:f_time,
                 Tostopid:endPoint,
                 Arrive:t_time,
-                seatlevel:stype,
-                traveltype:tlevel,
+                ticket_class:{},
+                seat_level:{},
             },
             methods:{
                 hideId:function (idnumber) {
@@ -737,8 +737,10 @@
             }
         })
         $("#submitOrder_id").click(function () {
-            alert(tlevel);
-            alert(stype);
+            vp.seat_level = $("#seatType_1 option:selected").val();
+            vp.ticket_class = $("#ticketType_1 option:selected").val();
+            alert( vp.ticket_class);
+            alert(vp.seat_level);
             if ($("#normalPassenger_0").is(':checked')){
                 $(this).attr('data-target',"#myModal");
             }else {
@@ -767,11 +769,21 @@
 
         //确认订单
         var seatNo = null;
-        var seat_leavel = vp.seatlevel;
+        var seatNumber;
         $("#qr_submit_id").click(function () {
+            if(vp.seat_level == "一等座"){
+                seatNumber = 2;
+            }if(vp.seat_level == "二等座"){
+                seatNumber = 3;
+            }if(vp.seat_level == "商务座"){
+                seatNumber = 1;
+            }
             document.cookie = "cookie_seat_number = " + seatNo+ "; path=/html/";
-            document.cookie = "cookie_seat_level = " + seat_leavel+ "; path=/html/";
+            document.cookie = "cookie_seat_level = " + seatNumber+ "; path=/html/";
             document.cookie = "cookie_contentid = " + contentId+ "; path=/html/";
+            alert(seatNo);
+            alert(seatNumber);
+            alert(contentId);
             location.href="http://localhost:8080/html/payOrder.html"
         })
 
