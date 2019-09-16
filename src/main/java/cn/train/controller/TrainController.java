@@ -3,6 +3,7 @@ package cn.train.controller;
 
 import cn.train.enity.MapTrainInfo;
 import cn.train.enity.Search;
+import cn.train.enity.TrainInfo;
 import cn.train.enity.UnsoldTicket;
 import cn.train.service.TicketService;
 import cn.train.service.TrainService;
@@ -32,8 +33,8 @@ public class TrainController {
     }
 
     @RequestMapping("/api/train/generateDateTrain")
-    public int generateDateTrain(@RequestBody String date){
-        System.out.println("生成车次请求！日期：" + date);
-        return trainService.generateDateTrain(date);
+    public int generateDateTrain(@RequestBody TrainInfo trainInfo){
+        System.out.println("生成车次请求！日期：" + trainInfo.getDay());
+        return trainService.generateDateTrain(trainInfo.getDay());
     }
 }

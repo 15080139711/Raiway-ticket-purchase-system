@@ -22,4 +22,6 @@ public interface MapStopInfoMapper {
     int updateByPrimaryKeySelective(MapStopInfo record);
 
     int updateByPrimaryKey(MapStopInfo record);
+
+    List<MapStopInfo> getMapStopByTrainid(int trainid);
 }

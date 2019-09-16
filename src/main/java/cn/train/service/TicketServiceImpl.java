@@ -31,9 +31,10 @@ public class TicketServiceImpl implements TicketService {
     @Autowired
     ContactInfoMapper contactInfoMapper;
 
+    @Override
     public float CalculatePrice(int[] path,int m,int n){
-        System.out.println(path[0]+"-"+path[path.length-1]);
         System.out.println("开始计算价格...");
+        System.out.println(path[0]+"-"+path[path.length-1]);
         float[] prices = new float[path.length-1];
         float price = 0;
 

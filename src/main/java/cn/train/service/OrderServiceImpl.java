@@ -3,6 +3,7 @@ package cn.train.service;
 import cn.train.enity.OrderInfo;
 import cn.train.enity.SoldTicket;
 import cn.train.enity.StopInfo;
+import cn.train.enity.TrainInfo;
 import cn.train.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,8 @@ public class OrderServiceImpl implements OrderService {
     CityInfoMapper cityInfoMapper;
     @Autowired
     ContactInfoMapper contactInfoMapper;
+    @Autowired
+    TrainInfoMapper trainInfoMapper;
 
     public List<OrderInfo> getTicketInfo(List<OrderInfo> result){
         for(int i=0;i<result.size();i++){
@@ -31,10 +34,12 @@ public class OrderServiceImpl implements OrderService {
             temp = soldTicketMapper.selectByOrderid(result.get(i).getId());
             for (int j=0;j<temp.size();j++){
                 //每张车票填充数据
+                TrainInfo trainInfo = trainInfoMapper.selectByPrimaryKey(temp.get(j).getTrainid());
                 StopInfo m = stopInfoMapper.selectByPrimaryKey(temp.get(j).getTostopid());
                 m.setCityInfo(cityInfoMapper.selectByPrimaryKey(m.getCityid()));
                 StopInfo n = stopInfoMapper.selectByPrimaryKey(temp.get(j).getFromstopid());
                 n.setCityInfo(cityInfoMapper.selectByPrimaryKey(n.getCityid()));
+                temp.get(j).setTrainInfo(trainInfo);
                 temp.get(j).setTostop(m);
                 temp.get(j).setFromstop(n);
                 temp.get(j).setContactInfo(contactInfoMapper.selectByPrimaryKey(temp.get(j).getContactid()));

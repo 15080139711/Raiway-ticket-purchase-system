@@ -6,6 +6,8 @@ public class SoldTicket {
     private Integer trainid;
     private TrainInfo trainInfo;
 
+    private TrainInfo trainInfo;
+
     private Integer fromstopid;
 
     private StopInfo fromstop;
@@ -35,6 +37,7 @@ public class SoldTicket {
         return "SoldTicket{" +
                 "id=" + id +
                 ", trainid=" + trainid +
+                ", trainInfo=" + trainInfo +
                 ", fromstopid=" + fromstopid +
                 ", fromstop=" + fromstop +
                 ", tostop=" + tostop +
