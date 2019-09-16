@@ -59,4 +59,10 @@ public class UserController {
         System.out.println("删除常用联系人：" + contactInfo.getId());
         return userService.deleteContactByUserid(contactInfo.getId());
     }
+
+    @RequestMapping("/api/user/changePhone")
+    public String changePhone(@RequestBody UserInfo userInfo){
+        System.out.println("用户修改手机号请求：" + userInfo);
+        return userService.changePhone(userInfo);
+    }
 }

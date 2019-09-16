@@ -462,8 +462,8 @@
                     <tbody id="check_ticketInfo_id">
                     <tr>
                         <td align="center">1</td>
-                        <td>{{seatlevel}}</td>
-                        <td>{{traveltype}}</td>
+                        <td>{{seat_level}}</td>
+                        <td>{{ticket_class}}</td>
                         <td title="">{{name}}</td>
                         <td> 中国居民身份证 </td>
                         <td>{{hideId(idnumber)}}</td>
@@ -545,6 +545,8 @@
         var t_time;//到达时间
         var train_id;//列车id
         var t_price;//车票价格
+        var city_id1;//出发经停id
+        var city_id2;//	终到经停id
         function getCookie(cname)
         {
             var name = cname + "=";
@@ -582,6 +584,10 @@
             train_id = getCookie("cookie_train_id");
         }if (getCookie("cookie_train_price") !=null){
             t_price = getCookie("cookie_train_price");
+        }if (getCookie("cookie_from_cityid") !=null){
+            city_id1 = getCookie("cookie_from_cityid");
+        }if (getCookie("cookie_to_cityid") !=null){
+            city_id2 = getCookie("cookie_to_cityid");
         }
         var vms = new Vue({
             el:'#users_name',
@@ -633,9 +639,9 @@
         });
 
         //常用联系人
-        var contentId = 11;
+        var contentId;
         var ao = new Object();
-        ao.id = contentId;
+        ao.id = userid;
         $.ajax({
             url:"http://localhost:8080/api/user/getCotactByUserid",
             dataType:"json",
@@ -644,6 +650,7 @@
             data:JSON.stringify(ao),
             success:function (data) {
                 va.oftenUser = data;
+                contentId = data[0].id;
             },error:function (error) {
                 alert('121');
             }
@@ -664,9 +671,9 @@
 
         //获取列车座位量
         var c = new Object();
-        c.cityid1 = 1;
-        c.cityid2 = 2;
-        c.trainid = 1;
+        c.cityid1 = city_id1;
+        c.cityid2 = city_id2;
+        c.trainid = train_id;
         $.ajax({
             url:"http://localhost:8080/api/ticket/getUnsoldTicketNum",
             dataType:"json",
@@ -674,6 +681,7 @@
             contentType:"application/json;charset=UTF-8",
             data:JSON.stringify(c),
             success:function (data) {
+                alert(data);
                 vc.seatinfo = data;
             },error:function (e) {
                 alert("cuo");
@@ -706,8 +714,6 @@
         })
 
         //提交订单
-        var tlevel = $("#seatType_1 option:selected").val();
-        var stype = $("#ticketType_1 option:selected").val();
         var vp = new Vue({
             el:"#modal_content_check",
             data:{
@@ -720,8 +726,8 @@
                 lefts:f_time,
                 Tostopid:endPoint,
                 Arrive:t_time,
-                seatlevel:stype,
-                traveltype:tlevel,
+                ticket_class:{},
+                seat_level:{},
             },
             methods:{
                 hideId:function (idnumber) {
@@ -737,8 +743,8 @@
             }
         })
         $("#submitOrder_id").click(function () {
-            alert(tlevel);
-            alert(stype);
+            vp.seat_level = $("#seatType_1 option:selected").val();
+            vp.ticket_class = $("#ticketType_1 option:selected").val();
             if ($("#normalPassenger_0").is(':checked')){
                 $(this).attr('data-target',"#myModal");
             }else {
@@ -767,10 +773,24 @@
 
         //确认订单
         var seatNo = null;
-        var seat_leavel = vp.seatlevel;
+        var seatNumber;
         $("#qr_submit_id").click(function () {
+            if(vp.seat_level == "一等座"){
+                seatNumber = 2;
+            }if(vp.seat_level == "二等座"){
+                seatNumber = 3;
+            }if(vp.seat_level == "商务座"){
+                seatNumber = 1;
+            }
+            alert(userid);
+            alert(train_id);
+            alert(city_fid);
+            alert(t_price);
+            alert(seatNo);
+            alert(seatNumber);
+            alert(contentId);
             document.cookie = "cookie_seat_number = " + seatNo+ "; path=/html/";
-            document.cookie = "cookie_seat_level = " + seat_leavel+ "; path=/html/";
+            document.cookie = "cookie_seat_level = " + seatNumber+ "; path=/html/";
             document.cookie = "cookie_contentid = " + contentId+ "; path=/html/";
             location.href="http://localhost:8080/html/payOrder.html"
         })

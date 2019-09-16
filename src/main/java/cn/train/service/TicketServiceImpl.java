@@ -257,6 +257,7 @@ public class TicketServiceImpl implements TicketService {
             unsoldTicket3.setRownumber(unsoldTicket1.getRownumber());
             unsoldTicket3.setCarnumber(unsoldTicket1.getCarnumber());
             unsoldTicket3.setSeatlevel(unsoldTicket1.getSeatlevel());
+            unsoldTicket3.setPrice(unsoldTicket1.getPrice()-soldTicket.getPrice());
             unsoldTicketMapper.insert(unsoldTicket3);
         }
 
@@ -273,6 +274,13 @@ public class TicketServiceImpl implements TicketService {
         //取联系人信息
         ContactInfo contactInfo = contactInfoMapper.selectByPrimaryKey(soldTicket.getContactid());
         soldTicket.setContactInfo(contactInfo);
+        soldTicket.setTrainInfo(trainInfoMapper.selectByPrimaryKey(soldTicket.getTrainid()));
+        StopInfo stopInfo1 = stopInfoMapper.selectByPrimaryKey(soldTicket.getFromstopid());
+        StopInfo stopInfo2 = stopInfoMapper.selectByPrimaryKey(soldTicket.getTostopid());
+        stopInfo1.setCityInfo(cityInfoMapper.selectByPrimaryKey(stopInfo1.getCityid()));
+        stopInfo2.setCityInfo(cityInfoMapper.selectByPrimaryKey(stopInfo2.getCityid()));
+        soldTicket.setFromstop(stopInfo1);
+        soldTicket.setTostop(stopInfo2);
 
         List<SoldTicket> temp = new ArrayList<SoldTicket>();
         temp.add(soldTicket);

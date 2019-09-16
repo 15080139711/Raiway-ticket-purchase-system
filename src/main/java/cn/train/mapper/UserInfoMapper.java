@@ -29,4 +29,6 @@ public interface UserInfoMapper {
     UserInfo checkEmail(UserInfo userInfo);
 
     int activateStatus(Integer id);
+
+    int changePhoneCheck(UserInfo userInfo);
 }
