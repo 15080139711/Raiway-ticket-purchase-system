@@ -433,6 +433,8 @@
 		var endPoint;
 		var city_fid;
 		var city_tid;
+		var city_id1;
+		var city_id2;
 		var startDate;
 		function getCookie(cname)
 		{
@@ -503,39 +505,20 @@
 					t_time = this.trainInfos[index].tostop.arrive;
 					train_id = this.trainInfos[index].fromstop.trainid;
 					t_price  = this.trainInfos[index].price;
+					city_id1 = this.trainInfos[index].fromstop.id;
+					city_id2 = this.trainInfos[index].tostop.id;
 					document.cookie = "cookie_train_num = " + train_num+ "; path=/html/";
 					document.cookie = "cookie_train_f_time = " + f_time+ "; path=/html/";
 					document.cookie = "cookie_train_t_time = " + t_time+ "; path=/html/";
 					document.cookie = "cookie_train_id = " + train_id+ "; path=/html/";
 					document.cookie = "cookie_train_price = " + t_price+ "; path=/html/";
+					document.cookie = "cookie_from_cityid = " + city_id1+ "; path=/html/";
+					document.cookie = "cookie_to_cityid = " + city_id2+ "; path=/html/";
 					location.href="http://localhost:8080/html/settlement.html";
 				}
 			}
 		});
 
-		//获取列车座位量
-		// var c = new Object();
-		// c.cityid1 = city_fid;
-		// c.cityid2 = city_tid;
-		// c.trainid = train_id;
-		// $.ajax({
-		// 	url:"http://localhost:8080/api/ticket/getUnsoldTicketNum",
-		// 	dataType:"json",
-		// 	type:"post",
-		// 	contentType:"application/json;charset=UTF-8",
-		// 	data:JSON.stringify(c),
-		// 	success:function (data) {
-		// 		vc.seatinfo = data;
-		// 	},error:function (e) {
-		// 		alert("cuo");
-		// 	}
-		// })
-		// var vc = new Vue({
-		// 	el:"#ticket_con_id",
-		// 	data: {
-		// 		seatinfo:[],
-		// 	},
-		// });
 
     })
 
