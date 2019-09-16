@@ -88,7 +88,8 @@ public class BackstageController {
     }
     //获取所有 车次
     @RequestMapping("/backstage/get_trainInfo")
-    public List<TrainInfo> get_trainInfo(){
+    public List<TrainInfo> get_trainInfo()
+    {
         return backstageService.get_train();
     }
 
