@@ -29,23 +29,65 @@ public class BackstageServiceImpl implements BackstageService {
     MapCityInfoMapper mapCityInfoMapper;
     @Autowired
     CityInfoMapper cityInfoMapper;
+    @Autowired
+    StopInfoMapper stopInfoMapper;
 //*******车票信息
+    //获取已售出车票信息
     @Override
     public List<SoldTicket> get_soldticket() {
-        return soldTicketMapper.getAll() ;
+        List<SoldTicket>soldList=soldTicketMapper.getAll();
+        for(int i=0;i<soldList.size();i++){
+            soldList.get(i).setTrainInfo((trainInfoMapper.selectByPrimaryKey(soldList.get(i).getTrainid())));
+
+            StopInfo stopInfo=stopInfoMapper.selectByPrimaryKey(soldList.get(i).getFromstopid());
+            stopInfo.setCityInfo(cityInfoMapper.selectByPrimaryKey(stopInfo.getCityid()));
+            soldList.get(i).setFromstop(stopInfo);
+
+            StopInfo stopInfo2=stopInfoMapper.selectByPrimaryKey(soldList.get(i).getFromstopid());
+            stopInfo2.setCityInfo(cityInfoMapper.selectByPrimaryKey(stopInfo2.getCityid()));
+            soldList.get(i).setTostop(stopInfo2);
+            soldList.get(i).setContactInfo((contactInfoMapper.selectByPrimaryKey(soldList.get(i).getContactid())));
+        }
+        return soldList;
     }
+    //获取已售出车票信息
     @Override
-    public List<UnsoldTicket> get_unsoldticket() {
-        return unsoldTicketMapper.getAll();
+    public List<UnsoldTicket> get_unsoldticket(int pageNumber,int pageSize) {
+        List<UnsoldTicket>unsoldList=unsoldTicketMapper.onepage((pageNumber-1)*pageSize,pageSize);
+        for(int i=0;i<unsoldList.size();i++){
+            unsoldList.get(i).setTrainInfo((trainInfoMapper.selectByPrimaryKey(unsoldList.get(i).getTrainid())));
+
+            StopInfo stopInfo=stopInfoMapper.selectByPrimaryKey(unsoldList.get(i).getFromstopid());
+            stopInfo.setCityInfo(cityInfoMapper.selectByPrimaryKey(stopInfo.getCityid()));
+            unsoldList.get(i).setFromstop(stopInfo);
+
+            StopInfo stopInfo2=stopInfoMapper.selectByPrimaryKey(unsoldList.get(i).getFromstopid());
+            stopInfo2.setCityInfo(cityInfoMapper.selectByPrimaryKey(stopInfo2.getCityid()));
+            unsoldList.get(i).setTostop(stopInfo2);
+                   }
+        return unsoldList;
     }
-//********运行图信息
+
+    @Override
+    public int get_page_unsold() {
+
+        int page=unsoldTicketMapper.get_page_unsold();
+        System.out.println(page);
+        int page_number=page/20;
+        if(page%20!=0){
+            page_number=page_number+1;
+        }
+        return page_number;
+    }
+
+    //********运行图信息
     @Override
     public List<MapStopInfo> get_mapstopInfo() {
         List<MapStopInfo> mapstop=mapStopInfoMapper.getAll();
         System.out.println(mapstop.size());
         for(int i=0;i<mapstop.size();i++){
             mapstop.get(i).setCityInfo(cityInfoMapper.selectByPrimaryKey(mapstop.get(i).getCityid()));
-            mapstop.get(i).setTrainInfo(trainInfoMapper.selectByPrimaryKey(mapstop.get(i).getTrainid()));
+            mapstop.get(i).setTrainInfo(mapTrainInfoMapper.selectByPrimaryKey(mapstop.get(i).getTrainid()));
         }
         return mapstop;
     }
@@ -122,6 +164,11 @@ public class BackstageServiceImpl implements BackstageService {
     @Override
     public List<TrainModel> get_trainmodel() {
         return trainModelMapper1.getAll();
+    }
+
+    @Override
+    public boolean add_mapcity(MapCityInfo mapCityInfo) {
+        return mapCityInfoMapper.insert(mapCityInfo)==1?true:false;
     }
 
     @Override

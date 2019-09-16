@@ -5,7 +5,9 @@
     <title>查看与修改</title>
     <style type="text/css">
         tr td{text-align: center}
-        a :hover{ color: red}
+        body{background-color: #b5cfd9}
+        .a_ch{color: red}
+        table{background-color: wheat}
     </style>
     <script src="../../js/jquery-3.4.1.min.js"></script>
    <script src="../../js/vue.js"></script>
@@ -117,8 +119,8 @@
 <body>
 <div >
     <div >
-        <h2>车次信息</h2>
         <table border="1" align="center" width="100%" id="trainInf">
+            <caption><h2>车次信息</h2></caption>
             <tr>
                 <th>ID</th><th>列车车次</th><th>时间</th><th>停站数</th><th>起点站</th><th>终点站</th><th>运行状态</th><th>延迟时间</th><th>列车ID</th><th>操作</th>
             </tr>
@@ -132,13 +134,13 @@
                 <td>{{t.status}}</td>
                 <td>{{t.changetime}}</td>
                 <td>{{t.modelid}}</td>
-                <td><a href="#"  class="alter" v-on:click="alter(index)">修改</a> | <a href="#" class="delete" v-on:click="delet(index)">删除</a></td>
+                <td><a href="#"  class="alter a_ch" v-on:click="alter(index)">修改</a> | <a href="#" class="delete a_ch" v-on:click="delet(index)">删除</a></td>
             </tr>
         </table>
-        <tr>
-            <td colspan="8"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
-        </tr>
-        <p class="msg">共找到47条年度预算记录，当前显示从第1条至第10条</p>
+<!--        <tr>-->
+<!--            <td colspan="8"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>-->
+<!--        </tr>-->
+<!--        <p class="msg">共找到47条年度预算记录，当前显示从第1条至第10条</p>-->
     </div>
 </div>
 <div style="display:none ;width: 100%" class="alter_info">

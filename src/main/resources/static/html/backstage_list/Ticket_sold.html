@@ -6,9 +6,11 @@
     <style type="text/css">
         tr td{text-align: center}
         a :hover{ color: red}
+        body{background-color: #b5cfd9}
+        table{background-color: wheat}
     </style>
-    <script src="../../js/jquery-3.4.1.min.js">
-    </script>
+    <script src="../../js/jquery-3.4.1.min.js"></script>
+    <script src="../../js/vue.min.js"></script>
     <script>
         $(function () {
             var getInfo=new Vue({
@@ -22,18 +24,7 @@
                 type:"post",
                 dataType:"json",
                 success:function (soldList) {
-                    alert(soldList),
                         getInfo.soldList=soldList;
-                }
-            })
-            $(".alter").click(function () {
-                $(".alter_info").css("display","inline");
-            });
-
-            $(".clear").click(function () {
-                alert("no");
-                for(var i=0;i<8;i++) {
-                    $(this).parent().prev().find("tr").eq(1).find("td").eq(i).find("input").val("");
                 }
             })
         })
@@ -42,45 +33,30 @@
 <body>
 <div >
     <div >
-        <h2>已售出车票信息</h2>
         <table border="1" align="center" width="100%" id="sold">
+            <caption><h2>已售出车票信息</h2></caption>
             <tr>
-                <th>售出的车票ID</th><th>车次名</th><th>起始站名</th><th>终止站名</th><th>价格</th><th>座位种类</th><th>座位号</th><th>行号</th><th></th><th>身份证号</th><th>车厢号</th><th>联系人姓名</th><th>订单ID</th>
+                <th>售出的车票ID</th><th>车次名</th><th>起始站名</th><th>终止站名</th><th>价格</th><th>座位种类</th><th>座位号</th><th>行号</th><th>车厢号</th><th>联系人姓名</th><th>订单ID</th>
             </tr>
             <tr v-for="ticket in soldList">
                 <td>{{ticket.id}}</td>
-                <td>{{ticket.trainid.name}}</td>
-                <td>{{ticket.fromstopid.name}}</td>
-                <td>{{ticket.tostopid.name}}</td>
+                <td>{{ticket.trainInfo.number}}</td>
+                <td>{{ticket.fromstop.cityInfo.name}}</td>
+                <td>{{ticket.tostop.cityInfo.name}}</td>
                 <td>{{ticket.price}}</td>
                 <td>{{ticket.seatlevel}}</td>
                 <td>{{ticket.seatnumber}}</td>
                 <td>{{ticket.rownumber}}</td>
                 <td>{{ticket.carnumber}}</td>
-                <td>{{ticket.contactid}}</td>
+                <td>{{ticket.contactInfo.name}}</td>
                 <td>{{ticket.orderid}}</td>
-                <td><a href="#"  class="alter">修改</a> | <a href="#" class="delete">删除</a></td>
             </tr>
         </table>
-        <tr>
-            <td colspan="8"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
-        </tr>
-        <p class="msg">共找到47条年度预算记录，当前显示从第1条至第10条</p>
+<!--        <tr>-->
+<!--            <td colspan="8"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>-->
+<!--        </tr>-->
+<!--        <p class="msg">共找到47条年度预算记录，当前显示从第1条至第10条</p>-->
     </div>
-</div>
-<div style="display:none" class="alter_info">
-    <table style="width: 100%">
-        <tr>
-            <th>ID</th><th>登录名</th><th>密码</th><th>姓名</th><th>身份证号</th><th>电子邮箱</th><th>电话</th><th>乘客类型</th>
-        </tr>
-        <tr>
-            <td><input type="text" size="1px" name="unluck"></td><td><input type="text"size="5px"></td><td><input type="password"size="5px"></td>
-            <td><input type="text" size="5px"></td><td><input type="text"size="10px"></td><td><input type="email"size="10px"></td>
-            <td><input type="text" size="5px"></td><td><input type="text"size="2px"></td>
-        </tr>
-    </table>
-    <div style="float: right; margin-top: 20px ;margin-right: 10px"><input type="button" class="clear" value="清空重输"></div>
-    <div style="float: right ;margin-top: 20px"><input type="button" class="submit" value="确认修改"></div>
 </div>
 </body>
 </html>
