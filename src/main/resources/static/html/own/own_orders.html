@@ -39,18 +39,19 @@
 
                     </table>
                 </div>
-                <div class="order_box">
+                <div class="order_box" v-for="(item,index) in items">
                     <div class="order_box_hd">
                         <i></i>
                         <div class="order_hd_info1">
                             <span class="hd_span1">订票日期：</span>
                             <!--                            <span class="hd_span2">{{undoneOrders[0].createdate}}</span>-->
-                            <span class="hd_span2">{{createdate}}</span>
+<!--                            <span class="hd_span2">{{createdate}}</span>-->
+                            <span class="hd_span2">{{item.createdate}}</span>
                         </div>
                         <div class="order_hd_info2">
                             <span class="hd_span1">订单号：</span>
                             <!--                            <span class="hd_span2">EJ{{undoneOrders[0].id}}</span>-->
-                            <span class="hd_span2"> EJ{{id}}</span>
+                            <span class="hd_span2"> EJ{{item.id}}</span>
                         </div>
                         <div class="order_hd_info3">
                             <span>候补兑现订单</span>
@@ -63,33 +64,41 @@
                                 <td class="tr1_td1">
                                     <div class="tr1_td1_div1">
                                         <!--                                        {{undoneOrders[0].tickets[0].fromstop.cityInfo.name}}→{{undoneOrders[0].tickets[0].tostop.cityInfo.name}} {{undoneOrders[0].tickets[0].trainInfo.number}}-->
-                                        {{city1}}→{{city2}} {{train}}
+<!--                                        {{city1}}→{{city2}} {{train}}-->
+                                        {{item.tickets[0].fromstop.cityInfo.name}}→{{item.tickets[0].tostop.cityInfo.name}} {{item.tickets[0].trainInfo.number}}
                                     </div>
                                     <div class="tr1_td1_div2">
                                         <!--                                        {{undoneOrders[0].tickets[0].trainInfo.day}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{undoneOrders[0].tickets[0].fromstop.cityInfo.saletime}} 开-->
-                                        {{day}} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{saletime}} 开
+<!--                                        {{day}} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{saletime}} 开-->
+                                        {{item.tickets[0].trainInfo.day}} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{item.tickets[0].fromstop.cityInfo.saletime}} 开
                                     </div>
                                 </td>
                                 <td class="tr1_td2">
                                     <!--                                    <div>{{undoneOrders[0].tickets[0].contactInfo.name}}</div>-->
-                                    <div>{{name}}</div>
+<!--                                    <div>{{name}}</div>-->
+                                    <div>{{item.tickets[0].contactInfo.name}}</div>
                                     <div>中国居民身份证</div>
                                 </td>
                                 <td class="tr1_td3">
                                     <!--                                    <div>{{changeSl(undoneOrders[0].tickets[0].seatlevel)}}</div>-->
-                                    <div>{{changeSl(seatlevel)}}</div>
+<!--                                    <div>{{changeSl(seatlevel)}}</div>-->
+                                    <div>{{changeSl(item.tickets[0].seatlevel)}}</div>
                                     <!--                                    <div>{{undoneOrders[0].tickets[0].carnumber}}车{{undoneOrders[0].tickets[0].rownumber}}{{undoneOrders[0].tickets[0].seatnumber}}号</div>-->
-                                    <div>{{carnumber}}车{{rownumber}}{{seatnumber}}号</div>
+<!--                                    <div>{{carnumber}}车{{rownumber}}{{seatnumber}}号</div>-->
+                                    <div>{{item.tickets[0].carnumber}}车{{item.tickets[0].rownumber}}{{item.tickets[0].seatnumber}}号</div>
                                 </td>
                                 <td class="tr1_td4">
                                     <!--                                    <div>{{changeTl(undoneOrders[0].tickets[0].contactInfo.traveltype)}}票</div>-->
-                                    <div>{{changeTl(traveltype)}}</div>
+<!--                                    <div>{{changeTl(traveltype)}}</div>-->
+                                    <div>{{changeTl(item.tickets[0].contactInfo.traveltype)}}</div>
                                     <!--                                    <div><span>{{undoneOrders[0].tickets[0].price}}</span>元</div>-->
-                                    <div><span>{{price}}</span>元</div>
+<!--                                    <div><span>{{price}}</span>元</div>-->
+                                    <div><span>{{item.tickets[0].price}}</span>元</div>
                                 </td>
                                 <td class="tr1_td5">
                                     <!--                                    <div>{{changeSt(undoneOrders[0].tickets[0].trainInfo.status)}}</div>-->
-                                    <div>{{changeSt(status)}}</div>
+<!--                                    <div>{{changeSt(status)}}</div>-->
+                                    <div>{{changeSt(item.tickets[0].trainInfo.status)}}</div>
                                     <div><a href="">退票</a></div>
                                 </td>
                             </tr>
@@ -182,6 +191,7 @@
                     </p>
                 </div>
             </div>
+            <!--  标题栏  -->
             <div class="title_box">
                 <table>
                     <tbody>
@@ -196,18 +206,20 @@
 
                 </table>
             </div>
-            <div class="order_box">
+            <!--循环内容 -->
+            <div class="order_box" v-for="(item1,index) in items1">
                 <div class="order_box_hd">
                     <i></i>
                     <div class="order_hd_info1">
                         <span class="hd_span1">订票日期：</span>
                         <!--                            <span class="hd_span2">{{undoneOrders[0].createdate}}</span>-->
-                        <span class="hd_span2">{{createdate}}</span>
+                        <!--                            <span class="hd_span2">{{createdate}}</span>-->
+                        <span class="hd_span2">{{item1.createdate}}</span>
                     </div>
                     <div class="order_hd_info2">
                         <span class="hd_span1">订单号：</span>
                         <!--                            <span class="hd_span2">EJ{{undoneOrders[0].id}}</span>-->
-                        <span class="hd_span2"> EJ{{id}}</span>
+                        <span class="hd_span2"> EJ{{item1.id}}</span>
                     </div>
                     <div class="order_hd_info3">
                         <span>候补兑现订单</span>
@@ -220,33 +232,41 @@
                             <td class="tr1_td1">
                                 <div class="tr1_td1_div1">
                                     <!--                                        {{undoneOrders[0].tickets[0].fromstop.cityInfo.name}}→{{undoneOrders[0].tickets[0].tostop.cityInfo.name}} {{undoneOrders[0].tickets[0].trainInfo.number}}-->
-                                    {{city1}}→{{city2}} {{train}}
+                                    <!--                                        {{city1}}→{{city2}} {{train}}-->
+                                    {{item1.tickets[0].fromstop.cityInfo.name}}→{{item1.tickets[0].tostop.cityInfo.name}} {{item1.tickets[0].trainInfo.number}}
                                 </div>
                                 <div class="tr1_td1_div2">
                                     <!--                                        {{undoneOrders[0].tickets[0].trainInfo.day}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{undoneOrders[0].tickets[0].fromstop.cityInfo.saletime}} 开-->
-                                    {{day}} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{saletime}} 开
+                                    <!--                                        {{day}} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{saletime}} 开-->
+                                    {{item1.tickets[0].trainInfo.day}} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{item1.tickets[0].fromstop.cityInfo.saletime}} 开
                                 </div>
                             </td>
                             <td class="tr1_td2">
                                 <!--                                    <div>{{undoneOrders[0].tickets[0].contactInfo.name}}</div>-->
-                                <div>{{name}}</div>
+                                <!--                                    <div>{{name}}</div>-->
+                                <div>{{item1.tickets[0].contactInfo.name}}</div>
                                 <div>中国居民身份证</div>
                             </td>
                             <td class="tr1_td3">
                                 <!--                                    <div>{{changeSl(undoneOrders[0].tickets[0].seatlevel)}}</div>-->
-                                <div>{{changeSl(seatlevel)}}</div>
+                                <!--                                    <div>{{changeSl(seatlevel)}}</div>-->
+                                <div>{{changeSl(item1.tickets[0].seatlevel)}}</div>
                                 <!--                                    <div>{{undoneOrders[0].tickets[0].carnumber}}车{{undoneOrders[0].tickets[0].rownumber}}{{undoneOrders[0].tickets[0].seatnumber}}号</div>-->
-                                <div>{{carnumber}}车{{rownumber}}{{seatnumber}}号</div>
+                                <!--                                    <div>{{carnumber}}车{{rownumber}}{{seatnumber}}号</div>-->
+                                <div>{{item1.tickets[0].carnumber}}车{{item1.tickets[0].rownumber}}{{item1.tickets[0].seatnumber}}号</div>
                             </td>
                             <td class="tr1_td4">
                                 <!--                                    <div>{{changeTl(undoneOrders[0].tickets[0].contactInfo.traveltype)}}票</div>-->
-                                <div>{{changeTl(traveltype)}}</div>
+                                <!--                                    <div>{{changeTl(traveltype)}}</div>-->
+                                <div>{{changeTl(item1.tickets[0].contactInfo.traveltype)}}</div>
                                 <!--                                    <div><span>{{undoneOrders[0].tickets[0].price}}</span>元</div>-->
-                                <div><span>{{price}}</span>元</div>
+                                <!--                                    <div><span>{{price}}</span>元</div>-->
+                                <div><span>{{item1.tickets[0].price}}</span>元</div>
                             </td>
                             <td class="tr1_td5">
                                 <!--                                    <div>{{changeSt(undoneOrders[0].tickets[0].trainInfo.status)}}</div>-->
-                                <div>{{changeSt(status)}}</div>
+                                <!--                                    <div>{{changeSt(status)}}</div>-->
+                                <div>{{changeSt(item1.tickets[0].trainInfo.status)}}</div>
                                 <div><a href="">退票</a></div>
                             </td>
                         </tr>
@@ -363,18 +383,19 @@
 
                     </table>
                 </div>
-                <div class="order_box">
+                <div class="order_box" v-for="(item2,index) in items2">
                     <div class="order_box_hd">
                         <i></i>
                         <div class="order_hd_info1">
                             <span class="hd_span1">订票日期：</span>
                             <!--                            <span class="hd_span2">{{undoneOrders[0].createdate}}</span>-->
-                            <span class="hd_span2">{{createdate}}</span>
+                            <!--                            <span class="hd_span2">{{createdate}}</span>-->
+                            <span class="hd_span2">{{item2.createdate}}</span>
                         </div>
                         <div class="order_hd_info2">
                             <span class="hd_span1">订单号：</span>
                             <!--                            <span class="hd_span2">EJ{{undoneOrders[0].id}}</span>-->
-                            <span class="hd_span2"> EJ{{id}}</span>
+                            <span class="hd_span2"> EJ{{item2.id}}</span>
                         </div>
                         <div class="order_hd_info3">
                             <span>候补兑现订单</span>
@@ -387,33 +408,41 @@
                                 <td class="tr1_td1">
                                     <div class="tr1_td1_div1">
                                         <!--                                        {{undoneOrders[0].tickets[0].fromstop.cityInfo.name}}→{{undoneOrders[0].tickets[0].tostop.cityInfo.name}} {{undoneOrders[0].tickets[0].trainInfo.number}}-->
-                                        {{city1}}→{{city2}} {{train}}
+                                        <!--                                        {{city1}}→{{city2}} {{train}}-->
+                                        {{item2.tickets[0].fromstop.cityInfo.name}}→{{item2.tickets[0].tostop.cityInfo.name}} {{item2.tickets[0].trainInfo.number}}
                                     </div>
                                     <div class="tr1_td1_div2">
                                         <!--                                        {{undoneOrders[0].tickets[0].trainInfo.day}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{undoneOrders[0].tickets[0].fromstop.cityInfo.saletime}} 开-->
-                                        {{day}} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{saletime}} 开
+                                        <!--                                        {{day}} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{saletime}} 开-->
+                                        {{item2.tickets[0].trainInfo.day}} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{item2.tickets[0].fromstop.cityInfo.saletime}} 开
                                     </div>
                                 </td>
                                 <td class="tr1_td2">
                                     <!--                                    <div>{{undoneOrders[0].tickets[0].contactInfo.name}}</div>-->
-                                    <div>{{name}}</div>
+                                    <!--                                    <div>{{name}}</div>-->
+                                    <div>{{item2.tickets[0].contactInfo.name}}</div>
                                     <div>中国居民身份证</div>
                                 </td>
                                 <td class="tr1_td3">
                                     <!--                                    <div>{{changeSl(undoneOrders[0].tickets[0].seatlevel)}}</div>-->
-                                    <div>{{changeSl(seatlevel)}}</div>
+                                    <!--                                    <div>{{changeSl(seatlevel)}}</div>-->
+                                    <div>{{changeSl(item2.tickets[0].seatlevel)}}</div>
                                     <!--                                    <div>{{undoneOrders[0].tickets[0].carnumber}}车{{undoneOrders[0].tickets[0].rownumber}}{{undoneOrders[0].tickets[0].seatnumber}}号</div>-->
-                                    <div>{{carnumber}}车{{rownumber}}{{seatnumber}}号</div>
+                                    <!--                                    <div>{{carnumber}}车{{rownumber}}{{seatnumber}}号</div>-->
+                                    <div>{{item2.tickets[0].carnumber}}车{{item2.tickets[0].rownumber}}{{item2.tickets[0].seatnumber}}号</div>
                                 </td>
                                 <td class="tr1_td4">
                                     <!--                                    <div>{{changeTl(undoneOrders[0].tickets[0].contactInfo.traveltype)}}票</div>-->
-                                    <div>{{changeTl(traveltype)}}</div>
+                                    <!--                                    <div>{{changeTl(traveltype)}}</div>-->
+                                    <div>{{changeTl(item2.tickets[0].contactInfo.traveltype)}}</div>
                                     <!--                                    <div><span>{{undoneOrders[0].tickets[0].price}}</span>元</div>-->
-                                    <div><span>{{price}}</span>元</div>
+                                    <!--                                    <div><span>{{price}}</span>元</div>-->
+                                    <div><span>{{item2.tickets[0].price}}</span>元</div>
                                 </td>
                                 <td class="tr1_td5">
                                     <!--                                    <div>{{changeSt(undoneOrders[0].tickets[0].trainInfo.status)}}</div>-->
-                                    <div>{{changeSt(status)}}</div>
+                                    <!--                                    <div>{{changeSt(status)}}</div>-->
+                                    <div>{{changeSt(item2.tickets[0].trainInfo.status)}}</div>
                                     <div><a href="">退票</a></div>
                                 </td>
                             </tr>
@@ -515,22 +544,22 @@
             success: function (data) {
                 // alert(data);
                 console.log(data);
-                // vm.undoneOrders = data;
-                vm.createdate = data[0].createdate;
-                vm.id = data[0].id;
-                vm.city1 = data[0].tickets[0].fromstop.cityInfo.name;
-                vm.city2 = data[0].tickets[0].tostop.cityInfo.name;
-                vm.train = data[0].tickets[0].trainInfo.number;
-                vm.day = data[0].tickets[0].trainInfo.day;
-                vm.saletime = data[0].tickets[0].fromstop.cityInfo.saletime;
-                vm.name = data[0].tickets[0].contactInfo.name;
-                vm.seatlevel = data[0].tickets[0].seatlevel;
-                vm.carnumber = data[0].tickets[0].carnumber;
-                vm.rownumber = data[0].tickets[0].rownumber;
-                vm.seatnumber = data[0].tickets[0].seatnumber;
-                vm.traveltype = data[0].tickets[0].contactInfo.traveltype;
-                vm.price = data[0].tickets[0].price;
-                vm.status = data[0].tickets[0].trainInfo.status;
+                vm.items = data;
+                // vm.createdate = data[0].createdate;
+                // vm.id = data[0].id;
+                // vm.city1 = data[0].tickets[0].fromstop.cityInfo.name;
+                // vm.city2 = data[0].tickets[0].tostop.cityInfo.name;
+                // vm.train = data[0].tickets[0].trainInfo.number;
+                // vm.day = data[0].tickets[0].trainInfo.day;
+                // vm.saletime = data[0].tickets[0].fromstop.cityInfo.saletime;
+                // vm.name = data[0].tickets[0].contactInfo.name;
+                // vm.seatlevel = data[0].tickets[0].seatlevel;
+                // vm.carnumber = data[0].tickets[0].carnumber;
+                // vm.rownumber = data[0].tickets[0].rownumber;
+                // vm.seatnumber = data[0].tickets[0].seatnumber;
+                // vm.traveltype = data[0].tickets[0].contactInfo.traveltype;
+                // vm.price = data[0].tickets[0].price;
+                // vm.status = data[0].tickets[0].trainInfo.status;
             },
             error: function () {
                 alert("出现错误");
@@ -541,22 +570,22 @@
         var vm = new Vue({
             el: ".main1",
             data: {
-                // undoneOrders:[],
-                createdate: {},
-                id: {},
-                city1: {},
-                city2: {},
-                train: {},
-                day: {},
-                saletime: {},
-                name: {},
-                seatlevel: {},
-                carnumber: {},
-                rownumber: {},
-                seatnumber: {},
-                traveltype: {},
-                price: {},
-                status: {}
+                items:[]
+                // createdate: {},
+                // id: {},
+                // city1: {},
+                // city2: {},
+                // train: {},
+                // day: {},
+                // saletime: {},
+                // name: {},
+                // seatlevel: {},
+                // carnumber: {},
+                // rownumber: {},
+                // seatnumber: {},
+                // traveltype: {},
+                // price: {},
+                // status: {}
             },
             methods: {
                 //改变座位等级显示
@@ -610,22 +639,24 @@
             data: JSON.stringify(f),
             success: function (data) {
                 // va.unusedOrder = data;
+                console.log(data);
+                va.items1 = data;
                 // console.log(va.unusedOrder[0].createdate);
-                va.createdate = data[0].createdate;
-                va.id = data[0].id;
-                va.city1 = data[0].tickets[0].fromstop.cityInfo.name;
-                va.city2 = data[0].tickets[0].tostop.cityInfo.name;
-                va.train = data[0].tickets[0].trainInfo.number;
-                va.day = data[0].tickets[0].trainInfo.day;
-                va.saletime = data[0].tickets[0].fromstop.cityInfo.saletime;
-                va.name = data[0].tickets[0].contactInfo.name;
-                va.seatlevel = data[0].tickets[0].seatlevel;
-                va.carnumber = data[0].tickets[0].carnumber;
-                va.rownumber = data[0].tickets[0].rownumber;
-                va.seatnumber = data[0].tickets[0].seatnumber;
-                va.traveltype = data[0].tickets[0].contactInfo.traveltype;
-                va.price = data[0].tickets[0].price;
-                va.status = data[0].tickets[0].trainInfo.status;
+                // va.createdate = data[0].createdate;
+                // va.id = data[0].id;
+                // va.city1 = data[0].tickets[0].fromstop.cityInfo.name;
+                // va.city2 = data[0].tickets[0].tostop.cityInfo.name;
+                // va.train = data[0].tickets[0].trainInfo.number;
+                // va.day = data[0].tickets[0].trainInfo.day;
+                // va.saletime = data[0].tickets[0].fromstop.cityInfo.saletime;
+                // va.name = data[0].tickets[0].contactInfo.name;
+                // va.seatlevel = data[0].tickets[0].seatlevel;
+                // va.carnumber = data[0].tickets[0].carnumber;
+                // va.rownumber = data[0].tickets[0].rownumber;
+                // va.seatnumber = data[0].tickets[0].seatnumber;
+                // va.traveltype = data[0].tickets[0].contactInfo.traveltype;
+                // va.price = data[0].tickets[0].price;
+                // va.status = data[0].tickets[0].trainInfo.status;
             },
             error: function () {
                 alert("出现错误");
@@ -636,22 +667,23 @@
         var va = new Vue({
             el: ".main2",
             data: {
+                items1:[]
                 // unusedOrder:[]
-                createdate: {},
-                id: {},
-                city1: {},
-                city2: {},
-                train: {},
-                day: {},
-                saletime: {},
-                name: {},
-                seatlevel: {},
-                carnumber: {},
-                rownumber: {},
-                seatnumber: {},
-                traveltype: {},
-                price: {},
-                status: {}
+                // createdate: {},
+                // id: {},
+                // city1: {},
+                // city2: {},
+                // train: {},
+                // day: {},
+                // saletime: {},
+                // name: {},
+                // seatlevel: {},
+                // carnumber: {},
+                // rownumber: {},
+                // seatnumber: {},
+                // traveltype: {},
+                // price: {},
+                // status: {}
             },
             methods: {
                 //改变座位等级显示
@@ -707,21 +739,23 @@
             success: function (data) {
                 // console.log(data);
                 // vb.historyOrder = data;
-                vb.createdate = data[0].createdate;
-                vb.id = data[0].id;
-                vb.city1 = data[0].tickets[0].fromstop.cityInfo.name;
-                vb.city2 = data[0].tickets[0].tostop.cityInfo.name;
-                vb.train = data[0].tickets[0].trainInfo.number;
-                vb.day = data[0].tickets[0].trainInfo.day;
-                vb.saletime = data[0].tickets[0].fromstop.cityInfo.saletime;
-                vb.name = data[0].tickets[0].contactInfo.name;
-                vb.seatlevel = data[0].tickets[0].seatlevel;
-                vb.carnumber = data[0].tickets[0].carnumber;
-                vb.rownumber = data[0].tickets[0].rownumber;
-                vb.seatnumber = data[0].tickets[0].seatnumber;
-                vb.traveltype = data[0].tickets[0].contactInfo.traveltype;
-                vb.price = data[0].tickets[0].price;
-                vb.status = data[0].tickets[0].trainInfo.status;
+                console.log(data);
+                vb.items2 = data;
+                // vb.createdate = data[0].createdate;
+                // vb.id = data[0].id;
+                // vb.city1 = data[0].tickets[0].fromstop.cityInfo.name;
+                // vb.city2 = data[0].tickets[0].tostop.cityInfo.name;
+                // vb.train = data[0].tickets[0].trainInfo.number;
+                // vb.day = data[0].tickets[0].trainInfo.day;
+                // vb.saletime = data[0].tickets[0].fromstop.cityInfo.saletime;
+                // vb.name = data[0].tickets[0].contactInfo.name;
+                // vb.seatlevel = data[0].tickets[0].seatlevel;
+                // vb.carnumber = data[0].tickets[0].carnumber;
+                // vb.rownumber = data[0].tickets[0].rownumber;
+                // vb.seatnumber = data[0].tickets[0].seatnumber;
+                // vb.traveltype = data[0].tickets[0].contactInfo.traveltype;
+                // vb.price = data[0].tickets[0].price;
+                // vb.status = data[0].tickets[0].trainInfo.status;
             },
             error: function () {
                 alert("历史订单出现错误");
@@ -733,22 +767,23 @@
         var vb = new Vue({
             el: ".main3",
             data: {
+                items2:[]
                 // historyOrder:[]
-                createdate: {},
-                id: {},
-                city1: {},
-                city2: {},
-                train: {},
-                day: {},
-                saletime: {},
-                name: {},
-                seatlevel: {},
-                carnumber: {},
-                rownumber: {},
-                seatnumber: {},
-                traveltype: {},
-                price: {},
-                status: {}
+                // createdate: {},
+                // id: {},
+                // city1: {},
+                // city2: {},
+                // train: {},
+                // day: {},
+                // saletime: {},
+                // name: {},
+                // seatlevel: {},
+                // carnumber: {},
+                // rownumber: {},
+                // seatnumber: {},
+                // traveltype: {},
+                // price: {},
+                // status: {}
             },
             methods: {
                 //改变座位等级显示
