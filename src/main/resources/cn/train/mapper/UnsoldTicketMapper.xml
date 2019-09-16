@@ -15,6 +15,9 @@
   <sql id="Base_Column_List">
     id, trainid, fromstopid, tostopid, price, seatnumber, rownumber, carnumber, seatlevel
   </sql>
+  <select id="get_page_unsold" resultType="java.lang.Integer">
+    select count(*) from UnsoldTicket;
+  </select>
 
   <select id="getUnsoldTicketByLevelSeat" parameterType="cn.train.enity.SoldTicket" resultMap="UnsoldTicketResultMap">
     select * from UnsoldTicket where seatnumber = #{seatnumber,jdbcType=VARCHAR} and seatlevel = #{seatlevel,jdbcType = INTEGER} and #{fromstopid,jdbcType=INTEGER} >= fromstopid  and tostopid >= #{tostopid,jdbcType=INTEGER}
@@ -24,8 +27,11 @@
     select * from UnsoldTicket where trainid = #{trainid,jdbcType=INTEGER};
   </select>
 
-  <select id="getAll" resultMap="UnsoldTicketResultMap">
-    SELECT  * from  UnsoldTicket;
+<!--  <select id="getAll" resultMap="UnsoldTicketResultMap">-->
+<!--    SELECT  * from  UnsoldTicket;-->
+<!--  </select>-->
+  <select id="onepage" resultMap="UnsoldTicketResultMap">
+    SELECT  * from  UnsoldTicket   LIMIT #{pageNumber},#{pageSize};
   </select>
   
   

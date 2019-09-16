@@ -110,9 +110,14 @@ public class BackstageController {
         return backstageService.get_soldticket();
     }
     //未售出的
+    @RequestMapping("/backstage/get_pageN_unsold")
+    public int get_pageN_unsold(){
+        return backstageService.get_page_unsold();
+    }
     @RequestMapping("/backstage/get_unsoldticket")
-    public List<UnsoldTicket>get_unsoldticket(){
-        return backstageService.get_unsoldticket();
+    public List<UnsoldTicket>get_unsoldticket(@RequestParam int pageNumber,@RequestParam int pageSize){
+        System.out.println(pageNumber+"  "+pageSize);
+        return backstageService.get_unsoldticket(pageNumber,pageSize);
     }
 //**********路线图
  @RequestMapping("backstage/get_mapcity")
@@ -122,6 +127,10 @@ public class BackstageController {
  @RequestMapping("backstage/del_mapInfo")
     public boolean del_mapInfo(int id ){
       return   backstageService.del_mapInfo(id);
+ }
+ @RequestMapping("backstage/add_mapcity")
+    public  boolean add_mapcity(MapCityInfo mapCityInfo){
+        return backstageService.add_mapcity(mapCityInfo);
  }
 }
 
