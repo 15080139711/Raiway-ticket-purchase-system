@@ -5,7 +5,9 @@
     <title>查看与修改</title>
     <style type="text/css">
         tr td{text-align: center}
-        a :hover{ color: red}
+        .blue{color: #3b99fc}
+        body{background-color: #b5cfd9}
+        table{background-color: wheat}
     </style>
     <script src="../../js/jquery-3.4.1.min.js"></script>
     <script src="../../js/vue.min.js"></script>
@@ -76,17 +78,17 @@
                 <td>{{city.cityInfo2.name}}</td>
                 <td>{{city.distance}}</td>
                 <td>{{city.price}}</td>
-                <td><a    @click="alter_(index)">修改</a> | <a @click="delete_(city.id)">删除</a></td>
+                <td><a    @click="alter_(index)" class="blue">修改</a> | <a @click="delete_(city.id)" class="blue">删除</a></td>
             </tr>
         </table>
-        <tr>
-            <td colspan="8"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
-        </tr>
-        <p class="msg">共找到47条年度预算记录，当前显示从第1条至第10条</p>
+<!--        <tr>-->
+<!--            <td colspan="8"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>-->
+<!--        </tr>-->
+<!--        <p class="msg">共找到47条年度预算记录，当前显示从第1条至第10条</p>-->
     </div>
 
 <div style="display:none" class="alter_info">
-    <table style="width: 100%">
+    <table style="width: 100%;background-color: whitesmoke">
         <tr>
             <th>ID</th><th>起始城市</th><th>目的城市</th><th>距离</th><th>价格</th>
         </tr>

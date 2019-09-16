@@ -4,6 +4,7 @@ public class SoldTicket {
     private Integer id;
 
     private Integer trainid;
+    private TrainInfo trainInfo;
 
     private Integer fromstopid;
 
@@ -47,6 +48,14 @@ public class SoldTicket {
                 ", orderid=" + orderid +
                 ", contactInfo=" + contactInfo +
                 '}';
+    }
+
+    public TrainInfo getTrainInfo() {
+        return trainInfo;
+    }
+
+    public void setTrainInfo(TrainInfo trainInfo) {
+        this.trainInfo = trainInfo;
     }
 
     public ContactInfo getContactInfo() {

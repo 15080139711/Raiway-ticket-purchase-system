@@ -4,6 +4,7 @@ public class StopInfo {
     private Integer id;
 
     private Integer trainid;
+    private MapTrainInfo mapTrainInfo;
 
     private Integer cityid;
 
@@ -25,6 +26,14 @@ public class StopInfo {
 
     public void setCityInfo(CityInfo cityInfo) {
         this.cityInfo = cityInfo;
+    }
+
+    public MapTrainInfo getMapTrainInfo() {
+        return mapTrainInfo;
+    }
+
+    public void setMapTrainInfo(MapTrainInfo mapTrainInfo) {
+        this.mapTrainInfo = mapTrainInfo;
     }
 
     @Override
