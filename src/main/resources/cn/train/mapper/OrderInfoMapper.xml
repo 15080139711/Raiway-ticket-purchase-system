@@ -29,7 +29,7 @@
     select * from OrderInfo where userid = #{userid,jdbcType=INTEGER} and mark = 2;
   </select>
 
-  <select id="getHistorydOrder" parameterType="java.lang.Integer" resultMap="OrderInfoResultMap">
+  <select id="getHistoryOrder" parameterType="java.lang.Integer" resultMap="OrderInfoResultMap">
     select * from OrderInfo where userid = #{userid,jdbcType=INTEGER} and mark = 3;
   </select>
 
