@@ -4,6 +4,8 @@ import cn.train.enity.ContactInfo;
 import cn.train.enity.UserInfo;
 import cn.train.mapper.ContactInfoMapper;
 import cn.train.mapper.UserInfoMapper;
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
+import com.aliyuncs.exceptions.ClientException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ public class UserServiceImpl implements UserService {
     ContactInfoMapper contactInfoMapper;
     @Autowired
     MailService mailService;
+    @Autowired
+    AliyunSmsService aliyunSmsService;
 
     public int ActivateEmail(UserInfo userInfo){
 
@@ -140,6 +144,29 @@ public class UserServiceImpl implements UserService {
     public int deleteContactByUserid(int id) {
         int m = contactInfoMapper.deleteByPrimaryKey(id);
         return m;
+    }
+
+    @Override
+    public String changePhone(UserInfo userInfo) {
+        int u = userInfoMapper.changePhoneCheck(userInfo);
+        if (userInfo.getStatus() == 1 && u == 1){
+            UserInfo temp = userInfoMapper.selectByPrimaryKey(userInfo.getId());
+            temp.setPhone(userInfo.getPhone());
+            int r = userInfoMapper.updateByPrimaryKey(temp);
+            if (r == 1){
+                return "success";
+            }
+        }else if (userInfo.getStatus() == 0 && u == 1){
+            try {
+                String Code = aliyunSmsService.sendSmsVerifyCode(userInfo.getPhone());
+                return Code;
+            } catch (ClientException e) {
+                e.printStackTrace();
+            }
+        }else {
+            return "error";
+        }
+        return null;
     }
 
 

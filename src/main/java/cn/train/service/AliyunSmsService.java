@@ -6,5 +6,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface AliyunSmsService {
-    public SendSmsResponse sendSmsVerifyCode(String telephone) throws ClientException;
+    public String sendSmsVerifyCode(String telephone) throws ClientException;
 }

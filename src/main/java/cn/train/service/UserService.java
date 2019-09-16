@@ -24,4 +24,6 @@ public interface UserService {
     List<ContactInfo> getCotactByUserid(int userid);
 
     int deleteContactByUserid(int id);
+
+    String changePhone(UserInfo userInfo);
 }
