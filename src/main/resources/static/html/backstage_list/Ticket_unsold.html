@@ -85,8 +85,8 @@
 <body>
 <div >
     <div id="unsold">
-        <h2>未售出车票信息</h2>
         <table border="1" align="center" width="100%" >
+            <caption><h2>未售出车票信息</h2></caption>
             <tr>
                 <th>未售出的车票ID</th><th>车次名</th><th>起始站名</th><th>终止站名</th><th>价格</th><th>座位种类</th><th>座位号</th><th>行号</th><th>车厢号</th>
             </tr>
@@ -103,7 +103,7 @@
             </tr>
         </table>
         <tr>
-            <td colspan="8"><div >当前第：<b style="color: #08bbe1">{{now_page}}</b> 页</div><div class="pagelist"> <a id="prev" class="red">上一页</a>|<a id="next"  class="red">下一页</a>|<a id="last"  class="red">尾页</a> </div></td>
+            <td colspan="8"><div >当前第：<b style="color: black">{{now_page}}</b> 页</div><div class="pagelist"> <a id="prev" class="red">上一页</a>|<a id="next"  class="red">下一页</a>|<a id="last"  class="red">尾页</a> </div></td>
         </tr>
         <p class="msg">共找到: <a  class="red"> {{all_pageNumber}} </a>页，每页仅显示<b>20</b>条车票信息</p>
     </div>

@@ -59,9 +59,6 @@ public class MapStopInfo {
         this.parktime = parktime;
     }
 
-    public String getefts() {
-        return lefts;
-    }
 
     public void setlefts(String lefts) {
         this.lefts = lefts == null ? null : lefts.trim();
@@ -104,6 +101,5 @@ public class MapStopInfo {
     public CityInfo getCityInfo() {
         return cityInfo;
     }
-
 
 }

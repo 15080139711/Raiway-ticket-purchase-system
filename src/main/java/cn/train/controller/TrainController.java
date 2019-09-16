@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -33,7 +34,8 @@ public class TrainController {
     }
 
     @RequestMapping("/api/train/generateDateTrain")
-    public int generateDateTrain(@RequestBody TrainInfo trainInfo){
+    public int generateDateTrain( TrainInfo trainInfo){
+
         System.out.println("生成车次请求！日期：" + trainInfo.getDay());
         return trainService.generateDateTrain(trainInfo.getDay());
     }

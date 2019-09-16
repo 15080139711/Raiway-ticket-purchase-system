@@ -88,6 +88,20 @@
 
                 })
             })
+            $("input[value=确认生成车票]").click(function () {
+                alert("确认生成")
+                alert($("#day").val())
+                $.ajax({
+                    url:"http://localhost:8080/api/train/generateDateTrain",
+                    typt:"post",
+                    dataType:"json",
+                    data:{
+                        day:$("#day").val(),
+                    },success:function (data) {
+                        alert(data)
+                    }
+                })
+            })
         })
     </script>
 </head>
@@ -122,12 +136,13 @@
     <input  style="margin: 20px 10px 0px 0px ;float: right" type="button" value="确认添加" class="submit">
     <input style="margin: 20px 10px 0px 0px ;float: right" type="button" value="清空" class="clear">
 </form>
+    <div style="margin-left: 20px;margin-top: 30px"><td>生成<input type="date" id="day">日期的车次所有车票</td><td><input type="button" value="确认生成车票"></td></div>
     <table style="width: 100% ;border-collapse: collapse" border="1"class="table-" >
         <caption><b>添加列车</b></caption>
-    <tr><td>添加列车ID(可空)：</td><td><input type="text"></td><td> 添加列车名：</td><td><input type="text"></td><td><input type="button" value="确认添加列车"></td></tr>
+    <tr><td>添加列车ID(可空)：</td><td><input type="text"></td><td> 添加车型名：</td><td><input type="text"></td><td><input type="button" value="确认添加列车"></td></tr>
     </table>
     <table style="width: 100%" border="1" class="table-">
-        <caption>已有列车列表</caption>
+        <caption>已有车型列表</caption>
         <tr><th>车型ID</th><th>车型名</th></tr>
         <tr v-for="model in train_model"><td>{{model.id}}</td><td>{{model.name}}</td></tr>
     </table>

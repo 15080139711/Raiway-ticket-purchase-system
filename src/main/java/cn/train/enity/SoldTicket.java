@@ -4,7 +4,6 @@ public class SoldTicket {
     private Integer id;
 
     private Integer trainid;
-    private TrainInfo trainInfo;
 
     private TrainInfo trainInfo;
 
