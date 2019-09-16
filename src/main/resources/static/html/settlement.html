@@ -681,7 +681,6 @@
             contentType:"application/json;charset=UTF-8",
             data:JSON.stringify(c),
             success:function (data) {
-                alert(data);
                 vc.seatinfo = data;
             },error:function (e) {
                 alert("cuo");
@@ -782,13 +781,6 @@
             }if(vp.seat_level == "商务座"){
                 seatNumber = 1;
             }
-            alert(userid);
-            alert(train_id);
-            alert(city_fid);
-            alert(t_price);
-            alert(seatNo);
-            alert(seatNumber);
-            alert(contentId);
             document.cookie = "cookie_seat_number = " + seatNo+ "; path=/html/";
             document.cookie = "cookie_seat_level = " + seatNumber+ "; path=/html/";
             document.cookie = "cookie_contentid = " + contentId+ "; path=/html/";

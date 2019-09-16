@@ -505,8 +505,8 @@
 					t_time = this.trainInfos[index].tostop.arrive;
 					train_id = this.trainInfos[index].fromstop.trainid;
 					t_price  = this.trainInfos[index].price;
-					city_id1 = this.trainInfos[index].fromstop.cityid;
-					city_id2 = this.trainInfos[index].tostop.cityid;
+					city_id1 = this.trainInfos[index].fromstop.id;
+					city_id2 = this.trainInfos[index].tostop.id;
 					document.cookie = "cookie_train_num = " + train_num+ "; path=/html/";
 					document.cookie = "cookie_train_f_time = " + f_time+ "; path=/html/";
 					document.cookie = "cookie_train_t_time = " + t_time+ "; path=/html/";
@@ -514,8 +514,6 @@
 					document.cookie = "cookie_train_price = " + t_price+ "; path=/html/";
 					document.cookie = "cookie_from_cityid = " + city_id1+ "; path=/html/";
 					document.cookie = "cookie_to_cityid = " + city_id2+ "; path=/html/";
-					alert(city_id1);
-					alert(city_id2);
 					location.href="http://localhost:8080/html/settlement.html";
 				}
 			}
