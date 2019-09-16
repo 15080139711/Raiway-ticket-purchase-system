@@ -18,6 +18,10 @@
     id, username, name, password, idnumber, email, phone, traveltype, discountnumber,sex,status
   </sql>
 
+  <select id="changePhoneCheck" parameterType="cn.train.enity.UserInfo" resultType="java.lang.Integer">
+    select count(*) from UserInfo where id = #{id,jdbcType=INTEGER} and password = #{password,jdbcType=INTEGER}
+  </select>
+
   <update id="activateStatus" parameterType="java.lang.Integer" >
     update UserInfo set status = 1 where id = #{id,jdbcType=INTEGER}
   </update>

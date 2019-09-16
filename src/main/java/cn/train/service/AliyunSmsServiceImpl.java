@@ -25,7 +25,7 @@ public class AliyunSmsServiceImpl implements AliyunSmsService {
     final String accessKeySecret = "P3X5hZvFLxzNY2WAPq2uMbWDNTaahm";
 
     @Override
-    public SendSmsResponse sendSmsVerifyCode(String telephone) throws ClientException {
+    public String sendSmsVerifyCode(String telephone) throws ClientException {
         //生成一个四位数字验证码
         int code = (int)(Math.random()*9999)+100;
         //可自助调整超时时间
@@ -56,10 +56,13 @@ public class AliyunSmsServiceImpl implements AliyunSmsService {
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
         if(sendSmsResponse.getCode()!= null && sendSmsResponse.getCode().equals("OK")){
             System.out.println("短信发送成功！");
+            String result = "";
+            result = result + code;
+            return result;
         }else {
             System.out.println("短信发送失败！");
+            return null;
         }
-        return sendSmsResponse;
     }
 
 }
