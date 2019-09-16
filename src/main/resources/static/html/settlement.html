@@ -633,9 +633,9 @@
         });
 
         //常用联系人
-        var contentId = userid;
+        var contentId;
         var ao = new Object();
-        ao.id = contentId;
+        ao.id = userid;
         $.ajax({
             url:"http://localhost:8080/api/user/getCotactByUserid",
             dataType:"json",
@@ -644,6 +644,7 @@
             data:JSON.stringify(ao),
             success:function (data) {
                 va.oftenUser = data;
+                contentId = data[0].id;
             },error:function (error) {
                 alert('121');
             }
@@ -706,8 +707,6 @@
         })
 
         //提交订单
-        // var tlevel = $("#seatType_1 option:selected").val();
-        // var stype = $("#ticketType_1 option:selected").val();
         var vp = new Vue({
             el:"#modal_content_check",
             data:{
@@ -739,8 +738,6 @@
         $("#submitOrder_id").click(function () {
             vp.seat_level = $("#seatType_1 option:selected").val();
             vp.ticket_class = $("#ticketType_1 option:selected").val();
-            alert( vp.ticket_class);
-            alert(vp.seat_level);
             if ($("#normalPassenger_0").is(':checked')){
                 $(this).attr('data-target',"#myModal");
             }else {
@@ -781,9 +778,6 @@
             document.cookie = "cookie_seat_number = " + seatNo+ "; path=/html/";
             document.cookie = "cookie_seat_level = " + seatNumber+ "; path=/html/";
             document.cookie = "cookie_contentid = " + contentId+ "; path=/html/";
-            alert(seatNo);
-            alert(seatNumber);
-            alert(contentId);
             location.href="http://localhost:8080/html/payOrder.html"
         })
 
