@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>手机核验</title>
     <link rel="stylesheet" href="../../css/own_check.css">
+    <script src="../../js/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <script src="../../js/bootstrap.min.js"></script>
 </head>
 <body>
 <div id="content">
@@ -44,12 +47,65 @@
     <div class="content_view3">
         <div class="con_view_rows">
             <a class="first_a" href="javascript:;">取消</a>
-            <a class="second_a" href="javascript:;">确认</a>
+            <a class="second_a" data-toggle="modal" data-target="#otherModal">确认</a>
         </div>
     </div>
 </div>
 
-<script src="../../js/jquery-3.4.1.min.js"></script>
+<!-- 提示信息 -->
+<div class="modal fade" id="otherModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content up-box w664">
+            <div class="up-box-hd" id="up-box-hd_id">
+                手机双向绑定
+            </div>
+            <div class="up-box-bd">
+                <div class="modal-bd">
+                    <div>为了保护您的信息安全，便于今后为您服务，请按以下程序进行手机双向核验:</div>
+                    <div>
+                        第一步：请您用手机
+                        <span class="changephone">18030255989</span>
+                        发送短信999至12306，以便确认您的手机可以联络。
+                    </div>
+                    <div>
+                        第二步：12306接到您的短信后将给您的手机回复六位数字短信，请您在十分钟内将六位数字短信填写在下方空白框中，并点击“核验”按钮。现在先请您发送999短信，并稍候我们的回复。
+                    </div>
+                    <div class="form-list">
+                        <div class="form-item">
+                            <div class="form-label">
+                                <span class="required">*</span>
+                                您当前的手机号码是：
+                            </div>
+                            <div class="form-bd">
+                                <div class="nowphone">180****5989</div>
+                                <a class="btn_change" href="javascript:;">修改手机号</a>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <div class="form-label">
+                                <span class="required">*</span>
+                                验证码
+                            </div>
+                            <div class="form-bd">
+                                <input class="input_change" type="text">
+                            </div>
+                        </div>
+                        <div class="form_btn">
+                            <a class="btn_last1" href="javascript:;" style="background-color: #ff8f16">核验</a>
+                            <a class="btn_last2" href="javascript:;">取消</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-tip">
+                <p>使用说明：</p>
+                <p>1.一个用户一天可以获取三次手机核验的短信验证码。</p>
+                <p>2.手机核验通过的用户方能在12306.cn网站办理邮箱修改、密码修改等业务。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="../../js/vue.min.js"></script>
 <script>
     $(function () {
