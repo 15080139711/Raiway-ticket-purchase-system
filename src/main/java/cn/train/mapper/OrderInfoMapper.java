@@ -1,6 +1,7 @@
 package cn.train.mapper;
 
 import cn.train.enity.OrderInfo;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,4 +29,6 @@ public interface OrderInfoMapper {
     List<OrderInfo> getHistoryOrder(Integer userid);
 
     int getOrderidByOrderInfo(Integer userid);
+
+    int afterPay(OrderInfo orderInfo);
 }

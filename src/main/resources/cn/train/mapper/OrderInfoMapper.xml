@@ -33,6 +33,10 @@
     select * from OrderInfo where userid = #{userid,jdbcType=INTEGER} and mark = 3;
   </select>
 
+  <update id="afterPay" parameterType="cn.train.enity.OrderInfo">
+    update OrderInfo set paydate = #{paydate,jdbcType=VARCHAR}, status = #{status,jdbcType=INTEGER}, mark = #{mark,jdbcType=INTEGER} where id = #{id,jdbcType=INTEGER}
+  </update>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="OrderInfoResultMap">
     select 
     <include refid="Base_Column_List" />
