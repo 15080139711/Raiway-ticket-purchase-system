@@ -321,7 +321,7 @@
                             </div>
                             <div class="cds">
                                 <strong class="start-t">{{traInfo.fromstop.lefts}}</strong>
-                                <strong class="color999">{{traInfo.tostop.lefts}}</strong>
+                                <strong class="color999">{{traInfo.tostop.arrive}}</strong>
                             </div>
                             <div class="ls" id="240000G1010N_ls">
                                 <strong>{{traInfo.seatnumber}}</strong>
@@ -329,10 +329,10 @@
                             </div>
                         </div>
                     </td>
-                    <td  width="46" align="center" style="cursor: pointer;color: #f80;" id="SWZ_240000G1010N">有</td>
+                    <td  width="46" align="center" class="yes" style="cursor: pointer;color: #00cc0c" id="SWZ_240000G1010N">有</td>
                     <td  width="46" align="center" style="cursor: pointer;color: #f80;" id="TDZ_240000G1010N">候补</td>
-                    <td  width="46" align="center" class="yes" style="cursor: pointer;"  id="ZY_240000G1010N">有</td>
-                    <td  width="46" align="center" class="yes" style="cursor: pointer;"  id="ZE_240000G1010N">有</td>
+                    <td  width="46" align="center" class="yes" style="cursor: pointer;color: #00cc0c"  id="ZY_240000G1010N">有</td>
+                    <td  width="46" align="center" class="yes" style="cursor: pointer;color: #00cc0c"  id="ZE_240000G1010N">有</td>
                     <td  width="46" align="center" style="cursor: pointer;" id="GR_240000G1010N">&#45;&#45;</td>
                     <td  width="46" align="center" style="cursor: pointer;" id="RW_240000G1010N">&#45;&#45;</td>
                     <td  width="46" align="center" style="cursor: pointer;" id="SRRB_240000G1010N">&#45;&#45;</td>
@@ -433,6 +433,8 @@
 		var endPoint;
 		var city_fid;
 		var city_tid;
+		var city_id1;
+		var city_id2;
 		var startDate;
 		function getCookie(cname)
 		{
@@ -486,6 +488,7 @@
 			data:JSON.stringify(a),
 			success:function (data) {
 				va.trainInfos = data;
+
 			},error:function (e) {
 				alert("cuo");
 			}
@@ -493,29 +496,29 @@
 		var va = new Vue({
 			el:"#info-box",
 			data: {
+				trainId:{},
 				trainInfos:[],
 			},methods:{
 				getInfos:function (index) {
 					train_num = this.trainInfos[index].trainInfo.number;
 					f_time = this.trainInfos[index].fromstop.lefts;
-					t_time = this.trainInfos[index].tostop.lefts;
+					t_time = this.trainInfos[index].tostop.arrive;
 					train_id = this.trainInfos[index].fromstop.trainid;
 					t_price  = this.trainInfos[index].price;
+					city_id1 = this.trainInfos[index].fromstop.id;
+					city_id2 = this.trainInfos[index].tostop.id;
 					document.cookie = "cookie_train_num = " + train_num+ "; path=/html/";
 					document.cookie = "cookie_train_f_time = " + f_time+ "; path=/html/";
 					document.cookie = "cookie_train_t_time = " + t_time+ "; path=/html/";
 					document.cookie = "cookie_train_id = " + train_id+ "; path=/html/";
 					document.cookie = "cookie_train_price = " + t_price+ "; path=/html/";
+					document.cookie = "cookie_from_cityid = " + city_id1+ "; path=/html/";
+					document.cookie = "cookie_to_cityid = " + city_id2+ "; path=/html/";
 					location.href="http://localhost:8080/html/settlement.html";
 				}
 			}
 		});
 
-		// 确认提交
-		// $("#qr_submit_id").click(function () {
-		// 	alert(a);
-		// 	location.href="http://localhost:8080/html/settlement.html";
-		// })
 
     })
 

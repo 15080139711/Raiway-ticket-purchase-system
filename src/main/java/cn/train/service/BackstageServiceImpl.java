@@ -58,10 +58,12 @@ public class BackstageServiceImpl implements BackstageService {
             unsoldList.get(i).setTrainInfo((trainInfoMapper.selectByPrimaryKey(unsoldList.get(i).getTrainid())));
 
             StopInfo stopInfo=stopInfoMapper.selectByPrimaryKey(unsoldList.get(i).getFromstopid());
+            System.out.println(cityInfoMapper.selectByPrimaryKey(stopInfo.getCityid()));
+
             stopInfo.setCityInfo(cityInfoMapper.selectByPrimaryKey(stopInfo.getCityid()));
             unsoldList.get(i).setFromstop(stopInfo);
 
-            StopInfo stopInfo2=stopInfoMapper.selectByPrimaryKey(unsoldList.get(i).getFromstopid());
+            StopInfo stopInfo2=stopInfoMapper.selectByPrimaryKey(unsoldList.get(i).getTostopid());
             stopInfo2.setCityInfo(cityInfoMapper.selectByPrimaryKey(stopInfo2.getCityid()));
             unsoldList.get(i).setTostop(stopInfo2);
                    }
@@ -158,7 +160,13 @@ public class BackstageServiceImpl implements BackstageService {
 
     @Override
     public List<TrainInfo> get_train() {
-        return trainInfoMapper.getAll();
+        List<TrainInfo> trainInfoList=trainInfoMapper.getAll();
+        for(int i=0;i<trainInfoList.size();i++)
+        {
+            trainInfoList.get(i).setCityInfo1(cityInfoMapper.selectByPrimaryKey(trainInfoList.get(i).getFirststation()));
+            trainInfoList.get(i).setCityInfo2(cityInfoMapper.selectByPrimaryKey(trainInfoList.get(i).getLaststation()));
+        }
+        return  trainInfoList;
     }
 
     @Override
