@@ -35,4 +35,9 @@ public class OrderController {
     public List<OrderInfo> getAllOrder(@RequestBody OrderInfo orderInfo){
         return orderService.getAllOrderByuserid(orderInfo.getUserid());
     }
+
+    @RequestMapping("/api/order/afterPay")
+    public String afterPay(@RequestBody OrderInfo orderInfo){
+        return orderService.afterPay(orderInfo);
+    }
 }

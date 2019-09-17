@@ -8,7 +8,9 @@ import cn.train.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -79,5 +81,28 @@ public class OrderServiceImpl implements OrderService {
         result = orderInfoMapper.getHistoryOrder(userid);
         result = getTicketInfo(result);
         return result;
+    }
+
+    @Override
+    public String afterPay(OrderInfo orderInfo) {
+
+        //读取当前时间
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+        orderInfo.setStatus(2);
+        orderInfo.setMark(2);
+        orderInfo.setPaydate(date);
+
+        System.out.println("修改订单支付状态" + orderInfo);
+        
+        int m = 0;
+        m = orderInfoMapper.afterPay(orderInfo);
+
+        if (m != 0){
+            return "success";
+        }else{
+            return "error";
+        }
     }
 }
