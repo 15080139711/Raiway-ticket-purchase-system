@@ -1,8 +1,5 @@
 package cn.train.controller;
 
-
-//import cn.train.config.Consumer;
-//import cn.train.config.Producer;
 import cn.train.config.Redis;
 import cn.train.enity.OrderInfo;
 import cn.train.enity.Search;
@@ -21,28 +18,9 @@ public class TicketController   {
     @Autowired
     TicketService ticketService;
 
-    //消息队列的
-//    @Autowired
-//    private Producer producer;
-//    @Autowired
-//    private Consumer consumer;
-    //改造
-//    @RequestMapping("/send/{message}")
-//    public void send(@PathVariable("message") String message){
-//        producer.publishMessage(message);
-//    }
-
-
-
       public void send( SoldTicket soldTicket){
         Redis.publishMessage(soldTicket.getId(),soldTicket);
     }
-
-//    @RequestMapping("/receive")
-//    public void receive() {
-//        consumer.receive();
-//    }
-
 
     @RequestMapping("/api/ticket/getUnsoldTicketNum")
     public int[] getUnsoldTicketNum(@RequestBody Search search){
