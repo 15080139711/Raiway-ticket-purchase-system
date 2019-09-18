@@ -30,7 +30,7 @@
                 <div class="pay_select_div"><img src="../images/pay/pay_select_6.gif"></div>
                 <div class="pay_select_div"><img src="../images/pay/pay_select_7.gif"></div>
                 <div class="pay_select_div"><img src="../images/pay/pay_select_8.gif"></div>
-                <div class="pay_select_div"><img src="../images/pay/pay_select_9.gif"></div>
+                <div class="pay_select_div"><img src="../images/pay/pay_select_9.gif" id="alipay"></div>
                 <div class="pay_select_div"><img src="../images/pay/pay_select_10.gif"></div>
             </div>
         </div>
@@ -85,6 +85,9 @@
                 price:t_price,
 
             }
+        })
+        $("#alipay").click(function () {
+            location.href="http://localhost:8080/html/alipay.html"
         })
     })
 
