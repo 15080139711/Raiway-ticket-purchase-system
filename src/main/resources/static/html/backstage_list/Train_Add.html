@@ -89,7 +89,6 @@
                 })
             })
             $("input[value=确认生成车票]").click(function () {
-                alert("确认生成")
                 alert($("#day").val())
                 $.ajax({
                     url:"http://localhost:8080/api/train/generateDateTrain",
@@ -98,7 +97,7 @@
                     data:{
                         day:$("#day").val(),
                     },success:function (data) {
-                        alert(data)
+                        alert("生成成功！请查验！")
                     }
                 })
             })
