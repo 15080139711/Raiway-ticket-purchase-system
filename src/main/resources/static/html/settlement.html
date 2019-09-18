@@ -611,8 +611,9 @@
                 vp.name = data.name;
                 vp.idnumber = data.idnumber;
                 vp.phone = data.phone;
-            },error:function (error) {
-                alert('assasaa');
+            }
+            ,error:function (error) {
+                alert("请先登陆！")
             }
         })
         var va = new Vue({
@@ -650,8 +651,9 @@
             success:function (data) {
                 va.oftenUser = data;
                 contentId = data[0].id;
-            },error:function (error) {
-                alert('121');
+            }
+            ,error:function (error) {
+                alert('请先登陆！');
             }
         })
         // 获取列车信息
@@ -681,8 +683,9 @@
             data:JSON.stringify(c),
             success:function (data) {
                 vc.seatinfo = data;
-            },error:function (e) {
-                alert("cuo");
+            }
+            ,error:function (e) {
+                alert("请先登陆！");
             }
         })
         var f_price = t_price * 2;
