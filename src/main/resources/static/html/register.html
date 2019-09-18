@@ -4,66 +4,30 @@
 <head>
 	<meta charset="UTF-8">
 	<title>注册</title>
-	<link rel="stylesheet" href="Common/commonGeneral.css"><!--commonGeneral.css-->
-	<link rel="stylesheet" href="Common/commonTop.css"><!--../Common/commonTop.css-->
-	<link rel="stylesheet" href="Common/commonBottom.css"><!--../Common/commonBottom.css-->
-	<link rel="stylesheet" type="text/css" href="css/register.css"><!--../css/register.css-->
-	<link rel="stylesheet" type="text/css" href="Common/commonLeft.css">
+	<link rel="stylesheet" href="../Common/commonGeneral.css"><!--commonGeneral.css-->
+	<link rel="stylesheet" href="../Common/commonTop.css"><!--../Common/commonTop.css-->
+	<link rel="stylesheet" href="../Common/commonBottom.css"><!--../Common/commonBottom.css-->
+	<link rel="stylesheet" type="text/css" href="../css/register.css"><!--../css/register.css-->
+	<link rel="stylesheet" type="text/css" href="../Common/commonLeft.css">
 	<link rel="stylesheet" href="https://at.alicdn.com/t/font_1344458_mkhjlnf7wn.css">
-	<script src="js/jquery-3.4.1.min.js"></script>
+	<script src="../js/jquery-3.4.1.min.js"></script>
+	<script src="../js/vue.min.js"></script>
+    <script type="text/ecmascript" src="../js/md5.js"></script>
 <!--	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>-->
 <!--	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>-->
-	<script>
-		$(function () {
-            $(".studentType").hide();
-            $("#passengerType").change(function () {
-                var opt = $("#passengerType").val();
-                if (opt == 3) {
-                    $(".studentType").show();
-                } else {
-                    $(".studentType").hide();
-                }
-                ;
-            });
-            $("#nextbut").click(function () {
-                alert("1");
-                $.ajax({
-                    url: "http://127.0.0.1:8080/api/register",
-                    data: {
-                        key: $("#userName").val(),
-                        key: $("#passWord").val(),
-                        key: $("#confirmPassWord").val(),
-                        key: $("#cardType").val(),
-                        key: $("#realName").val(),
-                        key: $("#cardCode").val(),
-                        key: $("#email").val(),
-                        key: $("#mobileNo").val(),
-                        key: $("#passengerType").val(),
-                        key: $("#province_code").val(),
-                        key: $("#schoolNameText").val(),
-                        key: $("#student_no").val(),
-                        key: $("#school_system").val(),
-                        key: $("#enter_year").val(),
-                        key: $("#preference_card_no").val(),
-                        key: $("#preference_from_station_name").val(),
-                        key: $("#preference_to_station_name").val(),
-                    },
-                    dataType: "json",
-                    type: "POST",
-                    success: function (data) {
-                        alert("2");
-                        alert(data);
-                    }
-                    // 	$("#passengerType").children.eq(2).click(function () {
-                    // 		// var $passtype=$("#passengerType").children.eq(2);
-                    // 		alert("1") ;
-                    // 	})
-                })
-            })
-        })
-	</script>
+
 </head>
 <body>
+	<div class="name-tips" id="nametips">
+		<ul>
+			<li>确认姓名中生僻字无法输入时，可用生僻字拼音或同音字替代。</li>
+			<li>输入姓名保存后，遇有系统无法正确显示的汉字，可用该汉字的拼音或同音字重新修改后保存。</li>
+			<li>姓名中有繁体字无法输入时，可用简体替代。</li>
+			<li>姓名较长，汉字与英文字符合计超过30个（1个汉字算2个字符）的，需按姓名中第一个汉字开始按顺序连续输入30个字符（空格字符不输入）。</li>
+			<li>姓名中有“.”或“• ”时，请仔细辨析身份证件原件上的“.”或“• ”，准确输入。</li>
+			<li>姓名中有“,”时，请使用空格替换。</li>
+		</ul>
+	</div>
 	<!-- 公共顶部 -->
 	<div class="header" id="ggdb">
 		<div class="wrapper">
@@ -90,9 +54,9 @@
 								<li>温馨服务查询</li>
 							</ul>
 						</li>
-						<li>您好,<a href="">某某某</a></li>
-						<li><a href="">退出</a></li>
-					</ul>
+						<li id="users_name">您好,<a href="">{{users_name}}</a></li>
+						<li id="tuichu"><a href="">退出</a></li>
+                    </ul>
 					<ul class="search">
 						<li><input type="text" placeholder="搜索车票/餐饮/常旅客/相关章程"></li>
 						<li><i class="iconfont icon-search"></i></li>
@@ -281,77 +245,106 @@
 			<div class="lay_hd">账户信息</div>
 			<div class="lay_bd">
 				<ul class="reg-list">
-					<li><div class="label"><span class="required">*</span>
-						用 户 名：</div>
-						<div class="r-txt"><input type="text" placeholder="用户名设置成功后不可修改" class="inptxt w200" name="loginUserDTO.user_name" id="userName" maxlength="30" style="color: rgb(51, 51, 51);">
+					<li>
+						<div class="label">
+						<span class="required">*</span>
+						用 户 名：
 						</div>
-						<div class="tips"><span id="iok_userName" class="tips i-ok" style="margin-top: 10px;margin-right: 5px;display:none;"></span>
-							6-30位字母、数字或“_”,字母开头</div>
+						<div class="r-txt">
+							<input type="text" placeholder="用户名设置成功后不可修改" class="inptxt w200" name="loginUserDTO.user_name" id="username" maxlength="30" style="color: rgb(51, 51, 51);">
+						</div>
+						<div class="tips">
+							<span id="iok_userName" class="tips i-ok" style="margin-top: 10px;margin-right: 5px;display:none;"></span>
+							6-30位字母、数字或“_”,字母开头
+						</div>
 					</li>
 					<li><div class="label"><span class="required">*</span>
 						登录密码：</div>
-						<div class="r-txt"><input placeholder="6-20位字母、数字或符号" onkeyup="checkPwdRank(this,'_div_password_rank','_span_password_rank')" class="inptxt w200" name="userDTO.password" id="passWord" type="password" maxlength="25" style="color: rgb(51, 51, 51);">
+						<div class="r-txt">
+							<input placeholder="6-20位字母、数字或符号"  class="inptxt w200" name="userDTO.password" id="password" type="password" maxlength="25" style="color: rgb(51, 51, 51);">
+<!--							onkeyup="checkPwdRank(this,'_div_password_rank','_span_password_rank')"-->
 						</div>
-						<div class="tips"><span></span>
-							<div id="_div_password_rank" class="safe-rank rank-a" title="请输入密码！"><!--危险rank-a,一般rank-b,安全rank-c-->
-								<span class="s1"></span>
-								<span class="s2"></span>
-								<span class="s3"></span>
-							</div>
+						<div class="tips">
+							<span id="passwordtip" class="tips i-ok" style="margin-top: 10px;margin-right: 5px;display:none;"></span>
+							6-20位字母和数字或特殊符号
+<!--							<div id="_div_password_rank" class="safe-rank rank-a" title="请输入密码！">&lt;!&ndash;危险rank-a,一般rank-b,安全rank-c&ndash;&gt;-->
+<!--								<span class="s1"></span>-->
+<!--								<span class="s2"></span>-->
+<!--								<span class="s3"></span>-->
+<!--							</div>-->
 						</div>
 					</li>
 					<li><div class="label"><span class="required">*</span>
 						确认密码：</div>
-						<div class="r-txt"><input placeholder="再次输入您的登录密码" class="inptxt w200" name="confirmPassWord" id="confirmPassWord" type="password" maxlength="25" style="color: rgb(51, 51, 51);">
+						<div class="r-txt"><input placeholder="再次输入您的登录密码" class="inptxt w200" name="confirmPassWord" id="confirmpassword" type="password" maxlength="25" style="color: rgb(51, 51, 51);">
 						</div>
 						<div class="tips"><span id="iok_confirmPassWord" class="tips i-ok" style="margin-top: 10px;margin-right: 5px;display:none;"></span>
 						</div>
 					</li>
-					<li><div class="label"><span class="required">*</span>
-						证件类型：</div>
-						<div class="r-txt"><input name="loginUserDTO.id_type_code" id="cardTypeCode" value="1" type="hidden">
-							<select class="w200sel" id="cardType"><option value="0">中国居民身份证
-							</option>
-								<option value="C">港澳居民来往内地通行证
-								</option>
-								<option value="G">台湾居民来往大陆通行证
-								</option>
-								<option value="B">护照
-								</option>
-							</select>
-						</div>
-						<div class="tips" id="GAT_idno_rule" name="tips_GAT" style="display:none;"><a style="color: #FF7F00;text-decoration: underline;" shape="rect">证件填写规则</a>
-						</div>
-					</li>
-					<li id="jmsfz_li" style="height: 90px; display: list-item;"><div class="label"></div>
-						<div class="lable"></div>
-						<div class="r-txt">
-							<span style="display: block"><input name="idTypeRadio" type="radio" id="idTypeCode_second" class="radio" checked="checked" value="1"><label for="idTypeCode_second" id="idTypeCode_second_label" class="cursor">中国居民身份证</label>
-							</span>
-							<span style="display: block"><input name="idTypeRadio" type="radio" id="idTypeCode_wgjzz" class="radio" value="H"><label for="idTypeCode_wgjzz" id="idTypeCode_wgjzz_label" class="cursor">外国人永久居留身份证</label>
-							</span>
-							<span style="display: block"><input name="idTypeRadio" type="radio" id="idTypeCode_gatjjz" class="radio" value="1"><label for="idTypeCode_gatjjz" id="idTypeCode_gatjjz_label" class="cursor">港澳台居民居住证</label>
-							</span>
-						</div>
-<!--						::after-->
-					</li>
+<!--					<li><div class="label"><span class="required">*</span>-->
+<!--						证件类型：</div>-->
+<!--						<div class="r-txt"><input name="loginUserDTO.id_type_code" id="cardTypeCode" value="1" type="hidden">-->
+<!--							<select class="w200sel" id="cardType"><option value="0">中国居民身份证-->
+<!--							</option>-->
+<!--								<option value="C">港澳居民来往内地通行证-->
+<!--								</option>-->
+<!--								<option value="G">台湾居民来往大陆通行证-->
+<!--								</option>-->
+<!--								<option value="B">护照-->
+<!--								</option>-->
+<!--							</select>-->
+<!--						</div>-->
+<!--						<div class="tips" id="GAT_idno_rule" name="tips_GAT" style="display:none;"><a style="color: #FF7F00;text-decoration: underline;" shape="rect">证件填写规则</a>-->
+<!--						</div>-->
+<!--					</li>-->
+<!--					<li id="jmsfz_li" style="height: 90px; display: list-item;"><div class="label"></div>-->
+<!--						<div class="lable"></div>-->
+<!--						<div class="r-txt">-->
+<!--							<span style="display: block"><input name="idTypeRadio" type="radio" id="idTypeCode_second" class="radio" checked="checked" value="1"><label for="idTypeCode_second" id="idTypeCode_second_label" class="cursor">中国居民身份证</label>-->
+<!--							</span>-->
+<!--							<span style="display: block"><input name="idTypeRadio" type="radio" id="idTypeCode_wgjzz" class="radio" value="H"><label for="idTypeCode_wgjzz" id="idTypeCode_wgjzz_label" class="cursor">外国人永久居留身份证</label>-->
+<!--							</span>-->
+<!--							<span style="display: block"><input name="idTypeRadio" type="radio" id="idTypeCode_gatjjz" class="radio" value="1"><label for="idTypeCode_gatjjz" id="idTypeCode_gatjjz_label" class="cursor">港澳台居民居住证</label>-->
+<!--							</span>-->
+<!--						</div>-->
+<!--&lt;!&ndash;						::after&ndash;&gt;-->
+<!--					</li>-->
 					<li><div class="label"><span class="required">*</span>
 						姓   名：</div>
-						<div class="r-txt"><input placeholder="请输入姓名" type="text" class="inptxt w200" id="realName" name="loginUserDTO.name" maxlength="30">
+						<div class="r-txt">
+							<input placeholder="请输入姓名" type="text" class="inptxt w200" id="name" name="loginUserDTO.name" maxlength="30">
 						</div>
 						<div class="tips" id="name_rule"><a style="color: #FF7F00;text-decoration: underline;" shape="rect">姓名填写规则</a>
 							（用于身份核验，请正确填写）</div>
 					</li>
-					<li id="li_usural_id_type"><div class="label"><span class="required">*</span>
-						证件号码：</div>
-						<div class="r-txt"><div class="pos-rel"><input placeholder="请输入您的证件号码" type="text" name="loginUserDTO.id_no" id="cardCode" class="inptxt w200 color333" maxlength="18" value="">
-							<div class="inp-focus inp-focus-card" id="cardCode_div" style="display:none"></div>
+					<li><div class="label"><span class="required">*</span>
+						性别：</div>
+						<div class="r-txt">
+							<select class="w200sel valid" id="sex" name="sex">
+								<option value="1">男</option>
+								<option value="2">女</option>
+							</select>
 						</div>
+						<div class="tips"><a href="#nogo" shape="rect"></a>
+						</div>
+					</li>
+					<li id="li_usural_id_type">
+						<div class="label">
+							<span class="required">*</span>
+						身份证号码：
+						</div>
+						<div class="r-txt">
+							<div class="pos-rel">
+								<input placeholder="请输入您的身份证号码" type="text" name="loginUserDTO.id_no" id="idnumber" class="inptxt w200 color333" maxlength="18" value="">
+							</div>
 						</div>
 						<div class="tips" style="color: #FF7F00;">（用于身份核验，请正确填写）</div>
 					</li>
-					<li><div class="label"><span id="email_div_span" class="required" style="display: none;">*</span>
-						邮    箱：</div>
+					<li>
+						<div class="label">
+							<span id="email_div_span" class="required">*</span>
+						邮    箱：
+						</div>
 						<div class="r-txt">
                             <ul class="emailist" style="position: absolute; margin-top: 30px; min-width: 200px; visibility: hidden; z-index: 11;">
                             </ul>
@@ -359,13 +352,14 @@
 						</div>
 						<div class="tips" style="color: #FF7F00;"></div>
 					</li>
-					<li><div class="label">
+					<li>
+						<div class="label">
                         <span id="mobile_div_span" class="required" style="display: inline;">*</span>
 						手机号码（+86）：
                         </div>
 						<div class="r-txt">
                             <div class="pos-rel">
-                                <input type="text" placeholder="请输入您的手机号码" name="userDTO.mobile_no" class="inptxt w200 color333" id="mobileNo" maxlength="30" value="">
+                                <input type="text" placeholder="请输入您的手机号码" name="userDTO.mobile_no" class="inptxt w200 color333" id="phone" maxlength="30" value="">
 						    </div>
 						</div>
 						<div class="tips" style="color: #FF7F00;">请正确填写手机号码，稍后将向该手机号码发送短信验证码</div>
@@ -373,10 +367,10 @@
 					<li><div class="label"><span class="required">*</span>
 						旅客类型：</div>
 						<div class="r-txt">
-                            <select class="w200sel valid" id="passengerType" name="passenger_type">
+                            <select class="w200sel valid" id="traveltype" name="passenger_type">
                                 <option value="1">成人</option>
-                                <option value="2">儿童</option>
-                                <option value="3">学生</option>
+								<option value="2">学生</option>
+                                <option value="3">儿童</option>
                                 <option value="4">残疾军人、伤残人民警察</option>
 						    </select>
 						</div>
@@ -539,16 +533,20 @@
 						</div>
 						<div class="tips">填写与学生证一致的优惠区间（选择车站所在城市）</div>
 					</li>
-					<li><div class="label" style="width:373px;">&nbsp;</div>
-						<div class="r-txt"><input type="checkbox" class="check" id="checkAgree">
-							<span style="font-size: 14px;"><label for="checkAgree">我已阅读并同意遵守</label></span>
+					<li>
+						<div class="label" style="width:373px;">&nbsp;</div>
+						<div class="r-txt">
+							<input type="checkbox" class="check inptxt" id="checkAgree">
+							<span style="font-size: 14px;">
+								<label for="checkAgree">我已阅读并同意遵守</label>
+							</span>
 							<a href="/otn/regist/rule;jsessionid=6D9963A4CB79D9FF4414967B283BBD05" class="ft14" target="_blank" shape="rect">《中国铁路客户服务中心网站服务条款》</a>
 							<a href="/otn/gonggao/privacyPolicy_web.html;jsessionid=6D9963A4CB79D9FF4414967B283BBD05" class="ft14" target="_blank" shape="rect">《隐私权政策》</a>
 						</div>
 					</li>
 				</ul>
 				<div class="bd_captchabutton" style="position:relative">
-					<a id="nextbut" class="button" shape="rect">下一步</a>
+					<a id="nextbut" class="button" shape="rect">注册</a>
 				</div>
 			</div>
 		</div>
@@ -608,5 +606,240 @@
 			</p>
 		</div>
 	</div>
+
+<script>
+	$(document).ready(function () {
+        //缓存用户
+		var userid;
+		var username;
+		function getCookie(cname)
+		{
+			var name = cname + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0; i<ca.length; i++)
+			{
+				var c = ca[i].trim();
+				if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+			}
+			return "";
+		}
+		if (getCookie("cookie_userid") !=null){
+			userid = getCookie("cookie_userid");
+		}if (getCookie("cookie_username") !=null){
+			username = getCookie("cookie_username");
+		}
+		var vms = new Vue({
+			el:'#users_name',
+			data:{users_name:{}},
+			created:function () {
+				this.users_name = username;
+			}
+		})
+
+
+		$(".studentType").hide();
+		$("#traveltype").change(function () {
+			var opt = $("#traveltype").val();
+			if (opt == 2) {
+				$(".studentType").show();
+			} else {
+				$(".studentType").hide();
+			}
+			;
+		});
+		$("form :input").blur(function () {
+			var $parent=$(this).parent();
+			$parent.parent().find(".formtips").remove();
+			//username验证
+			if ($(this).is("#username")) {
+				// alert("username");
+				var reg=/^[a-zA-Z0-9_-]{6,30}$/;
+				// var username=$.trim(this.value);
+				if(reg.test(this.value)){
+					// var okMsg='输入正确';
+					// $parent.next().find(".formtips").remove();
+					// $parent.parent().append('<span class="formtips onSuccess">'+okMsg+'</span>');
+					if ($parent.parent().next().is(".formtips")){$parent.parent().next().detach()};
+					return true;
+				}else{
+					// alert("输入错误");
+					var errorMsg='请输入正确的用户名';
+					if ($parent.parent().next().is(".formtips")){}
+					else{$parent.parent().after('<span class="formtips onError">'+errorMsg+'</span>');};
+					// $parent.parent.next().remove()
+				}
+			}
+			//name验证
+			if ($(this).is("#name")) {
+				// alert("name");
+				var reg=/[\u4E00-\u9FA5]/;
+				if(reg.test(this.value)&&this.value.length<6){
+					if ($parent.parent().next().is(".formtips")){$parent.parent().next().detach()};
+					return true;
+				}else{
+					// alert("输入错误");
+					var errorMsg='请输入正确的姓名';
+					if ($parent.parent().next().is(".formtips")){}
+					else{$parent.parent().after('<span class="formtips onError">'+errorMsg+'</span>');};
+				}
+			}
+			//password验证
+			if ($(this).is("#password")) {
+				// alert("password");
+				var reg=/^(?=.*([a-zA-Z].*))(?=.*[0-9].*)[a-zA-Z0-9-*/+.~!@#$%^&*()]{6,20}$/;
+				if(reg.test(this.value)){
+					if ($parent.parent().next().is(".formtips")){$parent.parent().next().detach()};
+					return true;
+				}else{
+					// alert("输入错误");
+					var errorMsg='请输入正确的密码';
+					if ($parent.parent().next().is(".formtips")){}
+					else{$parent.parent().after('<span class="formtips onError">'+errorMsg+'</span>');};
+				}
+			}
+			//再次确认密码校验
+			if ($(this).is("#confirmpassword")) {
+				if(this.value==$("#password").val()&&this.value!=""){
+					if ($parent.parent().next().is(".formtips")){$parent.parent().next().detach()};
+					return true;
+				}else{
+					// alert("输入错误");
+					var errorMsg='确认密码与密码不同';
+					if ($parent.parent().next().is(".formtips")){}
+					else{$parent.parent().after('<span class="formtips onError">'+errorMsg+'</span>');};
+				}
+			}
+			//idnumber验证
+			if ($(this).is("#idnumber")) {
+				// alert("idnumber");
+				var reg=/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+				if(reg.test(this.value)){
+					if ($parent.parent().next().next().is(".formtips")){$parent.parent().next().next().detach()};
+					return true;
+				}else{
+					// alert("输入错误");
+					var errorMsg='请输入正确的身份证号码';
+					if ($parent.parent().next().next().is(".formtips")){}
+					else{$parent.parent().next().after('<span class="formtips onError">'+errorMsg+'</span>');};
+				}
+			}
+			//email验证
+			if ($(this).is("#email")) {
+				// alert("email");
+				var reg=/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+				if(reg.test(this.value)){
+					if ($parent.parent().next().is(".formtips")){$parent.parent().next().detach()};
+					return true;
+				}else{
+					// alert("输入错误");
+					var errorMsg='请输入有效的邮箱';
+					if ($parent.parent().next().is(".formtips")){}
+					else{$parent.parent().after('<span class="formtips onError">'+errorMsg+'</span>');};
+				}
+			}
+			//phone验证
+			if ($(this).is("#phone")) {
+				// alert("phone");
+				var reg=/^1[34578]\d{9}$/;
+				if(reg.test(this.value)){
+					if ($parent.parent().parent().next().is(".formtips")){$parent.parent().parent().next().detach()};
+					return true;
+				}else{
+					// alert("输入错误");
+					var errorMsg='请输入有效的手机号码';
+					if ($parent.parent().parent().next().is(".formtips")){}
+					else{$parent.parent().parent().after('<span class="formtips onError">'+errorMsg+'</span>');};
+				}
+			}
+			//checkbox验证
+            if ($(this).is("#checkAgree")) {
+                if ($("#checkAgree").prop("checked")==true) {
+                    if ($("#checkAgree").parent().parent().next().is(".formtips")){$("#checkAgree").parent().parent().next().detach()};
+                }else {
+                    var errorMsg='请阅读并同意遵守条款';
+                    if ($("#checkAgree").parent().parent().next().is(".formtips")){}
+                    else{$("#checkAgree").parent().parent().after('<span class="formtips onError">'+errorMsg+'</span>');};
+                };
+            }
+			//traveltype验证
+			//sex验证
+		})
+
+		$("#nextbut").click(function () {
+            $("form .inptxt:input").trigger('blur');
+            //md5加密
+            var hash = hex_md5($("#password").val());
+            alert(hash);
+            var numError=$("form .onError").length;
+            if(numError){
+                alert("输入错误");
+                return false;
+            }else {
+                var a = new Object();
+                a.username = $("#username").val();
+                a.name = $("#name").val();
+                a.password = hash;
+                a.idnumber = $("#idnumber").val();
+                a.email = $("#email").val();
+                a.phone = $("#phone").val();
+                a.traveltype = $("#traveltype").val();
+                a.sex = $("#sex").val();
+                a.status ="0";
+                $.ajax({
+                    url: "http://127.0.0.1:8080/api/user/register",
+                    dataType: "json",
+                    type: "post",
+                    contentType: "application/json;charset=UTF-8",
+                    data: JSON.stringify(a),
+                    success: function (data) {
+                        alert(data);
+						if (data==-1) {
+							alert("用户信息已被注册！");
+						}if (data==-2) {
+							alert("注册失败")
+						} else{
+							alert("注册成功");
+						};
+                    }, error: function (error) {
+                        alert('提交错误');
+                    }
+                })
+            }
+		});
+		//名字格式提示效果
+		$("#nametips").hide();
+		$("#name_rule").hover(function () {
+			$("#nametips").show();
+		},function () {
+			$("#nametips").hide();
+		})
+	})
+</script>
 </body>
 </html>
+<!--$.ajax({-->
+<!--url: "http://127.0.0.1:8080/api/user/register",-->
+<!--data: {-->
+<!--"username":$("#username").val(),-->
+<!--"name":$("#name").val(),-->
+<!--"password":$("#password").val(),-->
+<!--"idnumber":$("#idnumber").val(),-->
+<!--"email":$("#email").val(),-->
+<!--"phone":$("#phone").val(),-->
+<!--"traveltype":$("#traveltype").val(),-->
+<!--"sex":$("#sex").val(),-->
+<!--// "status":"1",-->
+<!--},-->
+<!--dataType: "json",-->
+<!--type: "post",-->
+<!--success: function (data) {-->
+<!--if (data==-1) {-->
+<!--alert("用户信息已被注册！");-->
+<!--}else{-->
+<!--alert("注册成功");-->
+<!--};-->
+<!--},-->
+<!--error:function (request) {-->
+<!--alert("请填写表单");-->
+<!--}-->
+<!--});-->

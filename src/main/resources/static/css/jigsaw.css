@@ -113,3 +113,14 @@
   background: url(http://cstaticdun.126.net//2.6.3/images/icon_light.f13cff3.png) 0 -437px;
   background-size: 34px 471px;
 }
+#mailnum,#passnum {
+  display: block;
+  width: 290px;
+  line-height: 40px;
+  margin: 10px 0;
+  padding: 0 10px;
+  outline: none;
+  border: 1px solid #c8cccf;
+  border-radius: 4px;
+  color: #6a6f77;
+}
