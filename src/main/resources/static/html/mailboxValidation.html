@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>注册</title>
+    <title>邮箱验证</title>
     <link rel="stylesheet" href="../css/jigsaw.css">
     <link rel="stylesheet" href="../Common/commonGeneral.css">
     <link rel="stylesheet" href="../Common/commonTop.css">
@@ -11,7 +11,6 @@
     <link rel="stylesheet" type="text/css" href="../Common/commonLeft.css">
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1344458_mkhjlnf7wn.css">
     <script src="../js/jquery-3.4.1.min.js"></script>
-    <script type="text/ecmascript" src="../js/md5.js"></script>
     <!--	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>-->
     <!--	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>-->
     <script>
@@ -53,8 +52,6 @@
             if ($("#mailnum").val()==null && $("#passnum").val()==null) {alert("null")}
             $("#J-login").click(function () {
                 $("form .input:input").trigger('blur');
-                var hash = hex_md5($("#passnum").val());
-                alert(hash);
                 var numError=$("form .onError").length;
                 if(numError){
                     alert("输入错误");
@@ -62,17 +59,17 @@
                 }else {
                     var a = new Object();
                     a.email = $("#mailnum").val();
-                    a.password = hash;
+                    a.password = $("#passnum").val();
                     $.ajax({
-                        url:"http://127.0.0.1:8080/api/user/activation",
+                        url:"http://localhost:8080/api/user/activation",
                         dataType:"json",
                         type:"post",
                         contentType:"application/json;charset=UTF-8",
                         data:JSON.stringify(a),
                         success:function (data) {
-                            alert(data);
                             if (data==-1){
                                 alert("账户激活成功");
+                                location.href="http://localhost:8080/html/login.html";
                             }else{
                                 alert("账户不存在");
                             }
@@ -127,8 +124,8 @@
     </div>
     <div class="login-box">
         <ul class="login-hd">
-            <li class="login-hd-code"><a href="javascript:;">扫码登录</a></li>
-            <li class="login-hd-account"><a id="active" href="javascript:;">邮箱登录</a></li>
+            <li class="login-hd-code"><a id="positive" href="http://localhost:8080/html/login.html">扫码登录</a></li>
+            <li class="login-hd-account"><a id="active" href="javascript:;">邮箱激活</a></li>
         </ul>
         <!-- 账号登录 -->
         <!-- 验证码区域 -->
