@@ -325,6 +325,20 @@
                 t_price:t_price,
             }
         })
+
+        var a = new Object();
+        a.id = unsoldTicket_id;
+        $.ajax({
+            url:"http://localhost:8080/api/order/afterPay",
+            dataType:"json",
+            type:"post",
+            contentType:"application/json;charset=UTF-8",
+            data:JSON.stringify(a),
+            success:function (data) {
+                alert("success");
+            }
+        })
+
     })
 </script>
 </body>
