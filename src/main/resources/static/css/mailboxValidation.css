@@ -62,7 +62,10 @@ body{display: block;}
     width: 120px;
     height: 78px;
 }
-#active{color: #3b99fc;}
+#active{color: #3b99fc;font-size: 16px}
+#positive{color:#666666;font-size: 13px;}
+#positive:hover{color: #666666;font-size: 16px}
+#positive:active{color: #3b99fc;font-size: 16px}
 .login-hd a{
     margin: 0px;
     font-size: 16px;

@@ -12,7 +12,6 @@
 	<link rel="stylesheet" href="https://at.alicdn.com/t/font_1344458_mkhjlnf7wn.css">
 	<script src="../js/jquery-3.4.1.min.js"></script>
 	<script src="../js/vue.min.js"></script>
-    <script type="text/ecmascript" src="../js/md5.js"></script>
 <!--	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>-->
 <!--	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>-->
 
@@ -767,9 +766,6 @@
 
 		$("#nextbut").click(function () {
             $("form .inptxt:input").trigger('blur');
-            //md5加密
-            var hash = hex_md5($("#password").val());
-            alert(hash);
             var numError=$("form .onError").length;
             if(numError){
                 alert("输入错误");
@@ -778,7 +774,7 @@
                 var a = new Object();
                 a.username = $("#username").val();
                 a.name = $("#name").val();
-                a.password = hash;
+                a.password = $("#password").val();
                 a.idnumber = $("#idnumber").val();
                 a.email = $("#email").val();
                 a.phone = $("#phone").val();
@@ -786,19 +782,19 @@
                 a.sex = $("#sex").val();
                 a.status ="0";
                 $.ajax({
-                    url: "http://127.0.0.1:8080/api/user/register",
+                    url: "http://localhost:8080/api/user/register",
                     dataType: "json",
                     type: "post",
                     contentType: "application/json;charset=UTF-8",
                     data: JSON.stringify(a),
                     success: function (data) {
-                        alert(data);
 						if (data==-1) {
 							alert("用户信息已被注册！");
 						}if (data==-2) {
 							alert("注册失败")
 						} else{
 							alert("注册成功");
+							location.href="http://localhost:8080/html/mailboxvalidation.html";
 						};
                     }, error: function (error) {
                         alert('提交错误');
