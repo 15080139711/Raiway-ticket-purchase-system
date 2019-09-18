@@ -2072,7 +2072,7 @@
       config.keyCodes = new Proxy(config.keyCodes, {
         set: function set (target, key, value) {
           if (isBuiltInModifier(key)) {
-            warn(("Avoid overwriting built-in modifier in config.keyCodes: ." + key));
+            warn(("Avoid overwriting built-in modifier in alipay.keyCodes: ." + key));
             return false
           } else {
             target[key] = value;
@@ -2723,7 +2723,7 @@
   }
 
   /**
-   * Runtime helper for checking keyCodes from config.
+   * Runtime helper for checking keyCodes from alipay.
    * exposed as Vue.prototype._k
    * passing in eventKeyName as last argument separately for backwards compat
    */
@@ -5370,13 +5370,13 @@
   /*  */
 
   function initGlobalAPI (Vue) {
-    // config
+    // alipay
     var configDef = {};
     configDef.get = function () { return config; };
     {
       configDef.set = function () {
         warn(
-          'Do not replace the Vue.config object, set individual fields instead.'
+          'Do not replace the Vue.alipay object, set individual fields instead.'
         );
       };
     }

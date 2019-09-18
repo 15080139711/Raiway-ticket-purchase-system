@@ -427,8 +427,8 @@
 <script>
     $(function () {
 		//缓存信息
-		var userid=13;
-		var username="八戒";
+		var userid;
+		var username;
 		var startPoint;
 		var endPoint;
 		var city_fid;
@@ -451,8 +451,7 @@
 			userid = getCookie("cookie_userid");
 		}if (getCookie("cookie_username") !=null){
 			username = getCookie("cookie_username");
-		}
-		if (getCookie("cookie_startPoint") !=null){
+		}if (getCookie("cookie_startPoint") !=null){
 			startPoint = getCookie("cookie_startPoint");
 		}if (getCookie("cookie_endPoint") !=null){
 			endPoint = getCookie("cookie_endPoint");
