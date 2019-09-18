@@ -43,9 +43,6 @@ element.style {
 .w200sel {
     width: 202px;
 }
-select:not(:-internal-list-box) {
-    overflow: visible !important;
-}
 select {
     -webkit-writing-mode: horizontal-tb !important;
     text-rendering: auto;
@@ -194,6 +191,25 @@ input {
 
 .studentType ul > li:hover > table{
     display: block;
+}
+
+.formtips{
+    color: red;
+    float: left;
+    display: block;
+    margin-left: 380px;
+    margin-right: 380px;
+    padding-bottom: 4px;
+}
+.name-tips {
+    width: 320px;
+    padding: 5px;
+    border: 1px solid #298cce;
+    background: #fff;
+    position: absolute;
+    top: 355px;
+    left:850px;
+    z-index: 10;
 }
 
 

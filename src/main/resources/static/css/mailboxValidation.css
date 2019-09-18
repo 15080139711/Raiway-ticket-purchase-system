@@ -30,7 +30,6 @@ body{display: block;}
     /*position: relative;*/
     width: 100%;
     height: 600px;
-    background: url("static/banner-login.jpg")no-repeat;
 }
 .login-panel .hd {
     height: 32px;
@@ -133,4 +132,11 @@ login-btn{
 .links,.footer{
     float:left ;
     margin: 20px;
+}
+.formtips {
+    color: red;
+    float: left;
+    display: block;
+    margin-left: 10px;
+    padding-bottom:10px;
 }

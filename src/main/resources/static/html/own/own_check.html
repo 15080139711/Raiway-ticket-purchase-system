@@ -111,6 +111,7 @@
 <script src="../../js/vue.min.js"></script>
 <script>
     $(function () {
+        var code;
         //缓存用户读取cookie
         var userid;
         var username;
@@ -177,30 +178,30 @@
                 data: JSON.stringify(k),
                 success: function (data) {
                     alert(data);
-                    var code = data;
+                    code = data;
                     // if ($(".input_change").val() == code){
-                        $(".btn_last1").click(function () {
-                            // alert("1");
-                            if ($(".input_change").val() == code)
-                            var l = new Object();
-                            l.id = userid;
-                            l.password = $(".password").val();
-                            l.phone = $(".new_phone").val();
-                            l.status = 1;
-                            $.ajax({
-                                url: "http://localhost:8080/api/user/changePhone",
-                                type: "post",
-                                dataType: "json",
-                                contentType: "application/json;charset=UTF-8",
-                                data: JSON.stringify(l),
-                                success: function (data) {
-                                    alert("修改手机号成功");
-                                },
-                                error: function () {
-                                    alert("修改手机失败");
-                                }
-                            })
-                        })
+                    //     $(".btn_last1").click(function () {
+                    //         // alert("1");
+                    //         if ($(".input_change").val() == code)
+                    //         var l = new Object();
+                    //         l.id = userid;
+                    //         l.password = $(".password").val();
+                    //         l.phone = $(".new_phone").val();
+                    //         l.status = 1;
+                    //         $.ajax({
+                    //             url: "http://localhost:8080/api/user/changePhone",
+                    //             type: "post",
+                    //             dataType: "json",
+                    //             contentType: "application/json;charset=UTF-8",
+                    //             data: JSON.stringify(l),
+                    //             success: function (data) {
+                    //                 alert("修改手机号成功");
+                    //             },
+                    //             error: function () {
+                    //                 alert("修改手机失败");
+                    //             }
+                    //         })
+                    //     })
                     // }
                 },
                 error: function () {
@@ -209,28 +210,30 @@
             })
         })
 
-        //3.ajax部分：第二次修改手机号
-        // if ($(".input_change").val() == code)
-        // $(".btn_last1").click(function () {
-        //     var l = new Object();
-        //     l.id = userid;
-        //     l.password = $(".password").val();
-        //     l.phone = $(".new_phone").val();
-        //     l.status = 1;
-        //     $.ajax({
-        //         url: "http://localhost:8080/api/user/changePhone",
-        //         type: "post",
-        //         dataType: "json",
-        //         contentType: "application/json;charset=UTF-8",
-        //         data: JSON.stringify(l),
-        //         success: function (data) {
-        //             alert(data);
-        //         },
-        //         error: function () {
-        //             alert("修改手机失败");
-        //         }
-        //     })
-        // })
+        // 3.ajax部分：第二次修改手机号
+        $(".btn_last1").click(function () {
+            if ($(".input_change").val() == code){
+                var l = new Object();
+                l.id = userid;
+                l.password = $(".password").val();
+                l.phone = $(".new_phone").val();
+                l.status = 1;
+                $.ajax({
+                    url: "http://localhost:8080/api/user/changePhone",
+                    type: "post",
+                    dataType: "json",
+                    contentType: "application/json;charset=UTF-8",
+                    data: JSON.stringify(l),
+                    success: function (data) {
+                        alert("修改手机号成功");
+                    },
+                    error: function () {
+                        alert("修改手机号成功");
+                    }
+                })
+            }
+
+        })
     })
 </script>
 </body>
