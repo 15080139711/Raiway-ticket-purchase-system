@@ -201,11 +201,13 @@
                 // },
                 data: JSON.stringify(a),
                 success: function (data) {
-                    if (data != null){
+                    if (data.status == 1){
                         alert('登入成功！');
                         document.cookie = "cookie_userid = " + data.id;
                         document.cookie = "cookie_username = " + data.name;
-                        location.href="http://localhost:8080/html/own/own_index.html";
+                        location.href="http://localhost:8080/html/12306/Index/index.html";
+                    }else {
+                        alert("账号未激活，请前往激活后再登录");
                     }
                 },
                 error: function () {

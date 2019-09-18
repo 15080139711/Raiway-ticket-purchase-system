@@ -52,12 +52,11 @@
     </div>
 </div>
 
-
 <!-- 公共导航栏 -->
 <div class="navigation">
     <div class="wrapper">
         <ul>
-            <li><a href="index.html">首页</a></li>
+            <li style="background-color:#3b99fc;"><a href="../Index/index.html">首页</a></li>
             <li style="background-color:#2676e3;">
                 车票<i class="iconfont icon-xiala-copy"></i>
                 <table>
@@ -354,7 +353,7 @@
 
     <!--提交订单-->
     <div class="lay-btn">
-        <a id="preStep_id" class="btn92" >上一步</a>
+        <a id="preStep_id" class="btn92" href="http://localhost:8080/html/search.html">上一步</a>
         <a id="submitOrder_id" class="btn92s" data-toggle="modal" data-target="">提交订单</a>
     </div>
 
@@ -533,8 +532,8 @@
 <script>
     $(function () {
         //缓存用户
-        var userid=13;
-        var username="八戒";
+        var userid;
+        var username;
         var startPoint;//出发城市
         var endPoint;//到达城市
         var city_fid;//出发城市id
@@ -545,6 +544,8 @@
         var t_time;//到达时间
         var train_id;//列车id
         var t_price;//车票价格
+        var city_id1;//出发经停id
+        var city_id2;//	终到经停id
         function getCookie(cname)
         {
             var name = cname + "=";
@@ -556,12 +557,12 @@
             }
             return "";
         }
-        // if (getCookie("cookie_userid") !=null){
-        //     userid = getCookie("cookie_userid");
-        // }
-        // if (getCookie("cookie_username") !=null){
-        //     username = getCookie("cookie_username");
-        // }
+        if (getCookie("cookie_userid") !=null){
+            userid = getCookie("cookie_userid");
+        }
+        if (getCookie("cookie_username") !=null){
+            username = getCookie("cookie_username");
+        }
         if (getCookie("cookie_startPoint") !=null){
             startPoint = getCookie("cookie_startPoint");
         }if (getCookie("cookie_endPoint") !=null){
@@ -582,6 +583,10 @@
             train_id = getCookie("cookie_train_id");
         }if (getCookie("cookie_train_price") !=null){
             t_price = getCookie("cookie_train_price");
+        }if (getCookie("cookie_from_cityid") !=null){
+            city_id1 = getCookie("cookie_from_cityid");
+        }if (getCookie("cookie_to_cityid") !=null){
+            city_id2 = getCookie("cookie_to_cityid");
         }
         var vms = new Vue({
             el:'#users_name',
@@ -665,9 +670,9 @@
 
         //获取列车座位量
         var c = new Object();
-        c.cityid1 = 1;
-        c.cityid2 = 2;
-        c.trainid = 1;
+        c.cityid1 = city_id1;
+        c.cityid2 = city_id2;
+        c.trainid = train_id;
         $.ajax({
             url:"http://localhost:8080/api/ticket/getUnsoldTicketNum",
             dataType:"json",

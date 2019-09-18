@@ -18,4 +18,6 @@ public interface OrderService {
 
     List<OrderInfo> getHistoryOrder(int userid);
 
+    String afterPay(OrderInfo orderInfo);
+
 }

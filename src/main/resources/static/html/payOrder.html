@@ -239,12 +239,12 @@
     <div class="layout b-info">
         <div class="lay-hd">订单信息</div>
         <div class="lay-bd">
-            <div v-for="(item,index) in productList">
+            <div>
                 <div class="info" id="show_title_ticket">
 
-                    <strong class="mr5">2019-09-08（周日）</strong> <strong class="mr5">G157 次 </strong> <strong class="ml5">北京南</strong>站<strong>（17:36开）—上海虹桥</strong>站（
+                    <strong class="mr5">{{day}}</strong> <strong class="mr5">{{train}} 次 </strong> <strong class="ml5">{{city1}}</strong>站<strong>{{lefts}}—{{city2}}</strong>站
 
-                    23:32到）
+                    {{Arrive}}
                 </div>
                 <table class="table-a" id="table_list"><tbody><tr><th width="40" rowspan="1" colspan="1"><strong>序号</strong>
                 </th>
@@ -265,21 +265,22 @@
                     <th rowspan="1" colspan="1"><strong>票价（元）</strong>
                     </th>
                 </tr>
-                </tbody><tbody id="show_ticket_message">
-                <tr>
-                    <td align="center">{{item.index}}</td>
-                    <td title="柯志公">{{item.name}}</td>
-                    <td>中国居民身份证</td>
-                    <td>{{item.number}}</td>
-                    <td>成人票</td>
-                    <td>{{item.seatlevel}}</td>
-                    <td>{{item.Carnumber}}</td>
-
-                    <td>{{item.Seatnumber}}</td>
-
-                    <td>{{item.Price}}</td>
-                </tr>
                 </tbody>
+                    <tbody id="show_ticket_message" >
+                    <tr>
+                        <td align="center">1</td>
+                        <td title="柯志公">{{name}}</td>
+                        <td>中国居民身份证</td>
+                        <td>{{ idnumber}}</td>
+                        <td>成人票</td>
+                        <td>{{getseatlevel(seatlevel)}}</td>
+                        <td>{{carnumber}}</td>
+
+                        <td>{{seatnumber}}</td>
+
+                        <td>{{price}}</td>
+                    </tr>
+                    </tbody>
                 </table>
             </div>
             <div id="insurance_renderTicket_div" role="document"><div class="bx-box"><div class="bx-hd"><!--   铁路旅客人身意外伤害保险<label class="label-buy"><input type="checkbox" class="check" id="insurance_buy_check"/>购买</label>
@@ -303,8 +304,8 @@
                         <th class="last">购买保险产品</th>
                     </tr>
                     <tr v-for="item in productList" id="ins_tr_1" attri="1_1_GE_N" traininfo="1_07_001B" psginfo="1_3503***********417_柯志公_cadb67c291dea4a28e9c92068e7d8365d38b4fd2f5aa7b7d4e064fd5b996dec7d186f709c21e78f69db78cec1854693b_">
-                        <td>{{item.id}}</td> <td>{{item.name}}<br>{{item.number}}</td>
-                        <td><strong class="mr5">G157</strong>北京南--上海虹桥</td>
+                        <td>1</td> <td>{{item.name}}<br>{{item.idnumber}}</td>
+                        <td><strong class="mr5">{{item.train}}</strong>{{item.city1}}---{{item.city2}}</td>
                         <td class="bx-info"> <div><span>
                         <input type="checkbox" v-bind:checked="item.isSelect" @click="item.isSelect=!item.isSelect" name="ins_checkbox" class="check"  >
                         <span class="cyx">乘意险</span> <span>￥<strong class="colorA">3.0</strong>元×1份</span><span class="color999 ml10"></span></span></div> </td><!--<tr--></tr>
@@ -315,6 +316,19 @@
                         <td class="right" colspan="2">保险费：¥ <strong id="ins_fee_total" class="colorA">{{ message.totalPrice}}</strong>
                         </td>
                     </tr>
+                    <!--                    <tr v-for="item in productList" id="ins_tr_1" attri="1_1_GE_N" traininfo="1_07_001B" psginfo="1_3503***********417_柯志公_cadb67c291dea4a28e9c92068e7d8365d38b4fd2f5aa7b7d4e064fd5b996dec7d186f709c21e78f69db78cec1854693b_">-->
+                    <!--                        <td>1</td> <td>{{item.name}}<br>{{item.idnumber}}</td>-->
+                    <!--                        <td><strong class="mr5">{{item.train}}</strong>{{item.city1}}&#45;&#45;{{item.city2}}</td>-->
+                    <!--                        <td class="bx-info"> <div><span>-->
+                    <!--                        <input type="checkbox" v-bind:checked="item.isSelect" @click="item.isSelect=!item.isSelect" name="ins_checkbox" class="check"  >-->
+                    <!--                        <span class="cyx">乘意险</span> <span>￥<strong class="colorA">3.0</strong>元×1份</span><span class="color999 ml10"></span></span></div> </td>&lt;!&ndash;<tr&ndash;&gt;</tr>-->
+                    <!--                    <tr class="t-ft"><td class="left" colspan="2"><label>-->
+                    <!--                        <input type="checkbox" class="check" id="ins_select_all" @click="selectProduct(isSelectAll)" v-bind:checked="isSelectAll">-->
+                    <!--                        全选</label>-->
+                    <!--                    </td>-->
+                    <!--                        <td class="right" colspan="2">保险费：¥ <strong id="ins_fee_total" class="colorA">{{ message.totalPrice}}</strong>-->
+                    <!--                        </td>-->
+                    <!--                    </tr>-->
                     </tbody>
                 </table>
             </div>
@@ -659,9 +673,9 @@
                         <div class="modal-body">
                             <div class="up-box-bd padding20">
                                 <ul class="sel-ticket" v-for="(item,index) in productList">
-                                    <li title="柯志公 (3503***********417)" @click="clickTicket(index)"  class=" selected " href="#">
-                                        <div class="sel-ticket-in"><div class="passenger"><strong>{{item.name}}</strong>{{item.number}}</div>
-                                            <div class="sel-ticket-sta"><span class="cz">天津</span><strong>G1202</strong><span class="dz">上海虹桥</span></div></div><div class="arrow-mark"></div></li>
+                                    <li  @click="clickTicket(index)"  class=" selected " href="#">
+                                        <div class="sel-ticket-in"><div class="passenger"><strong>{{item.name}}</strong>{{item.idnumber}}</div>
+                                            <div class="sel-ticket-sta"><span class="cz">{{item.city1}}</span><strong>{{item.train}}</strong><span class="dz">{{item.city2}}</span></div></div><div class="arrow-mark"></div></li>
 
                                 </ul>
 
@@ -733,13 +747,13 @@
             </table>
             </div>
         </div>
-        <div class="total-box"><div class="item">总票价：<span class="price" id="total_ticket_price">{{ AllPrice(message.totalPrice)}}</span>
+        <div class="total-box"><div class="item">总票价：<span class="price" id="total_ticket_price">{{AllPrice(message.totalPrice)}}</span>
         </div>
             <div class="item" style="display: none;">快递费：<span class="price" id="total_wl_price">-</span>
             </div>
             <div class="item" style="display: none;">保险费：<span class="price" id="total_ins_price">{{message.totalPrice}}</span>
             </div>
-            <div class="item" style="display: none;">付款总额：<span class="price" id="total_all_price">{{ AllPrice(message.totalPrice)}}</span>
+            <div class="item" style="display: none;">付款总额：<span class="price" id="total_all_price">{{AllPrice(message.totalPrice)}}</span>
             </div>
         </div>
         <div class="notice" style="width: 910px; display: none;" id="scroll"><strong>公告：</strong>
@@ -757,7 +771,7 @@
             <!--                    <a href="javascript:" class="btn92" id="cancelButton" shape="rect">取消订单</a>-->
             <!--                    <span><a href="javascript:" class="btn92s" id="payButton" shape="rect">网上支付</a>-->
             <!--</span>-->
-            <input class="btn92" type="button" value="取消订单">
+            <input  class="btn92" type="button" value="取消订单">
             <input class="btn92s" type="button" value="网上支付">
 
             <!-- 改签车次按钮 -->
@@ -877,14 +891,17 @@
 </body>
 <script src="../js/vue.js"></script>
 <script>
-    var c = 30*60;
+    var timetop=30*60;
     $(function () {
-        var userid=11;
-        var username="八戒";
+
+        var userid;
+        var username;
         var startPoint;//出发城市
         var endPoint;//到达城市
         var city_fid;//出发城市id
         var city_tid;//到达城市id
+        var city_id1;//出发经停id
+        var city_id2;//	终到经停id
         var startDate;//出发日期
         var train_num;//列车号
         var f_time;//出发时间
@@ -892,7 +909,7 @@
         var train_id;//列车id
         var t_price;//车票价格
         var seatNo;//作为号
-        var seat_leavel;//座位类型
+        var seatNumber;//座位类型
         var contentId;//联系人ID
         function getCookie(cname)
         {
@@ -905,12 +922,12 @@
             }
             return "";
         }
-        // if (getCookie("cookie_userid") !=null){
-        //     userid = getCookie("cookie_userid");
-        // }
-        // if (getCookie("cookie_username") !=null){
-        //     username = getCookie("cookie_username");
-        // }
+        if (getCookie("cookie_userid") !=null){
+            userid = getCookie("cookie_userid");
+        }
+        if (getCookie("cookie_username") !=null){
+            username = getCookie("cookie_username");
+        }
         if (getCookie("cookie_startPoint") !=null){
             startPoint = getCookie("cookie_startPoint");
         }if (getCookie("cookie_endPoint") !=null){
@@ -934,9 +951,13 @@
         }if (getCookie("cookie_seat_number") !=null){
             seatNo = getCookie("cookie_seat_number");
         }if (getCookie("cookie_seat_level") !=null){
-            seat_leavel = getCookie("cookie_seat_level");
+            seatNumber = getCookie("cookie_seat_level");
         }if (getCookie("cookie_contentid") !=null){
             contentId = getCookie("cookie_contentid");
+        }if (getCookie("cookie_from_cityid") !=null){
+            city_id1 = getCookie("cookie_from_cityid");
+        }if (getCookie("cookie_to_cityid") !=null){
+            city_id2 = getCookie("cookie_to_cityid");
         }
         var vms = new Vue({
             el:'#users_name',
@@ -946,74 +967,77 @@
             }
         })
         var c = new Object();
-        c.id=11;
-        c.trainid=1;
-        c.fromstopid=1;
-        c.tostopid=6;
-        c.price=150;
-        c.seatnumber="F";
-        c.seatlevel=3;
-        c.contactid=14;
+        var b=new Object();
+        c.id=userid;
+        c.trainid=train_id;
+        c.fromstopid=city_id1;
+        c.tostopid=city_id2;
+        c.price=t_price;
+        c.seatnumber=seatNo;
+        c.seatlevel=seatNumber;
+        c.contactid=contentId;
         $.ajax({
             url:"http://localhost:8080/api/ticket/submitTicket",
             dataType:"json",
             type:"post",
             contentType:"application/json;charset=UTF-8",
             data:JSON.stringify(c),
-            success:function (data) {
-                alert("success");
-                vm.productList = data;
+            success:function (data){
+                if(data.id!=null)
+                {
+                    // vm.createdate = data[0].createdate;
+                    b.id= vm.id = data.id;
+
+                    b.city1=vm.city1 = data.tickets[0].fromstop.cityInfo.name;
+                    b.city2=vm.city2 = data.tickets[0].tostop.cityInfo.name;
+                    b.train=vm.train = data.tickets[0].trainInfo.number;
+                    b.day=  vm.day = data.tickets[0].trainInfo.day;
+                    b.saletime=  vm.saletime = data.tickets[0].fromstop.cityInfo.saletime;
+                    b.name=  vm.name = data.tickets[0].contactInfo.name;
+                    b.idnumber=  vm.idnumber=data.tickets[0].contactInfo.idnumber;
+                    b.seatlevel=  vm.seatlevel = data.tickets[0].seatlevel;
+                    b.carnumber=vm.carnumber = data.tickets[0].carnumber;
+                    b.rownumber=  vm.rownumber = data.tickets[0].rownumber;
+                    b.seatnumber=  vm.seatnumber = data.tickets[0].seatnumber;
+                    b.traveltype=  vm.traveltype = data.tickets[0].contactInfo.traveltype;
+                    b.price= data.tickets[0].price;
+                    b.status= vm.status = data.tickets[0].trainInfo.status;
+                    vm.productList[0]=b;
+                }
+                if(data.id==null)
+                {
+                    alert("没有票了，请从新选票");
+                    location.href="http://localhost:8080/html/settlement.html"
+                }
+
             },error:function (e) {
                 alert("cuo");
             }
-        })
+        });
 
-        $("input[name='qp']").click(function () {
-            document.getElementById('contract_agree_id').style.display="inline";
-        })
-        $("input[id='qpfs_zq']").click(function () {
-            document.getElementById('contract_agree_id').style.display="none";
-        })
-        $("input[id='insurance_buy_and_agree']").click(function () {
-            document.getElementById('insurance_tips').style.display="block";
-            $('#insurance_table').toggle();
-            $('.item').toggle();
 
-        })
-        $("#_agree_id").click(function () {
-            $('#detail_logistics').toggle();
-        })
-        $(".btn92s").click(function () {
-            if(c>0)
-            {
-                window.location.href=("http://localhost:8080/html/");
-            }else
-            {
-                alert("超时支付")
-            }
-        })
         var vm = new Vue({
             el:".layout",
             data:
                 {
-                    productList:[
-                        {
-                            'id':1,
-                            'name':'kzg',
-                            'Trained':'G23',
-                            'Fromstopid':'上海',
-                            'Tostopid':'天津',
-                            'Price': 550,
-                            'Seatnumber':'01b',
-                            'rownumber':'',
-                            'Carnumber':'第七节',
-                            'seatlevel':'二等坐',
-                            'number':'2343523546',
-
-                        }
-                    ],
+                    createdate:{},
+                    id:{},
+                    city1:{},
+                    city2:{},
+                    train:{},
+                    day:{},
+                    saletime:{},
+                    name:{},
+                    seatlevel:{},
+                    carnumber:{},
+                    rownumber:{},
+                    seatnumber:{},
+                    traveltype:{},
+                    price:{},
+                    status:{},
+                    idnumber:{},
+                    productList:[],
                     u_name:username,
-                    day:startDate,
                     Trained: train_num,
                     Fromstopid:startPoint,
                     lefts:f_time,
@@ -1029,14 +1053,29 @@
                             this.productList[i].isSelect = !_isSelect;
                         }
                     },
-                    clickTicket:function(index){
-
+                    getseatlevel:function(item)
+                    {
+                        if(item==1)
+                        {
+                            this.price=t_price*4;
+                            return "商务座"
+                        }else if(item==2)
+                        {
+                            this.price=t_price*2;
+                            return "一等座"
+                        }
+                        else if(item==3)
+                        {
+                            this.price=t_price;
+                            return "二等座"
+                        }
                     },
                     AllPrice:function (int) {
                         var top=0;
                         for(var i=0;i<this.productList.length;i++)
                         {
-                            top+=this.productList[i].Price;
+                            top+=this.price;
+
                         }
                         return top+int;
                     }
@@ -1061,24 +1100,53 @@
                 var _this=this;
                 //为productList添加select（是否选中）字段，初始值为true
                 this.productList.map(function (item) {
-                    _this.$set(item, 'isSelect', false);
+                    _this.$set(item, 'isSelect', true);
                 })
             }
 
         })
+        $("input[name='qp']").click(function () {
+            document.getElementById('contract_agree_id').style.display="inline";
+        })
+        $("input[id='qpfs_zq']").click(function () {
+            document.getElementById('contract_agree_id').style.display="none";
+        })
+        $("input[id='insurance_buy_and_agree']").click(function () {
+            document.getElementById('insurance_tips').style.display="block";
+            $('#insurance_table').toggle();
+            $('.item').toggle();
 
+        })
+        $("#_agree_id").click(function () {
+            $('#detail_logistics').toggle();
+        })
+        $(".btn92s").click(function () {
+            if(timetop>0)
+            {
+                document.cookie = "cookie_unsoldTicket_id = " + vm.id+ "; path=/html/";
+                document.cookie = "cookie_unsoldTicket_price = " + vm.price+ "; path=/html/";
+                window.location.href=("http://localhost:8080/html/pay.html");
+            }else
+            {
+                alert("超时支付")
+            }
+
+
+
+        })
+        $(".btn92").click(function () {
+            window.location.href="http://localhost:8080/html/settlement.html";
+        })
 
 
     })
-
-
     function timedCount() {
-        if(c >= 0) {
+        if(timetop >= 0) {
             t = setTimeout( "timedCount()",1000);
-            minutes = Math.floor(c / 60);
-            seconds = Math.floor(c % 60);
+            minutes = Math.floor(timetop / 60);
+            seconds = Math.floor(timetop % 60);
             msg =   minutes + "分" + seconds + "秒";
-            c = c - 1;
+            timetop = timetop - 1;
             document.getElementById('txt').innerText =  msg
         } else {
             alert("时间到")
@@ -1086,6 +1154,8 @@
     }
 
     window.onload=timedCount;
+
+
 
 
 </script>

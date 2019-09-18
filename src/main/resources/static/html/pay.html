@@ -5,6 +5,7 @@
     <title>12306支付页面</title>
     <link rel="stylesheet" href="../css/pay.css">
     <link rel="stylesheet" href="../css/base.css">
+    <script src="../js/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 <div id="allContent">
@@ -17,7 +18,7 @@
     <div id="pay_select_content">
         <div id="pay_money">
             <span class="text">>> 应付金额：</span>
-            <span class="money">51.5元</span>
+            <span class="money">{{price}}</span>
         </div>
         <div id="pay_select">
             <div id="pay_select_inner">
@@ -29,7 +30,7 @@
                 <div class="pay_select_div"><img src="../images/pay/pay_select_6.gif"></div>
                 <div class="pay_select_div"><img src="../images/pay/pay_select_7.gif"></div>
                 <div class="pay_select_div"><img src="../images/pay/pay_select_8.gif"></div>
-                <div class="pay_select_div"><img src="../images/pay/pay_select_9.gif"></div>
+                <div class="pay_select_div"><img src="../images/pay/pay_select_9.gif" id="alipay"></div>
                 <div class="pay_select_div"><img src="../images/pay/pay_select_10.gif"></div>
             </div>
         </div>
@@ -56,4 +57,42 @@
     </div>
 </div>
 </body>
+<script src="../js/vue.min.js"></script>
+<script>
+    $(function () {
+        var unsoldTicket_id;
+        var t_price;
+        function getCookie(cname){
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++)
+            {
+                var c = ca[i].trim();
+                if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+            }
+            return "";
+        }
+        if (getCookie("cookie_unsoldTicket_id") !=null){
+            unsoldTicket_id = getCookie("cookie_unsoldTicket_id");
+        }if (getCookie("cookie_train_price") !=null){
+            t_price = getCookie("cookie_train_price");
+        }
+
+        var vm=new Vue({
+            el:"#pay_money",
+            data:{
+
+                price:t_price,
+
+            }
+        })
+        $("#alipay").click(function () {
+            location.href="http://localhost:8080/html/alipay.html"
+        })
+    })
+
+</script>
+
+
+
 </html>

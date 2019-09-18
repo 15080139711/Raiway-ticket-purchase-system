@@ -98,7 +98,7 @@
                         laststation: $(this).parent().prev().prev().find("tr").eq(1).find("td").eq(5).children().val(),
                         status: $(this).parent().prev().prev().find("tr").eq(1).find("td").eq(6).children().val(),
                         changetime: $(this).parent().prev().prev().find("tr").eq(1).find("td").eq(7).children().val(),
-                        modelid: $(this).parent().prev().prev().find("tr").eq(1).find("td").eq(8).children().val(),
+                        // modelid: $(this).parent().prev().prev().find("tr").eq(1).find("td").eq(8).children().val(),
                     }, success: function (result) {
                         if (result == true) {
                             alert("修改成功")
@@ -122,18 +122,18 @@
         <table border="1" align="center" width="100%" id="trainInf">
             <caption><h2>车次信息</h2></caption>
             <tr>
-                <th>ID</th><th>列车车次</th><th>时间</th><th>停站数</th><th>起点站</th><th>终点站</th><th>运行状态</th><th>延迟时间</th><th>列车ID</th><th>操作</th>
+                <th>ID</th><th>列车车次</th><th>时间</th><th>停站数</th><th>起点站</th><th>终点站</th><th>运行状态</th><th>延迟时间</th><th>操作</th>
             </tr>
             <tr v-for="(t,index) in train">
                 <td>{{t.id}}</td>
                 <td>{{t.number}}</td>
                 <td>{{t.day}}</td>
                 <td>{{t.stopnumber}}</td>
-                <td>{{t.firststation}}</td>
-                <td>{{t.laststation}}</td>
+                <td>{{t.cityInfo1.name}}</td>
+                <td>{{t.cityInfo2.name}}</td>
                 <td>{{t.status}}</td>
                 <td>{{t.changetime}}</td>
-                <td>{{t.modelid}}</td>
+<!--                <td>{{t.modelid}}</td>-->
                 <td><a href="#"  class="alter a_ch" v-on:click="alter(index)">修改</a> | <a href="#" class="delete a_ch" v-on:click="delet(index)">删除</a></td>
             </tr>
         </table>
