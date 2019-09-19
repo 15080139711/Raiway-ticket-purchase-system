@@ -4,9 +4,10 @@ import cn.train.config.Redis;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.solr.SolrAutoConfiguration;
 
 
-@SpringBootApplication
+@SpringBootApplication(exclude = SolrAutoConfiguration.class)
 @MapperScan("cn.train.mapper")
 public class TestApplication {
 
