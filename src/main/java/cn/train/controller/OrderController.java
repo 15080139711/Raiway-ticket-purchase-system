@@ -1,7 +1,6 @@
 package cn.train.controller;
 
 import cn.train.enity.OrderInfo;
-import cn.train.enity.UserInfo;
 import cn.train.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

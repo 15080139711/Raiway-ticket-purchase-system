@@ -43,7 +43,7 @@ public class BackstageServiceImpl implements BackstageService {
             stopInfo.setCityInfo(cityInfoMapper.selectByPrimaryKey(stopInfo.getCityid()));
             soldList.get(i).setFromstop(stopInfo);
 
-            StopInfo stopInfo2=stopInfoMapper.selectByPrimaryKey(soldList.get(i).getFromstopid());
+            StopInfo stopInfo2=stopInfoMapper.selectByPrimaryKey(soldList.get(i).getTostopid());
             stopInfo2.setCityInfo(cityInfoMapper.selectByPrimaryKey(stopInfo2.getCityid()));
             soldList.get(i).setTostop(stopInfo2);
             soldList.get(i).setContactInfo((contactInfoMapper.selectByPrimaryKey(soldList.get(i).getContactid())));
