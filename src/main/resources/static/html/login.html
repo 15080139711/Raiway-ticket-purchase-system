@@ -68,7 +68,7 @@
                 <!--                <div id="msg"></div>-->
                 <!-- 立即登录-->
                 <div id="lo_user_button">
-                    <input type="button" id="btn" value="立即登录">
+                    <input style="display: none;" type="button" id="btn" value="立即登录">
                 </div>
                 <!-- 注册and 忘记密码-->
                 <div id="lo_user_text">
@@ -150,6 +150,7 @@
     // var password;
     //滑动验证效果
     jigsaw.init(document.getElementById('lo_user_code'), function () {
+        document.getElementById('btn').style.display ="inline-block";
         // document.getElementById('msg').innerHTML = '验证通过！'
     });
 
@@ -202,7 +203,6 @@
                 data: JSON.stringify(a),
                 success: function (data) {
                     if (data.status == 1){
-                        alert('登入成功！');
                         document.cookie = "cookie_userid = " + data.id;
                         document.cookie = "cookie_username = " + data.name;
                         location.href="http://localhost:8080/html/12306/Index/index.html";
@@ -211,7 +211,7 @@
                     }
                 },
                 error: function () {
-                    alert("登入出错");
+                    alert("登录出错");
                 }
             })
         })
