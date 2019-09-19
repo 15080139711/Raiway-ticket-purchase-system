@@ -68,9 +68,11 @@
                         data:JSON.stringify(a),
                         success:function (data) {
                             if (data==-1){
-                                alert("账户激活成功");
+                                alert("账户已激活");
                                 location.href="http://localhost:8080/html/login.html";
-                            }else{
+                            }if(data==1){
+                                location.href="http://localhost:8080/html/login.html";
+                            } else{
                                 alert("账户不存在");
                             }
                         },error:function (error) {
