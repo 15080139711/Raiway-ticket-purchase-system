@@ -46,9 +46,14 @@
 						<li><a href="#">退出</a></li>
 					</ul>
 					<ul class="search">
-						<li><input type="text" placeholder="搜索车票/餐饮/常旅客/相关章程"></li>
+						<li><input type="text" placeholder="搜索车票/餐饮/常旅客/相关章程" id="selectarticl" list="addressSolr" ></li>
 						<li><i class="iconfont icon-search"></i></li>
 					</ul>
+					<datalist class="serch_result"  id="addressSolr" style="display: none">
+                           <span v-for="item in searchData">
+							<option>{{ item.name }}</option>
+							</span>
+					</datalist>
 				</div>
 			</div>
 		</div>
@@ -737,7 +742,7 @@
 				va.serch_result=data;
 
 			},error:function () {
-				alert("dasfasdfdsf");
+				alert("城市信息出错");
 			}
 		})
 
@@ -778,6 +783,75 @@
 			document.cookie = "cookie_city_fid = " + $("#citystart_id").text() + "; path=/html/";
 			document.cookie = "cookie_city_tid = " + $("#cityend_id").text()+ "; path=/html/";
 			document.cookie = "cookie_startDate = " + b+ "; path=/html/";
+		})
+		var vx=new Vue({
+			el:"#addressSolr",
+			data:{
+				addresssolr:"",
+				serch_result_issue:false,
+				searchData:[],
+
+			},methods: {
+				inputFunc(){
+					if(this.addresssolr.length>0){
+						this.serch_result_issue = true;
+					}else{
+						this.serch_result_issue = false
+					}
+				},
+				// post:function (addresssolr) {
+				// 	var citysolr=new Object();
+				// 	citysolr.id="2";
+				// 	citysolr.name=addresssolr;
+				// 	//发送 post 请求
+				// 	axios.post('http://localhost:8080/search',citysolr,{
+				// 		transformRequest:[
+				// 			function(data){
+				// 				alert(data[0].name)
+				// 			}
+				// 		]
+				// 	}).then(function(res){
+				// 		console.log(res.data)
+				// 	});
+				//
+				// }
+
+			},
+//计算属性，当输入内容的时候下面的方法就会根据你输入的内容来过滤serch_result数组中的数据
+
+			// watch:{
+			// 	addresssolr : function (val) {
+			// 		this.addresssolr=val;
+			//
+			//
+			// 		// var a=$("input[id='selectarticl']").text();
+			//
+			//
+			// }
+
+
+			// }
+
+		});
+		var citysolr=new Object();
+
+		$(".icon-search").click(function () {
+			citysolr.id="2";
+			var citysolr_name=$("input[id='selectarticl']").val();
+			citysolr.name=citysolr_name;
+			$.ajax({
+				url: "http://localhost:8080/search",
+				type: "post",
+				dataType: "json",
+				contentType:"application/json;charset=UTF-8",
+				data:JSON.stringify(citysolr),
+				success: function (data) {
+					console.log(data);
+					vx.searchData=data;
+				},error:function () {
+					alert("地址信息错误");
+				}
+			})
 		})
 
 		$("#fff").click(function () {

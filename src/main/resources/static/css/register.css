@@ -211,5 +211,11 @@ input {
     left:850px;
     z-index: 10;
 }
+#nextbut{
+    cursor: pointer;
+}
+#nextbut:active{
+    color: #666666;
+}
 
 
